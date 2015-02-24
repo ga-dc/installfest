@@ -37,15 +37,17 @@ Then close and reopen the Terminal.
 
 The output of `$ which rvm` is not `rvm not found`
 
-## Ruby v 2.1.2
+## Ruby v 2.2.0
     
     $ source ~/.rvm/scripts/rvm
-    $ rvm install 2.1.2
-    close and reopen the terminal
+    $ rvm install 2.2.0
+    
+Then, **close and reopen the terminal** to ensure the terminal is using these changes.
     
 ### You know it worked if...
 
-The output of `which ruby` is **not** `/usr/bin/ruby`
+* The output of `which ruby` is **not** `/usr/bin/ruby` and
+* The output of `ruby --version` starts with `ruby 2.2.0p0`.
 
 ## Git
 
