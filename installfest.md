@@ -17,6 +17,7 @@
 ### You know it worked if...
 
 The output of `which brew` is not `brew not found`
+The output of `brew doctor` is `ready to brew`
 
 ## RVM
 
