@@ -1,8 +1,8 @@
 # Installfest!
 
-## Sublime Text
+## Atom Text Editor
 
-[Download](http://www.sublimetext.com/3)
+[Download](https://atom.io)
 
 ## XCode CLI tools
 
@@ -66,7 +66,7 @@ The output of `git --version` is greater than or equal to 2.0
     $ git config --global color.status.added     green
     $ git config --global color.status.changed   yellow
     $ git config --global color.status.untracked red
-    $ git config --global core.editor "subl -w"
+    $ git config --global core.editor "atom --wait"
 
 
 ## Sign Up for GitHub
