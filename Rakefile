@@ -6,7 +6,7 @@ class InstallFest
     if current_version.respond_to? :call
       current_version = current_version.call
     end
-    notify "Ensuring #{current_version} >= #{target_version}..."
+    # notify "Ensuring #{current_version} >= #{target_version}..."
     Gem::Version.new(current_version) >= Gem::Version.new(target_version)
   end
 
@@ -21,7 +21,12 @@ class InstallFest
 
   def packages
     {
-      atom: { verify: ->{ assert_version_is_sufficient('0.177.0', ->{`atom --version`}) }}
+      atom: { verify: ->{ assert_version_is_sufficient('0.177.0', ->{`atom --version`}) }},
+      homebrew: { verify: ->{ `brew doctor` =~ /is ready to brew/}},
+      rvm: { verify: ->{ `which rvm` !=~ /rvm not found/ }},
+      ruby: { verify: ->{ `ruby --version`.start_with?('ruby 2.2.0p0') }},
+      git: { verify: ->{ assert_version_is_sufficient('2.0', `git --version | head -n1 | cut --fields=3 --delimiter=' '`)}},
+      configure_git: { verify: ->{ `git config --list | grep core.editor` == 'core.editor=atom --wait' }}
     }
   end
 
@@ -36,7 +41,7 @@ class InstallFest
 private
 
   def notify(message)
-    puts message if ENV['VERBOSE'] == 'true'
+    puts message unless ENV['VERBOSE'] == 'false'
   end
 
   def open(file)
@@ -50,12 +55,12 @@ require 'rake'
 
 namespace :installfest do
   installfest = InstallFest.new
-  desc "Verifies InstallFest"
+  desc 'Verifies InstallFest'
   task :doctor do
     installfest.doctor
   end
 
-  desc "List instructions"
+  desc 'List instructions'
   task :list do
     installfest.list
   end
@@ -86,7 +91,7 @@ if $PROGRAM_NAME == __FILE__
         end
       end
 
-      it "supports retrieving a version from a Proc" do
+      it 'supports retrieving a version from a Proc' do
         @installfest.assert_version_is_sufficient('1.1', ->{'1.2'}).must_equal(true)
         @installfest.assert_version_is_sufficient('2', ->{'1'}).must_equal(false)
       end
