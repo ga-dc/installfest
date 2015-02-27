@@ -13,12 +13,19 @@ class InstallFest
   # checks for valid installation
   def doctor
     packages.each do |package, package_info|
-      notify "Verifying #{package}..."
+      notify "Verifying #{package}...", :start
       verification = package_info[:verify]
-      verification.call
+
+      if verification.call
+        notify ' met.', :success
+      else
+        notify 'Failure', :failure
+      end
     end
   end
 
+  # the list of packages
+  # this is what you will edit as new packages are added/removed
   def packages
     {
       atom: { verify: ->{ assert_version_is_sufficient('0.177.0', ->{`atom --version`}) }},
@@ -40,8 +47,13 @@ class InstallFest
 
 private
 
-  def notify(message)
-    puts message unless ENV['VERBOSE'] == 'false'
+  def notify(message, level = :info)
+    case level
+    when :start
+      print message
+    else
+      puts message
+    end
   end
 
   def open(file)
