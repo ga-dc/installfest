@@ -1,5 +1,13 @@
 # require 'pry'
 
+# Architecture:
+# All required functionality is in this single Rakefile;
+#   the rake tasks, the supporting library code, and the tests.
+# This is by design; to make it easier to install and use, at the expense of readability.
+
+# The functionality mainly takes place in InstallFest.packages and the assert* methods.  The rest is support for these.
+
+########################
 # Supporting Libraries
 class InstallFest
   # TODO: replace with minitest assertions?
@@ -106,6 +114,7 @@ private
   end
 end
 
+###########################
 # The Rake Tasks
 require 'rake'
 
@@ -116,14 +125,16 @@ namespace :installfest do
     installfest.doctor
   end
 
-  desc 'Opens instruction file'
+  desc 'Opens instruction file (attempts local file, falls back to url)'
   task :open do
     installfest.open_instructions
   end
 end
 
+################################
 # The Tests
 # Only run tests if this file is loaded directly (not thru rake)
+# Usage: $ ruby Rakefile
 if $PROGRAM_NAME == __FILE__
   require 'minitest/autorun'
 
