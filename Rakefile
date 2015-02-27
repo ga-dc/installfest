@@ -4,10 +4,7 @@
 class InstallFest
   # TODO: replace with minitest assertions?
   def assert_equals(actual, expected)
-    if actual.respond_to? :call
-      actual = actual.call.chomp
-    end
-
+    actual.chomp!
     result = (actual == expected)
     unless result
       notify " FAIL. \n  Expected: '#{actual}'\n  To equal: '#{expected}'.", :expectation
@@ -16,9 +13,6 @@ class InstallFest
   end
 
   def assert_match(value, match_pattern)
-    if value.respond_to? :call
-      value = value.call
-    end
     value.chomp!
     result = (value =~ match_pattern)
     unless result
@@ -28,10 +22,7 @@ class InstallFest
   end
 
   def assert_version_is_sufficient(target_version, current_version)
-    if current_version.respond_to? :call
-      current_version = current_version.call.chomp
-    end
-    # notify "Ensuring #{current_version} >= #{target_version}..."
+    current_version.chomp!
     result = (Gem::Version.new(current_version) >= Gem::Version.new(target_version))
     unless result
       notify "FAIL. \n  Expected version: '#{target_version}',\n  Found version:    '#{current_version}'.", :expectation
@@ -57,12 +48,12 @@ class InstallFest
   # this is what you will edit as new packages are added/removed
   def packages
     {
-      atom: { verify: ->{ assert_version_is_sufficient('0.177.0', ->{`atom --version`}) }},
+      atom: { verify: ->{ assert_version_is_sufficient('0.177.0', `atom --version`) }},
       homebrew: { verify: ->{ assert_match(`brew doctor`, /is ready to brew/)}},
       rvm: { verify: ->{ assert_match(`which rvm`, /.rvm\/bin\/rvm$/) }},
-      ruby: { verify: ->{ assert_match( ->{`ruby --version`}, /^ruby 2.2.0p0/) }},
+      ruby: { verify: ->{ assert_match( `ruby --version`, /^ruby 2.2.0p0/) }},
       git: { verify: ->{ assert_version_is_sufficient('2.3.0', `git --version | head -n1 | cut --fields=3 --delimiter=' '`)}},
-      configure_git: { verify: ->{ assert_equals(->{ `git config --list | grep core.editor` }, 'core.editor=atom --wait' )}}
+      configure_git: { verify: ->{ assert_equals(`git config --list | grep core.editor`, 'core.editor=atom --wait' )}}
     }
   end
 
