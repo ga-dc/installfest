@@ -38,8 +38,9 @@ class InstallFest
 
       if verification.call
         notify ' met.', :success
-      # else
-      #   notify 'FAIL. ', :failure
+      else
+        # Failures are recorded within assertions
+        # TODO: move back to here (assertions return more?)
       end
     end
   end
@@ -48,12 +49,29 @@ class InstallFest
   # this is what you will edit as new packages are added/removed
   def packages
     {
-      atom: { verify: ->{ assert_version_is_sufficient('0.177.0', `atom --version`) }},
-      homebrew: { verify: ->{ assert_match(`brew doctor`, /is ready to brew/)}},
-      rvm: { verify: ->{ assert_match(`which rvm`, /.rvm\/bin\/rvm$/) }},
-      ruby: { verify: ->{ assert_match( `ruby --version`, /^ruby 2.2.0p0/) }},
-      git: { verify: ->{ assert_version_is_sufficient('2.3.0', `git --version | head -n1 | cut --fields=3 --delimiter=' '`)}},
-      configure_git: { verify: ->{ assert_equals(`git config --list | grep core.editor`, 'core.editor=atom --wait' )}}
+      atom: {
+        verify: -> { assert_version_is_sufficient('0.177.0', `atom --version`) }
+      },
+      homebrew: {
+        verify: -> { assert_match(`brew doctor`, /is ready to brew/) }
+      },
+      rvm: {
+        verify: -> { assert_match(`which rvm`, %r{.rvm/bin/rvm$}) }
+      },
+      ruby: {
+        verify: -> { assert_match(`ruby --version`, /^ruby 2.2.0p0/) }
+      },
+      git: {
+        verify: lambda do
+          assert_version_is_sufficient(
+            '2.3.0',
+            `git --version | head -n1 | cut --fields=3 --delimiter=' '`
+          )
+        end
+      },
+      configure_git: {
+        verify: -> { assert_equals(`git config --list | grep core.editor`, 'core.editor=atom --wait' )}
+      }
     }
   end
 
@@ -67,7 +85,7 @@ class InstallFest
 
   # Opens local instruction file, falls back to url at github
   def open_instructions
-    instructions = File.exists?(instruction_file) ? instruction_file : instruction_file_url
+    instructions = File.exist?(instruction_file) ? instruction_file : instruction_file_url
     open instructions
   end
 
