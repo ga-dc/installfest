@@ -122,11 +122,6 @@ if $PROGRAM_NAME == __FILE__
           @installfest.assert_version_is_sufficient(target_version, current_version).must_equal(expectation)
         end
       end
-
-      it 'supports retrieving a version from a Proc' do
-        @installfest.assert_version_is_sufficient('1.1', ->{'1.2'}).must_equal(true)
-        @installfest.assert_version_is_sufficient('2', ->{'1'}).must_equal(false)
-      end
     end
   end
 
