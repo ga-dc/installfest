@@ -61,8 +61,14 @@ class InstallFest
     File.expand_path('installfest.md')
   end
 
-  def list
-    open instruction_file
+  def instruction_file_url
+    'https://github.com/ga-students/wdi_dc5/blob/master/installfest.md'
+  end
+
+  # Opens local instruction file, falls back to url at github
+  def open_instructions
+    instructions = File.exists?(instruction_file) ? instruction_file : instruction_file_url
+    open instructions
   end
 
 private
@@ -87,14 +93,14 @@ require 'rake'
 
 namespace :installfest do
   installfest = InstallFest.new
-  desc 'Verifies InstallFest'
+  desc 'Verifies required items are installed correctly'
   task :doctor do
     installfest.doctor
   end
 
-  desc 'List instructions'
-  task :list do
-    installfest.list
+  desc 'Opens instruction file'
+  task :open do
+    installfest.open_instructions
   end
 end
 
