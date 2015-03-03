@@ -75,8 +75,8 @@ class InstallFest
         verify: lambda do
           assert_version_is_sufficient(
             '2.3.0',
-            `git --version | head -n1 | cut --fields=3 --delimiter=' '`
-          )
+            `git --version | head -n1 | cut -f3 -d ' '`
+          ) # non-abbreviated flag names are not available in BSD
         end
       },
       configure_git: {
