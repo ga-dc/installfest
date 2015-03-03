@@ -10,8 +10,7 @@
 ########################
 # Supporting Libraries
 class InstallFest
-  # TODO: replace with minitest assertions?
-  def assert_equals(actual, expected)
+  def assert_equals(expected, actual)
     actual.chomp!
     result = (actual == expected)
     unless result
@@ -20,7 +19,7 @@ class InstallFest
     return result
   end
 
-  def assert_match(value, match_pattern)
+  def assert_match(match_pattern, value)
     value.chomp!
     result = (value =~ match_pattern)
     unless result
@@ -61,13 +60,13 @@ class InstallFest
         verify: -> { assert_version_is_sufficient('0.177.0', `atom --version`) }
       },
       homebrew: {
-        verify: -> { assert_match(`brew doctor`, /is ready to brew/) }
+        verify: -> { assert_match(/is ready to brew/, `brew doctor`) }
       },
       rvm: {
-        verify: -> { assert_match(`which rvm`, %r{.rvm/bin/rvm$}) }
+        verify: -> { assert_match(%r{.rvm/bin/rvm$}, `which rvm`) }
       },
       ruby: {
-        verify: -> { assert_match(`ruby --version`, /^ruby 2.2.0p0/) }
+        verify: -> { assert_match(/^ruby 2.2.0p0/, `ruby --version`) }
       },
       git: {
         verify: lambda do
@@ -78,7 +77,7 @@ class InstallFest
         end
       },
       configure_git: {
-        verify: -> { assert_equals(`git config --list | grep core.editor`, 'core.editor=atom --wait' )}
+        verify: -> { assert_equals('core.editor=atom --wait', `git config --list | grep core.editor`)}
       }
     }
   end
