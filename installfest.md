@@ -1,5 +1,17 @@
 # Installfest!
 
+##Before you start...
+
+Below are a bunch of commands to enter into Terminal, which is a way of interacting with your computer that doesn't use the fancy desktop interface you're used to.
+
+You should be able to copy and paste the lines into Terminal -- except for a few that have obvious prompts in them, like "YOUR NAME", which you should replace accordingly.
+
+The lines below all start with `$`, but **you shouldn't actually write the `$`.** Its purpose is just to make the starts of lines easy to see in these instructions.
+
+##Terminal
+
+Open Applications > Utilities > Terminal
+
 ## Atom Text Editor
 
 [Download](https://atom.io)
@@ -21,7 +33,7 @@ The output of `brew doctor` is `ready to brew`
 
 ## RVM
 
-uninstall rbenv if it exists. do you have it?
+This checks to see if you have RVM installed already:
 
     $ which rbenv
     
@@ -60,7 +72,7 @@ The output of `git --version` is greater than or equal to 2.0
 ## Configure Git
 
     $ git config --global user.name  "YOUR NAME"
-    $ git config --global user.email "YOUREM@IL.COM"
+    $ git config --global user.email "YOUR@EMAIL.COM"
     $ git config --global color.ui always
     $ git config --global color.branch.current   "green reverse"
     $ git config --global color.branch.local     green
@@ -72,5 +84,7 @@ The output of `git --version` is greater than or equal to 2.0
 
 
 ## Sign Up for GitHub
+
+Complete the "sign up" steps at www.GitHub.com
 
 Write your github username on the whiteboard.
