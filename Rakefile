@@ -18,26 +18,26 @@ class InstallFest
     return boolean_expression
   end
 
-  def assert_equals(expected, actual)
-    actual.chomp!
+  def assert_equals(expected, shell_command)
+    actual = `#{shell_command}`.chomp
     assert (actual == expected),
-           "Expected: '#{actual}'",
+           "Expected: '#{actual}' (via `#{shell_command}`)",
            "To equal: '#{expected}'"
   end
 
-  def assert_match(match_pattern, value)
-    value.chomp!
+  def assert_match(match_pattern, shell_command)
+    value = `#{shell_command}`.chomp
     assert (value =~ match_pattern),
-           "Expected: '#{value}'",
+           "Expected: '#{value}' (via `#{shell_command}`)",
            "To match: #{match_pattern}"
   end
 
-  def assert_version_is_sufficient(target_version, current_version)
-    current_version.chomp!
+  def assert_version_is_sufficient(target_version, shell_command)
+    current_version = `#{shell_command}`.chomp
     result = (Gem::Version.new(current_version) >= Gem::Version.new(target_version))
     assert result,
-           "Expected version: '#{target_version}'",
-           "Found version:    '#{current_version}'"
+           "Required version: v#{current_version} (via `#{shell_command}`)",
+           "To match: v#{target_version}"
   end
 
   # checks for valid installation
@@ -60,27 +60,27 @@ class InstallFest
   def packages
     {
       atom: {
-        verify: -> { assert_version_is_sufficient('0.177.0', `atom --version`) }
+        verify: -> { assert_version_is_sufficient('0.177.0', 'atom --version') }
       },
       homebrew: {
-        verify: -> { assert_match(/is ready to brew/, `brew doctor`) }
+        verify: -> { assert_match(/is ready to brew/, 'brew doctor') }
       },
       rvm: {
-        verify: -> { assert_match(%r{.rvm/bin/rvm$}, `which rvm`) }
+        verify: -> { assert_match(%r{.rvm/bin/rvm$}, 'which rvm') }
       },
       ruby: {
-        verify: -> { assert_match(/^ruby 2.2.0p0/, `ruby --version`) }
+        verify: -> { assert_match(/^ruby 2.2.0p0/, 'ruby --version') }
       },
       git: {
         verify: lambda do
           assert_version_is_sufficient(
             '2.3.0',
-            `git --version | head -n1 | cut -f3 -d ' '`
+            'git --version | head -n1 | cut -f3 -d " "'
           ) # non-abbreviated flag names are not available in BSD
         end
       },
       configure_git: {
-        verify: -> { assert_equals('core.editor=atom --wait', `git config --list | grep core.editor`)}
+        verify: -> { assert_equals('core.editor=atom --wait', 'git config --list | grep core.editor')}
       }
     }
   end
@@ -177,13 +177,13 @@ if $PROGRAM_NAME == __FILE__
 
     describe '.assert_version' do
       [
-        ['1', '2', true],
-        ['1', '10', true],
-        ['1.2', '1.3', true],
-        ['1.2', '1.2.1', true],
-        ['1.2', '1.10', true],
-        ['2', '1', false],
-        ['1.10', '1.2', false]
+        ['1', 'echo 2', true],
+        ['1', 'echo 10', true],
+        ['1.2', 'echo 1.3', true],
+        ['1.2', 'echo 1.2.1', true],
+        ['1.2', 'echo 1.10', true],
+        ['2', 'echo 1', false],
+        ['1.10', 'echo 1.2', false]
       ].each do |target_version, current_version, expectation|
         it "uses 'natural' comparison for string versions (#{current_version} is #{expectation ? '' : 'not '}> #{target_version})" do
           @installfest.assert_version_is_sufficient(target_version, current_version).must_equal(expectation)
