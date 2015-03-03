@@ -84,15 +84,10 @@ The output of `git --version` is greater than or equal to 2.0
 
 ## Let's verify that everything was installed... programmatically.
 
-1. Install the curl command:
-      
-      $ brew install curl
+Run the following commands, sequentially, to download the `Rakefile` and run the appropriate `rake` command.:
 
-1. Download the Rakefile.
-
+    $ brew install curl
     $ curl https://raw.githubusercontent.com/ga-students/wdi_dc5/master/Rakefile?token=AAB8uRz3KXIgO9dtuCh8LW-6vyl6GzfRks5U_yBYwA%3D%3D > Rakefile
-1. Run the appropriate rake command:
-
     $ rake installfest:doctor
 
 ## Sign Up for GitHub
