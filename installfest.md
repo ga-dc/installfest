@@ -19,7 +19,7 @@ Open Applications > Utilities > Terminal
 ## XCode CLI tools
 
     $ xcode-select --install
-    
+
 ## Homebrew
 
     $ ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
@@ -36,13 +36,13 @@ The output of `brew doctor` is `ready to brew`
 This checks to see if you have RVM installed already:
 
     $ which rbenv
-    
+
 If the output is anything other than blank, get an instructor to help you uninstall.
 
 Otherwise, go ahead and install RVM:
 
     $ \curl -sSL https://get.rvm.io | bash
-    
+
 Then close and reopen the Terminal.
 
 ### You know it worked if...
@@ -50,12 +50,12 @@ Then close and reopen the Terminal.
 The output of `$ which rvm` is not `rvm not found`
 
 ## Ruby v 2.2.0
-    
+
     $ source ~/.rvm/scripts/rvm
     $ rvm install 2.2.0
-    
+
 Then, **close and reopen the terminal** to ensure the terminal is using these changes.
-    
+
 ### You know it worked if...
 
 * The output of `which ruby` is **not** `/usr/bin/ruby` and
@@ -64,7 +64,7 @@ Then, **close and reopen the terminal** to ensure the terminal is using these ch
 ## Git
 
     $ brew install git
-    
+
 ### You know it worked if...
 
 The output of `git --version` is greater than or equal to 2.0
@@ -82,6 +82,10 @@ The output of `git --version` is greater than or equal to 2.0
     $ git config --global color.status.untracked red
     $ git config --global core.editor "atom --wait"
 
+## Let's verify that everything was installed... programmatically.
+    $ brew install curl
+    $ curl https://raw.githubusercontent.com/ga-students/wdi_dc5/master/Rakefile?token=AAB8uRz3KXIgO9dtuCh8LW-6vyl6GzfRks5U_yBYwA%3D%3D > Rakefile
+    $ rake installfest:doctor
 
 ## Sign Up for GitHub
 
