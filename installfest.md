@@ -87,7 +87,7 @@ The output of `git --version` is greater than or equal to 2.0
 Run the following commands, sequentially, to download the `Rakefile` and run the appropriate `rake` command.:
 
     $ brew install curl
-    $ curl http://git.io/x6jq > Rakefile
+    $ curl --location http://git.io/x6jq > Rakefile
     $ rake installfest:doctor
 
 ## Sign Up for GitHub
