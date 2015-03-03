@@ -10,31 +10,34 @@
 ########################
 # Supporting Libraries
 class InstallFest
+  def assert(boolean_expression, failure_message_for_actual, failure_message_for_expected, message_type = :expectation)
+    unless boolean_expression
+      message = "FAIL.\n  #{failure_message_for_actual}\n  #{failure_message_for_expected}."
+      notify message, message_type
+    end
+    return boolean_expression
+  end
+
   def assert_equals(expected, actual)
     actual.chomp!
-    result = (actual == expected)
-    unless result
-      notify " FAIL. \n  Expected: '#{actual}'\n  To equal: '#{expected}'.", :expectation
-    end
-    return result
+    assert (actual == expected),
+           "Expected: '#{actual}'",
+           "To equal: '#{expected}'"
   end
 
   def assert_match(match_pattern, value)
     value.chomp!
-    result = (value =~ match_pattern)
-    unless result
-      notify "FAIL.\n  Expected: '#{value}'\n  To match: #{match_pattern}.", :expectation
-    end
-    return result
+    assert (value =~ match_pattern),
+           "Expected: '#{value}'",
+           "To match: #{match_pattern}"
   end
 
   def assert_version_is_sufficient(target_version, current_version)
     current_version.chomp!
     result = (Gem::Version.new(current_version) >= Gem::Version.new(target_version))
-    unless result
-      notify "FAIL. \n  Expected version: '#{target_version}',\n  Found version:    '#{current_version}'.", :expectation
-    end
-    return result
+    assert result,
+           "Expected version: '#{target_version}'",
+           "Found version:    '#{current_version}'"
   end
 
   # checks for valid installation
@@ -99,6 +102,8 @@ class InstallFest
 private
 
   def notify(message, level = :info)
+    return if ENV['VERBOSE'] == 'false'
+
     case level
     when :start
       print message
@@ -138,11 +143,39 @@ if $PROGRAM_NAME == __FILE__
   require 'minitest/autorun'
 
   describe InstallFest do
-    describe '.assert_version' do
-      before do
-        @installfest = InstallFest.new
+    before do
+      ENV['VERBOSE'] = 'false'
+      @installfest = InstallFest.new
+    end
+    describe '.assert' do
+      it "simply returns true for true boolean_expression" do
+        @installfest.assert(true, 'test_actual', 'test_expected').must_equal true
       end
 
+      describe 'when boolean_expression is false' do
+        it "returns false" do
+          @installfest.assert(false, 'test_actual', 'test_expected').must_equal false
+        end
+
+        it "notifies the user" do
+          ENV["VERBOSE"] = 'true'
+          out, err = capture_io do
+            @installfest.assert(false, 'test_actual', 'test_expected')
+          end
+          assert_match(/^FAIL/i, out)
+        end
+
+        it "notifies the user, unless ENV['VERBOSE'] == 'false'" do
+          ENV["VERBOSE"] = 'false'
+          out, err = capture_io do
+            @installfest.assert(false, 'test_actual', 'test_expected')
+          end
+          assert_match('', out)
+        end
+      end
+    end
+
+    describe '.assert_version' do
       [
         ['1', '2', true],
         ['1', '10', true],
