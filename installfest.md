@@ -83,8 +83,16 @@ The output of `git --version` is greater than or equal to 2.0
     $ git config --global core.editor "atom --wait"
 
 ## Let's verify that everything was installed... programmatically.
-    $ brew install curl
+
+1. Install the curl command:
+      
+      $ brew install curl
+
+1. Download the Rakefile.
+
     $ curl https://raw.githubusercontent.com/ga-students/wdi_dc5/master/Rakefile?token=AAB8uRz3KXIgO9dtuCh8LW-6vyl6GzfRks5U_yBYwA%3D%3D > Rakefile
+1. Run the appropriate rake command:
+
     $ rake installfest:doctor
 
 ## Sign Up for GitHub
