@@ -12,8 +12,10 @@
 class InstallFest
   def assert(boolean_expression, failure_message_for_actual, failure_message_for_expected, message_type = :expectation)
     unless boolean_expression
-      message = "FAIL.\n  #{failure_message_for_actual}\n  #{failure_message_for_expected}."
-      notify message, message_type
+      message = colorize("FAIL", :red)
+      message += "\n  #{failure_message_for_actual}"
+      message += "\n  #{failure_message_for_expected}."
+      notify message, :failure
     end
     return boolean_expression
   end
@@ -110,12 +112,31 @@ class InstallFest
 
 private
 
+  def color_codes
+    { red: 31,
+      green: 32,
+      yellow: 33,
+      blue: 34,
+      magenta: 35,
+      cyan: 36
+    }
+  end
+
+  def colorize(text, color)
+    color_code = color_codes.fetch(color)
+    "\e[#{color_code}m#{text}\e[0m"
+  end
+
   def notify(message, level = :info)
     return if ENV['VERBOSE'] == 'false'
 
     case level
     when :start
       print message
+    when :success
+      puts colorize(message, :green)
+    when :failure, :error
+      STDERR.puts message
     else
       puts message
     end
