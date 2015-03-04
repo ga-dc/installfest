@@ -24,7 +24,7 @@ Open Applications > Utilities > Terminal
 
     $ xcode-select --install
 
-## Homebrew
+## Homebrew (OSX's Package Manager)
 
     $ ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
     $ brew update && brew upgrade
@@ -32,12 +32,12 @@ Open Applications > Utilities > Terminal
 
 ### You know it worked if...
 
-The output of `which brew` is not `brew not found`
-The output of `brew doctor` is `ready to brew`
+The output of `$ which brew` is `/usr/local/bin/brew`.
+The output of `$ brew doctor` is `ready to brew`
 
-## RVM
+## RVM (Ruby Version Manager)
 
-This checks to see if you have RVM installed already:
+First, check to see if you have `rbenv` installed already, since this conflicts with `rvm`:
 
     $ which rbenv
 
@@ -47,11 +47,11 @@ Otherwise, go ahead and install RVM:
 
     $ \curl -sSL https://get.rvm.io | bash
 
-Then close and reopen the Terminal.
+Then **close and reopen** the Terminal.
 
 ### You know it worked if...
 
-The output of `$ which rvm` is not `rvm not found`
+The output of `$ which rvm` **ends** with `/bin/rvm`.
 
 ## Ruby v 2.2.0
 
@@ -62,8 +62,8 @@ Then, **close and reopen the terminal** to ensure the terminal is using these ch
 
 ### You know it worked if...
 
-* The output of `which ruby` is **not** `/usr/bin/ruby` and
-* The output of `ruby --version` starts with `ruby 2.2.0p0`.
+* The output of `which ruby` is `/usr/bin/ruby` and
+* The output of `$ ruby --version` **starts** with `ruby 2.2.0p0`.
 
 ## Git
 
@@ -89,7 +89,7 @@ The output of `git --version` is greater than or equal to 2.0
 
     $ git config --global core.editor "atom --wait"
 
-OR
+OR (for sublime)
 
     $ git config --global core.editor "subl --wait --new-window"
 
