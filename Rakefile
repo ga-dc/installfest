@@ -58,10 +58,7 @@ class InstallFest
   # the list of packages
   # this is what you will edit as new packages are added/removed
   def packages
-    {
-      atom: {
-        verify: -> { assert_version_is_sufficient('0.177.0', 'atom --version') }
-      },
+    package_info = {
       homebrew: {
         verify: -> { assert_match(/is ready to brew/, 'brew doctor') }
       },
@@ -83,6 +80,18 @@ class InstallFest
         verify: -> { assert_equals('core.editor=atom --wait', 'git config --list | grep core.editor')}
       }
     }
+
+    editor_info = case ENV['EDITOR']
+    when 'subl'
+      { sublime: {
+        verify: -> { assert_match(/Sublime Text 2 Build/, 'subl --version') }
+      }}
+    else
+      { atom: {
+        verify: -> { assert_version_is_sufficient('0.177.0', 'atom --version') }
+      }}
+    end
+    package_info.merge(editor_info)
   end
 
   def instruction_file
@@ -147,6 +156,7 @@ if $PROGRAM_NAME == __FILE__
       ENV['VERBOSE'] = 'false'
       @installfest = InstallFest.new
     end
+
     describe '.assert' do
       it "simply returns true for true boolean_expression" do
         @installfest.assert(true, 'test_actual', 'test_expected').must_equal true
@@ -188,6 +198,18 @@ if $PROGRAM_NAME == __FILE__
         it "uses 'natural' comparison for string versions (#{current_version} is #{expectation ? '' : 'not '}> #{target_version})" do
           @installfest.assert_version_is_sufficient(target_version, current_version).must_equal(expectation)
         end
+      end
+    end
+
+    describe '.packages' do
+      it "includes 'atom', when EDITOR is NOT 'subl'" do
+        ENV['EDITOR'] = 'vim'
+        @installfest.packages.keys.must_include :atom
+      end
+
+      it "includes 'sublime', when EDITOR is 'subl'" do
+        ENV['EDITOR'] = 'subl'
+        @installfest.packages.keys.must_include :sublime
       end
     end
   end

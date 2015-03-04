@@ -12,9 +12,13 @@ The lines below all start with `$`, but **you shouldn't actually write the `$`.*
 
 Open Applications > Utilities > Terminal
 
-## Atom Text Editor
+## "Atom" Text Editor
 
-[Download](https://atom.io)
+1. Download atom [from their website](https://atom.io) and install.
+1. Then configure your terminal to use 'atom'.
+
+
+    $ echo "EDITOR=atom" >> ~/.bash_profile
 
 ## XCode CLI tools
 
@@ -80,7 +84,14 @@ The output of `git --version` is greater than or equal to 2.0
     $ git config --global color.status.added     green
     $ git config --global color.status.changed   yellow
     $ git config --global color.status.untracked red
+
+## Tell git what editor to use for commits
+
     $ git config --global core.editor "atom --wait"
+
+OR
+
+    $ git config --global core.editor "subl --wait --new-window"
 
 ## Let's verify that everything was installed... programmatically.
 
