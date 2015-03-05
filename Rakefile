@@ -136,7 +136,7 @@ private
     when :success
       puts colorize(message, :green)
     when :failure, :error
-      STDERR.puts message
+      $stderr.puts message
     else
       puts message
     end
@@ -188,12 +188,12 @@ if $PROGRAM_NAME == __FILE__
           @installfest.assert(false, 'test_actual', 'test_expected').must_equal false
         end
 
-        it "notifies the user" do
+        it "notifies the user of a failure" do
           ENV["VERBOSE"] = 'true'
           out, err = capture_io do
             @installfest.assert(false, 'test_actual', 'test_expected')
           end
-          assert_match(/^FAIL/i, out)
+          assert_match(/FAIL/i, err)
         end
 
         it "notifies the user, unless ENV['VERBOSE'] == 'false'" do
