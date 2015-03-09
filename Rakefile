@@ -70,6 +70,9 @@ class InstallFest
         verify: -> { assert_match(/is ready to brew/, 'brew doctor') }
       },
       rvm: {
+        # TODO: https://rvm.io/rvm/install suggests using
+        #   the output of `$ type rvm | head 1` is `rvm is a function`.
+        # However, this command didn't get this result within this script.
         verify: -> { assert_match(%r{.rvm/bin/rvm$}, 'which rvm') }
       },
       ruby: {

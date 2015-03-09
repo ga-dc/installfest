@@ -45,13 +45,13 @@ If the output is anything other than blank, get an instructor to help you uninst
 
 Otherwise, go ahead and install RVM:
 
-    $ \curl -sSL https://get.rvm.io | bash
+    $ \curl -sSL https://get.rvm.io | bash -s stable --auto-dotfiles
 
 Then **close and reopen** the Terminal.
 
 ### You know it worked if...
 
-The output of `$ which rvm` **ends** with `/bin/rvm`.
+The output of `$ type rvm | head 1` is `rvm is a function`.  # as recommended in https://rvm.io/rvm/install
 
 ## Ruby v 2.2.0
 
