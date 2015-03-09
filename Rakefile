@@ -1,4 +1,4 @@
-# require 'pry'
+require 'pry'
 
 # Architecture:
 # All required functionality is in this single Rakefile;
@@ -45,15 +45,20 @@ class InstallFest
   # checks for valid installation
   def doctor
     packages.each do |package, package_info|
-      notify "Verifying #{package}...", :start
-      verification = package_info[:verify]
+      verify_package(package, package_info)
+    end
+  end
 
-      if verification.call
-        notify ' met.', :success
-      else
-        # Failures are recorded within assertions
-        # TODO: move back to here (assertions return more?)
-      end
+  def editor_package_info
+    case ENV['EDITOR']
+    when 'subl'
+      { sublime: {
+        verify: -> { assert_match(/Sublime Text 2 Build/, 'subl --version') }
+      }}
+    else
+      { atom: {
+        verify: -> { assert_version_is_sufficient('0.177.0', 'atom --version') }
+      }}
     end
   end
 
@@ -83,17 +88,7 @@ class InstallFest
       }
     }
 
-    editor_info = case ENV['EDITOR']
-    when 'subl'
-      { sublime: {
-        verify: -> { assert_match(/Sublime Text 2 Build/, 'subl --version') }
-      }}
-    else
-      { atom: {
-        verify: -> { assert_version_is_sufficient('0.177.0', 'atom --version') }
-      }}
-    end
-    package_info.merge(editor_info)
+    package_info.merge(editor_package_info)
   end
 
   def instruction_file
@@ -110,6 +105,18 @@ class InstallFest
     open instructions
   end
 
+  def verify_package(package, package_info)
+    # TODO: this is asking for an object
+    notify "Verifying #{package}...", :start
+    verification = package_info.fetch(:verify)
+
+    if verification.call
+      notify ' met.', :success
+    else
+      # Failures are recorded within assertions
+      # TODO: move back to here (assertions return more?)
+    end
+  end
 private
 
   def color_codes
