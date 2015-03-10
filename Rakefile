@@ -1,4 +1,5 @@
 require 'pry'
+require 'yaml'
 
 # Architecture:
 # All required functionality is in this single Rakefile;
@@ -45,6 +46,20 @@ class InstallFest
            "To match: v#{target_version}"
   end
 
+  def config_file
+    'installfest.yml'
+  end
+
+  def configured_packages
+    if File.exist?(config_file)
+      YAML.load_file(config_file)
+    end
+  end
+
+  def default_packages
+    [editor, :homebrew, :rvm, :ruby, :git, :configure_git]
+  end
+
   # checks for valid installation
   def doctor
     my_packages.each do |package_name|
@@ -61,9 +76,13 @@ class InstallFest
     end
   end
 
+  def generate_config
+    File.open(config_file, 'w') {|f| f.write default_packages.to_yaml }
+  end
+
   # list of packages to check
   def my_packages
-    [editor, :homebrew, :rvm, :ruby, :git, :configure_git]
+    configured_packages || default_packages
   end
 
   # information about all packages
@@ -174,6 +193,11 @@ namespace :installfest do
   desc 'Verifies required items are installed correctly'
   task :doctor do
     installfest.doctor
+  end
+
+  desc 'Generates a default config file.'
+  task :generate_config_file do
+    installfest.generate_config
   end
 
   desc 'Opens instruction file (attempts local file, falls back to url)'
