@@ -5,7 +5,10 @@ require 'pry'
 #   the rake tasks, the supporting library code, and the tests.
 # This is by design; to make it easier to install and use, at the expense of readability.
 
-# The functionality mainly takes place in InstallFest.packages and the assert* methods.  The rest is support for these.
+# Important methods
+# InstallFest#my_packages lists all packages of interest.
+# InstallFest#packages lists all known packages, with suppporting info.
+# InstallFest#assert_* are the various assertion methods.
 
 ########################
 # Supporting Libraries
@@ -44,28 +47,42 @@ class InstallFest
 
   # checks for valid installation
   def doctor
-    packages.each do |package, package_info|
-      verify_package(package, package_info)
+    my_packages.each do |package_name|
+      verify_package(package_name, packages[package_name])
     end
   end
 
-  def editor_package_info
+  def editor
     case ENV['EDITOR']
     when 'subl'
-      { sublime: {
-        verify: -> { assert_match(/Sublime Text 2 Build/, 'subl --version') }
-      }}
+      :sublime
     else
-      { atom: {
-        verify: -> { assert_version_is_sufficient('0.177.0', 'atom --version') }
-      }}
+      :atom
     end
   end
 
-  # the list of packages
-  # this is what you will edit as new packages are added/removed
+  # list of packages to check
+  def my_packages
+    [editor, :homebrew, :rvm, :ruby, :git, :configure_git]
+  end
+
+  # information about all packages
   def packages
-    package_info = {
+    {
+      atom: {
+        verify: -> { assert_version_is_sufficient('0.177.0', 'atom --version') }
+      },
+      git: {
+        verify: lambda do
+          assert_version_is_sufficient(
+            '2.3.0',
+            'git --version | head -n1 | cut -f3 -d " "'
+          ) # non-abbreviated flag names are not available in BSD
+        end
+      },
+      configure_git: {
+        verify: -> { assert_equals('core.editor=atom --wait', 'git config --list | grep core.editor')}
+      },
       homebrew: {
         verify: -> { assert_match(/is ready to brew/, 'brew doctor') }
       },
@@ -78,20 +95,10 @@ class InstallFest
       ruby: {
         verify: -> { assert_match(/^ruby 2.2.0p0/, 'ruby --version') }
       },
-      git: {
-        verify: lambda do
-          assert_version_is_sufficient(
-            '2.3.0',
-            'git --version | head -n1 | cut -f3 -d " "'
-          ) # non-abbreviated flag names are not available in BSD
-        end
-      },
-      configure_git: {
-        verify: -> { assert_equals('core.editor=atom --wait', 'git config --list | grep core.editor')}
+      sublime: {
+        verify: -> { assert_match(/Sublime Text 2 Build/, 'subl --version') }
       }
     }
-
-    package_info.merge(editor_package_info)
   end
 
   def instruction_file
