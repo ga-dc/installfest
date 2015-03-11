@@ -139,6 +139,10 @@ class InstallFest
     'https://github.com/ga-students/wdi_dc5/blob/master/installfest.md'
   end
 
+  def known_packages
+    packages.keys
+  end
+
   # Opens local instruction file, falls back to url at github
   def open_instructions
     instructions = File.exist?(instruction_file) ? instruction_file : instruction_file_url
@@ -209,6 +213,11 @@ namespace :installfest do
   desc 'Generates a default config file.'
   task :generate_config_file do
     installfest.generate_config
+  end
+
+  desc "List known packages"
+  task :known do
+    puts installfest.known_packages
   end
 
   desc 'Opens instruction file (attempts local file, falls back to url)'
