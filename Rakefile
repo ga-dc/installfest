@@ -4,7 +4,7 @@ begin
   # The Gemfile will not be available either.
   # We were commenting/uncommenting this line, but a "safe" require
   #  seems more reasonable (and less error prone).
-  #  Translated: I forgot and commited "require 'pry'" and this caused problems. :)
+  #  Translated: I forgot and committed "require 'pry'" and this caused problems. :)
   require 'pry'
 rescue LoadError => err
   abort 'Please install the "pry" gem via `$ gem install pry`. We depend on it.'
@@ -54,7 +54,7 @@ class InstallFest
     result = (Gem::Version.new(current_version) >= Gem::Version.new(target_version))
     assert result,
            "Required version: v#{current_version} (via `#{shell_command}`)",
-           "To match: v#{target_version}"
+           "To match version: v#{target_version}"
   end
 
   def config_file
