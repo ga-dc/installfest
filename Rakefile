@@ -1,3 +1,13 @@
+# Architecture:
+# All required functionality is in this single Rakefile;
+#   the rake tasks, the supporting library code, and the tests.
+# This is by design; to make it easier to install and use, at the expense of readability.
+
+# Important methods
+# InstallFest#my_packages lists all packages of interest to you.
+# InstallFest#packages lists all known packages, with suppporting info.
+# InstallFest#assert_* are the various assertion methods.
+
 begin
   # pry is used during debugging,
   #  but will not be available on students machines during installfest
@@ -11,16 +21,6 @@ rescue LoadError => err
 end
 
 require 'yaml'
-
-# Architecture:
-# All required functionality is in this single Rakefile;
-#   the rake tasks, the supporting library code, and the tests.
-# This is by design; to make it easier to install and use, at the expense of readability.
-
-# Important methods
-# InstallFest#my_packages lists all packages of interest.
-# InstallFest#packages lists all known packages, with suppporting info.
-# InstallFest#assert_* are the various assertion methods.
 
 ########################
 # Supporting Libraries
