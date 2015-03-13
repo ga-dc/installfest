@@ -71,6 +71,10 @@ class InstallFest
     [editor, :homebrew, :rvm, :ruby, :git, :configure_git]
   end
 
+  def display_instructions
+    puts instructions
+  end
+
   # checks for valid installation
   def doctor
     my_packages.each do |package_name|
@@ -87,6 +91,22 @@ class InstallFest
     end
   end
 
+  def instructions
+    instructions = ''
+    my_packages.each do |package_name|
+      package = packages.fetch(package_name)
+      steps = package.fetch(:installation_steps)
+      header = package_name.capitalize
+      instructions += '## ' + header.to_s
+      instructions += "\n"
+      steps.each do |step|
+        instructions += step
+      end
+      instructions += "\n"
+    end
+    instructions
+  end
+
   def generate_config
     File.open(config_file, 'w') {|f| f.write default_packages.to_yaml }
   end
@@ -100,9 +120,20 @@ class InstallFest
   def packages
     {
       atom: {
+        installation_steps: [
+          %q(
+1. Download atom [from their website](https://atom.io) and install.
+2. Then configure your terminal to use 'atom'.
+
+    $ echo "EDITOR=atom" >> ~/.bash_profile
+          )
+        ],
         verify: -> { assert_version_is_sufficient('0.177.0', 'atom --version') }
       },
       git: {
+        installation_steps: [
+          '    $ brew install git'
+        ],
         verify: lambda do
           assert_version_is_sufficient(
             '2.3.0',
@@ -111,23 +142,77 @@ class InstallFest
         end
       },
       configure_git: {
+        installation_steps: [
+          %q(
+    $ git config --global user.name  "YOUR NAME"
+    $ git config --global user.email "YOUR@EMAIL.COM"
+    $ git config --global color.ui always
+    $ git config --global color.branch.current   "green reverse"
+    $ git config --global color.branch.local     green
+    $ git config --global color.branch.remote    yellow
+    $ git config --global color.status.added     green
+    $ git config --global color.status.changed   yellow
+    $ git config --global color.status.untracked red
+          ),
+          %q(
+## Tell git what editor to use for commits
+
+    $ git config --global core.editor "atom --wait"
+
+OR (for sublime)
+
+    $ git config --global core.editor "subl --wait --new-window"
+          ),
+        ],
         verify: -> { assert_equals('core.editor=atom --wait', 'git config --list | grep core.editor')}
       },
       homebrew: {
+        installation_steps: [
+          %q(    $ ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"),
+          %q(    $ brew update && brew upgrade),
+          %q(    $ echo 'export PATH="/usr/local/bin:$PATH"' >> ~/.bash_profile')
+        ],
         verify: -> { assert_match(/is ready to brew/, 'brew doctor') }
       },
       rvm: {
+        installation_steps: [
+          %q(
+First, check to see if you have `rbenv` installed already, since this conflicts with `rvm`:
+
+    $ which rbenv
+
+  If the output is anything other than blank, get an instructor to help you uninstall.),
+
+          %q(
+Otherwise, go ahead and install RVM:
+
+    $ \curl -sSL https://get.rvm.io | bash -s stable --auto-dotfiles
+
+Then **close and reopen** the Terminal.
+          )
+        ],
         # TODO: https://rvm.io/rvm/install suggests using
         #   the output of `$ type rvm | head 1` is `rvm is a function`.
         # However, this command didn't get this result within this script.
         verify: -> { assert_match(%r{.rvm/bin/rvm$}, 'which rvm') }
       },
       ruby: {
+        installation_steps: [
+          %q(
+    $ source ~/.rvm/scripts/rvm
+    $ rvm install 2.2.0
+
+Then, **close and reopen the terminal** to ensure the terminal is using these changes.
+          )
+        ],
         verify: -> { assert_match(/^ruby 2.2.0p0/, 'ruby --version') }
       },
       sublime: {
+        installation_steps: [
+          'FIX ME'
+        ],
         verify: -> { assert_match(/Sublime Text 2 Build/, 'subl --version') }
-      }
+      },
     }
   end
 
@@ -213,6 +298,11 @@ namespace :installfest do
   desc 'Generates a default config file.'
   task :generate_config_file do
     installfest.generate_config
+  end
+
+  desc 'Displays installation instructions.'
+  task :instructions do
+    installfest.display_instructions
   end
 
   desc "List known packages"
