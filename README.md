@@ -6,7 +6,24 @@ Students should be able to `curl` and run this independently.
 
 ## Docs
 
+### For developers
+
      rake -T
+
+
+## Sample Student Instructions
+Here are the instructions we provided our **students** during InstallFest
+
+`>>>>>>>>>>>>>>`
+
+Run the following commands, sequentially, to download the `Rakefile`, download the config file, and run the appropriate `rake` command to check your system:
+
+    $ brew install curl
+    $ curl --location http://git.io/x6jq > Rakefile
+    $ curl --location {{config file goes here}} > installfest.yml
+    $ rake installfest:doctor
+
+`<<<<<<<<<<<<<<`
 
 ## Configuration
 
@@ -19,6 +36,7 @@ Generate a sample config via:
 List all possible pacakages via:
 
     rake installfest:known
+
 
 
 ## Architecture:
