@@ -103,6 +103,11 @@ class InstallFest
         instructions += "\n"
         instructions += step
       end
+      you_know_it_worked_if = package[:ykiwi]
+      if you_know_it_worked_if
+        instructions += "\n### You know it worked if..."
+        instructions += "\n\n" + you_know_it_worked_if
+      end
     end
     instructions += "\n"
     instructions += instruction_footer
@@ -120,6 +125,11 @@ class InstallFest
   end
 
   # information about all packages
+  # Package attributes:
+  #   header: title of package (used for display)
+  #   installation_steps: array of manual steps
+  #   verify: code to assert step (method, *arguments)
+  #   ykiwi (You Know It Worked If): manual verification
   def packages
     {
       atom: {
@@ -143,7 +153,9 @@ class InstallFest
             '2.3.0',
             'git --version | head -n1 | cut -f3 -d " "'
           ) # non-abbreviated flag names are not available in BSD
-        end
+        end,
+        ykiwi: "The output of `git --version` is greater than or equal to 2.0
+"
       },
       git_configuration: {
         header: 'Configure Git',
@@ -176,9 +188,13 @@ OR (for sublime)
         installation_steps: [
           %q(    $ ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"),
           %q(    $ brew update && brew upgrade),
-          %q(    $ echo 'export PATH="/usr/local/bin:$PATH"' >> ~/.bash_profile')
+          %q(    $ echo 'export PATH="/usr/local/bin:$PATH"' >> ~/.bash_profile)
         ],
-        verify: -> { assert_match(/is ready to brew/, 'brew doctor') }
+        verify: -> { assert_match(/is ready to brew/, 'brew doctor') },
+        ykiwi: %q(
+- The output of `$ which brew` is `/usr/local/bin/brew`.
+- The output of `$ brew doctor` is `ready to brew`
+        )
       },
       rvm: {
         header: 'RVM (Ruby Version Manager)',
@@ -201,7 +217,8 @@ Then **close and reopen** the Terminal.
         # TODO: https://rvm.io/rvm/install suggests using
         #   the output of `$ type rvm | head 1` is `rvm is a function`.
         # However, this command didn't get this result within this script.
-        verify: -> { assert_match(%r{.rvm/bin/rvm$}, 'which rvm') }
+        verify: -> { assert_match(%r{.rvm/bin/rvm$}, 'which rvm') },
+        ykiwi: %q(The output of `$ type rvm | head 1` is `rvm is a function`.  # as recommended in https://rvm.io/rvm/install)
       },
       ruby: {
         installation_steps: [
@@ -212,7 +229,11 @@ Then **close and reopen** the Terminal.
 Then, **close and reopen the terminal** to ensure the terminal is using these changes.
 )
         ],
-        verify: -> { assert_match(/^ruby 2.2.0p0/, 'ruby --version') }
+        verify: -> { assert_match(/^ruby 2.2.0p0/, 'ruby --version') },
+        ykiwi: %q(
+* The output of `which ruby` is `/usr/bin/ruby` and
+* The output of `$ ruby --version` **starts** with `ruby 2.2.0p0`.
+        )
       },
       sublime: {
         installation_steps: [
