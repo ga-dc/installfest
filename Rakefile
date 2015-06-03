@@ -68,7 +68,11 @@ class InstallFest
   end
 
   def default_packages
-    [editor, :homebrew, :rvm, :ruby, :git, :configure_git]
+    [editor, :homebrew, :rvm, :ruby, :git, :git_configuration]
+  end
+
+  def display_instructions
+    puts instructions
   end
 
   # checks for valid installation
@@ -87,6 +91,30 @@ class InstallFest
     end
   end
 
+  def instructions
+    instructions = instruction_header
+    my_packages.each do |package_name|
+      package = packages.fetch(package_name)
+      steps = package.fetch(:installation_steps)
+      header = package[:header] || package_name.capitalize
+      instructions += "\n## " + header.to_s
+
+      steps.each do |step|
+        instructions += "\n"
+        instructions += step
+      end
+      you_know_it_worked_if = package[:ykiwi]
+      if you_know_it_worked_if
+        instructions += "\n### You know it worked if..."
+        instructions += "\n\n" + you_know_it_worked_if
+      end
+    end
+    instructions += "\n"
+    instructions += instruction_footer
+
+    instructions
+  end
+
   def generate_config
     File.open(config_file, 'w') {|f| f.write default_packages.to_yaml }
   end
@@ -97,36 +125,129 @@ class InstallFest
   end
 
   # information about all packages
+  # Package attributes:
+  #   header: title of package (used for display)
+  #   installation_steps: array of manual steps
+  #   verify: code to assert step (method, *arguments)
+  #   ykiwi (You Know It Worked If): manual verification
   def packages
     {
       atom: {
+        header: '"Atom" Text Editor',
+        installation_steps: [
+          %q(
+1. Download atom [from their website](https://atom.io) and install.
+2. Then configure your terminal to use 'atom'.
+
+    $ echo "EDITOR=atom" >> ~/.bash_profile
+)
+        ],
         verify: -> { assert_version_is_sufficient('0.177.0', 'atom --version') }
       },
       git: {
+        installation_steps: [
+          '    $ brew install git'
+        ],
         verify: lambda do
           assert_version_is_sufficient(
             '2.3.0',
             'git --version | head -n1 | cut -f3 -d " "'
           ) # non-abbreviated flag names are not available in BSD
-        end
+        end,
+        ykiwi: "The output of `git --version` is greater than or equal to 2.0
+"
       },
-      configure_git: {
+      git_configuration: {
+        header: 'Configure Git',
+        installation_steps: [
+          %q(
+    $ git config --global user.name  "YOUR NAME"
+    $ git config --global user.email "YOUR@EMAIL.COM"
+    $ git config --global color.ui always
+    $ git config --global color.branch.current   "green reverse"
+    $ git config --global color.branch.local     green
+    $ git config --global color.branch.remote    yellow
+    $ git config --global color.status.added     green
+    $ git config --global color.status.changed   yellow
+    $ git config --global color.status.untracked red
+),
+          %q(
+## Tell git what editor to use for commits
+
+    $ git config --global core.editor "atom --wait"
+
+OR (for sublime)
+
+    $ git config --global core.editor "subl --wait --new-window"
+),
+        ],
         verify: -> { assert_equals('core.editor=atom --wait', 'git config --list | grep core.editor')}
       },
       homebrew: {
-        verify: -> { assert_match(/is ready to brew/, 'brew doctor') }
+        header: %q(Homebrew (OSX's Package Manager)),
+        installation_steps: [
+          %q(    $ ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"),
+          %q(    $ brew update && brew upgrade),
+          %q(    $ echo 'export PATH="/usr/local/bin:$PATH"' >> ~/.bash_profile)
+        ],
+        verify: -> { assert_match(/is ready to brew/, 'brew doctor') },
+        ykiwi: %q(
+- The output of `$ which brew` is `/usr/local/bin/brew`.
+- The output of `$ brew doctor` is `ready to brew`
+        )
       },
       rvm: {
+        header: 'RVM (Ruby Version Manager)',
+        installation_steps: [
+          %q(
+First, check to see if you have `rbenv` installed already, since this conflicts with `rvm`:
+
+    $ which rbenv
+
+If the output is anything other than blank, get an instructor to help you uninstall.
+),
+          %q(
+Otherwise, go ahead and install RVM:
+
+    $ \curl -sSL https://get.rvm.io | bash -s stable --auto-dotfiles
+
+Then **close and reopen** the Terminal.
+)
+        ],
         # TODO: https://rvm.io/rvm/install suggests using
         #   the output of `$ type rvm | head 1` is `rvm is a function`.
         # However, this command didn't get this result within this script.
-        verify: -> { assert_match(%r{.rvm/bin/rvm$}, 'which rvm') }
+        verify: -> { assert_match(%r{.rvm/bin/rvm$}, 'which rvm') },
+        ykiwi: %q(The output of `$ type rvm | head 1` is `rvm is a function`.  # as recommended in https://rvm.io/rvm/install)
       },
       ruby: {
-        verify: -> { assert_match(/^ruby 2.2.0p0/, 'ruby --version') }
+        installation_steps: [
+          %q(
+    $ source ~/.rvm/scripts/rvm
+    $ rvm install 2.2.0
+
+Then, **close and reopen the terminal** to ensure the terminal is using these changes.
+)
+        ],
+        verify: -> { assert_match(/^ruby 2.2.0p0/, 'ruby --version') },
+        ykiwi: %q(
+* The output of `which ruby` is `/usr/bin/ruby` and
+* The output of `$ ruby --version` **starts** with `ruby 2.2.0p0`.
+        )
       },
       sublime: {
+        installation_steps: [
+          'FIX ME'
+        ],
         verify: -> { assert_match(/Sublime Text 2 Build/, 'subl --version') }
+      },
+      xcode_cli_tools: {
+        header: 'XCode CLI tools',
+        installation_steps: [
+          %q(    $ xcode-select --install)
+        ],
+        verify: -> { notify 'SKIP: We can not verify programatically.', :skip }
+
       }
     }
   end
@@ -145,8 +266,8 @@ class InstallFest
 
   # Opens local instruction file, falls back to url at github
   def open_instructions
-    instructions = File.exist?(instruction_file) ? instruction_file : instruction_file_url
-    open instructions
+    generate_instruction_file instruction_file
+    open instruction_file
   end
 
   def verify_package(package, package_info)
@@ -178,10 +299,50 @@ private
     "\e[#{color_code}m#{text}\e[0m"
   end
 
+  def generate_instruction_file(file_name_including_path)
+    File.open(file_name_including_path, 'w') do |file|
+      file.write instructions
+    end
+  end
+
+  def instruction_footer
+    %q(
+## Let's verify that everything was installed... programmatically.
+
+    $ rake installfest:doctor
+
+## Sign Up for GitHub
+
+Complete the "sign up" steps at www.GitHub.com
+
+Write your github username on the whiteboard.
+)
+  end
+
+  def instruction_header
+    %q(
+# Installfest!
+
+##Before you start...
+
+Below are a bunch of commands to enter into Terminal, which is a way of interacting with your computer that doesn't use the fancy desktop interface you're used to.
+
+You should be able to copy and paste the lines into Terminal -- except for a few that have obvious prompts in them, like "YOUR NAME", which you should replace accordingly.
+
+The lines below all start with `$`, but **you shouldn't actually write the `$`.** Its purpose is just to make the starts of lines easy to see in these instructions.
+
+##Terminal
+
+Open Applications > Utilities > Terminal
+    )
+  end
+
   def notify(message, level = :info)
     return if ENV['VERBOSE'] == 'false'
 
     case level
+    when :skip
+      puts colorize(message, :blue)
     when :start
       print message
     when :success
@@ -213,6 +374,11 @@ namespace :installfest do
   desc 'Generates a default config file.'
   task :generate_config_file do
     installfest.generate_config
+  end
+
+  desc 'Displays installation instructions.'
+  task :instructions do
+    installfest.display_instructions
   end
 
   desc "List known packages"
