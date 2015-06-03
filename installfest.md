@@ -90,12 +90,9 @@ OR (for sublime)
 
     $ git config --global core.editor "subl --wait --new-window"
 
+
 ## Let's verify that everything was installed... programmatically.
 
-Run the following commands, sequentially, to download the `Rakefile` and run the appropriate `rake` command.:
-
-    $ brew install curl
-    $ curl --location http://git.io/x6jq > Rakefile
     $ rake installfest:doctor
 
 ## Sign Up for GitHub
