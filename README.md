@@ -11,15 +11,13 @@ Here are the instructions we provided our **students** during InstallFest
 
 `>>>>>>>>>>>>>>`
 
-Run the following commands, sequentially, to download the `Rakefile`, download the config file, and run the appropriate `rake` command to check your system:
+Run the following commands, sequentially, to download the `Rakefile`, download the config file, and run the appropriate `rake` command to start installfest:
 
     $ curl --location http://git.io/x6jq > Rakefile
     $ curl --location {{your config file goes here}} > installfest.yml
-    $ rake installfest:instructions
+    $ rake installfest:start
 
-Once you complete all the steps, run this to verify:
-
-    $ rake installfest:doctor
+Read and follow the given instructions.
 
 `<<<<<<<<<<<<<<`
 
