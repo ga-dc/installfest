@@ -3,15 +3,21 @@
 
 ##Before you start...
 
-Below are a bunch of commands to enter into Terminal, which is a way of interacting with your computer that doesn't use the fancy desktop interface you're used to.
+We will be installing multiple applications.  The installation steps will be provided for each application.
 
 You should be able to copy and paste the lines into Terminal -- except for a few that have obvious prompts in them, like "YOUR NAME", which you should replace accordingly.
 
 The lines below all start with `$`, but **you shouldn't actually write the `$`.** Its purpose is just to make the starts of lines easy to see in these instructions.
 
-##Terminal
+We recommend that you configure your system so that you can see both the instructions and Terminal at the same time.
 
-Open Applications > Utilities > Terminal
+## Open Terminal "app"
+
+If you haven't already, open Terminal so you can begin entering commands.
+
+You can open Terminal by:
+- typing "Terminal" into Spotlight (ensure you select the Termainl app)
+- or you can open it from Finder, look in "Applications > Utilities".
     
 ## "Atom" Text Editor
 
@@ -26,8 +32,8 @@ Open Applications > Utilities > Terminal
     $ ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
     $ brew update && brew upgrade
     $ echo 'export PATH="/usr/local/bin:$PATH"' >> ~/.bash_profile
-### You know it worked if...
 
+### You know it worked if...
 
 - The output of `$ which brew` is `/usr/local/bin/brew`.
 - The output of `$ brew doctor` is `ready to brew`
@@ -47,26 +53,26 @@ Otherwise, go ahead and install RVM:
 
 Then **close and reopen** the Terminal.
 
-### You know it worked if...
 
+### You know it worked if...
 The output of `$ type rvm | head 1` is `rvm is a function`.  # as recommended in https://rvm.io/rvm/install
-## Ruby
+## ruby
 
     $ source ~/.rvm/scripts/rvm
-    $ rvm install 2.2.0
+    $ rvm install 2.2.1p85
 
 Then, **close and reopen the terminal** to ensure the terminal is using these changes.
 
-### You know it worked if...
 
+### You know it worked if...
 
 * The output of `which ruby` is `/usr/bin/ruby` and
-* The output of `$ ruby --version` **starts** with `ruby 2.2.0p0`.
+* The output of `$ ruby --version` **starts** with `ruby 2.2.1p85`.
         
-## Git
+## git
     $ brew install git
-### You know it worked if...
 
+### You know it worked if...
 The output of `git --version` is greater than or equal to 2.0
 
 ## Configure Git
