@@ -25,3 +25,6 @@ PLATFORMS
 DEPENDENCIES
   awesome_print
   pry-byebug
+
+BUNDLED WITH
+   1.10.2
