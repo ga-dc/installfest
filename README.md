@@ -4,28 +4,42 @@
 
 A collection of supporting (rake) tasks for InstallFest.
 
-Students should be able to `curl` and run this independently.
+Students should be able to download (or `curl`) and run this independently.
 
 ## Sample Student Instructions
 Here are the instructions we provided our **students** during InstallFest
 
 `>>>>>>>>>>>>>>`
 
-Run the following commands, sequentially, to download the `Rakefile`, download the config file, and run the appropriate `rake` command to check your system:
+Run the following commands, sequentially, to download the `Rakefile`, download the config file, and run the appropriate `rake` command to start installfest:
 
     $ curl --location http://git.io/x6jq > Rakefile
     $ curl --location {{your config file goes here}} > installfest.yml
-    $ rake installfest:instructions
 
-Once you complete all the steps, run this to verify:
+You can either run a script to step through the installation steps:
+```
+$ rake installfest:start
+```
+Or get the full instruction set:
+```
+$ open installfest.md
+```
 
-    $ rake installfest:doctor
+Read and follow the given instructions.
 
 `<<<<<<<<<<<<<<`
 
 ## For developers
 
-     rake -T
+- Help
+```
+rake -T
+```
+
+- Generate instructions
+```
+rake installfest:instructions > installfest.md
+```
 
 ### Configuration
 

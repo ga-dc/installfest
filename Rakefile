@@ -25,14 +25,16 @@ require 'yaml'
 ########################
 # Supporting Libraries
 class InstallFest
-  def assert(boolean_expression, failure_message_for_actual, failure_message_for_expected, message_type = :expectation)
-    unless boolean_expression
+  # TODO: extract Package
+  def assert(boolean_expression, failure_message_for_actual, failure_message_for_expected)
+    if boolean_expression
+      return OpenStruct.new( status: true, message: 'met' )
+    else
       message = colorize("FAIL", :red)
       message += "\n  #{failure_message_for_actual}"
       message += "\n  #{failure_message_for_expected}."
-      notify message, :failure
+      return OpenStruct.new( status: false, message: message )
     end
-    return boolean_expression
   end
 
   def assert_equals(expected, shell_command)
@@ -95,19 +97,8 @@ class InstallFest
     instructions = instruction_header
     my_packages.each do |package_name|
       package = packages.fetch(package_name)
-      steps = package.fetch(:installation_steps)
-      header = package[:header] || package_name.capitalize
-      instructions += "\n## " + header.to_s
-
-      steps.each do |step|
-        instructions += "\n"
-        instructions += step
-      end
-      you_know_it_worked_if = package[:ykiwi]
-      if you_know_it_worked_if
-        instructions += "\n### You know it worked if..."
-        instructions += "\n\n" + you_know_it_worked_if
-      end
+      package = {header: package_name}.merge(package)
+      instructions += instructions_for(package)
     end
     instructions += "\n"
     instructions += instruction_footer
@@ -246,7 +237,7 @@ Then, **close and reopen the terminal** to ensure the terminal is using these ch
         installation_steps: [
           %q(    $ xcode-select --install)
         ],
-        verify: -> { notify 'SKIP: We can not verify programatically.', :skip }
+        verify: -> { assert_version_is_sufficient('2339', 'xcode-select --version | head -n1 | cut -f3 -d " " | sed "s/[.]//g"' ) }
 
       }
     }
@@ -270,17 +261,34 @@ Then, **close and reopen the terminal** to ensure the terminal is using these ch
     open instruction_file
   end
 
+  def start
+   notify start_header
+   notify "\nPress enter when you are ready to continue."
+   $stdin.gets
+   notify "## Starting installation..."
+    my_packages.each do |package_name|
+      package = packages[package_name]
+      # header defaults to package_name
+      package = {header: package_name}.merge(package)
+      until verify_package(package_name, package)
+        show_instructions_for(package)
+        notify "Press <enter> when you have completed the above steps."
+        response = $stdin.gets.strip
+
+      end
+    end
+    notify "\n## Everything is installed.  Running one final check..."
+    Rake::Task["installfest:doctor"].execute
+    notify start_footer
+  end
+
   def verify_package(package, package_info)
     # TODO: this is asking for an object
     notify "Verifying #{package}...", :start
     verification = package_info.fetch(:verify)
-
-    if verification.call
-      notify ' met.', :success
-    else
-      # Failures are recorded within assertions
-      # TODO: move back to here (assertions return more?)
-    end
+    result = verification.call
+    notify result.message, result.status ? :success : :failure
+    return result.status
   end
 private
 
@@ -325,15 +333,21 @@ Write your github username on the whiteboard.
 
 ##Before you start...
 
-Below are a bunch of commands to enter into Terminal, which is a way of interacting with your computer that doesn't use the fancy desktop interface you're used to.
+We will be installing multiple applications.  The installation steps will be provided for each application.
 
 You should be able to copy and paste the lines into Terminal -- except for a few that have obvious prompts in them, like "YOUR NAME", which you should replace accordingly.
 
 The lines below all start with `$`, but **you shouldn't actually write the `$`.** Its purpose is just to make the starts of lines easy to see in these instructions.
 
-##Terminal
+We recommend that you configure your system so that you can see both the instructions and Terminal at the same time.
 
-Open Applications > Utilities > Terminal
+## Open Terminal "app"
+
+If you haven't done so already, open Terminal so you can begin entering commands.
+
+You can open Terminal by:
+- typing "Terminal" into Spotlight (ensure you select the Termainl app)
+- or you can open it from Finder, look in "Applications > Utilities".
     )
   end
 
@@ -358,6 +372,52 @@ Open Applications > Utilities > Terminal
     puts "Opening '#{file}'"
     `open "#{file}"`
   end
+
+  def instructions_for(package)
+    steps = package.fetch(:installation_steps)
+    header = package.fetch(:header)
+    instructions = ""
+    instructions += "\n## #{header}"
+
+    steps.each do |step|
+      instructions += "\n"
+      instructions += step
+    end
+    you_know_it_worked_if = package[:ykiwi]
+    if you_know_it_worked_if
+      instructions += "\n\n### You know it worked if..."
+      instructions += "\n" + you_know_it_worked_if
+    end
+    return instructions
+  end
+
+  def show_instructions_for(package)
+    notify instructions_for(package)
+  end
+
+
+  def start_footer
+    %q(
+## Congratulations!  Everything you need to get started is installed.
+
+  Inform your instructors.
+    )
+  end
+
+  def start_header
+    %q(
+# Welcome to Installfest!
+
+## Before you start...
+
+Today, you will be installing the basic software you need for the class. Each package will list the installation steps.  You will be entering these into Terminal.
+
+You should be able to copy and paste the lines into Terminal -- except for a few that have obvious prompts in them, like "YOUR NAME", which you should replace accordingly.
+
+The lines below all start with `$`, but **you should not actually write the `$`.** Its purpose is just to make the starts of lines easy to see in these instructions.
+    )
+  end
+
 end
 
 ###########################
@@ -389,6 +449,11 @@ namespace :installfest do
   desc 'Opens instruction file (attempts local file, falls back to url)'
   task :open do
     installfest.open_instructions
+  end
+
+  desc 'Starts the installation process, listing out manual steps, then verifying the steps programmatically (when possible).'
+  task :start do
+    installfest.start
   end
 end
 
