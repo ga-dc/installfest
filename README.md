@@ -6,40 +6,56 @@ A collection of supporting (rake) tasks for InstallFest.
 
 Students should be able to download (or `curl`) and run this independently.
 
+[![Dependency Status](https://gemnasium.com/ga-dc/installfest.svg)](https://gemnasium.com/ga-dc/installfest)
+
 ## Sample Student Instructions
 Here are the instructions we provided our **students** during InstallFest
 
 `>>>>>>>>>>>>>>`
 
+You will be using 'rake', a ruby tool for managing commands.
+
 Run the following commands, sequentially, to download the `Rakefile`, download the config file, and run the appropriate `rake` command to start installfest:
 
-    $ curl --location http://git.io/x6jq > Rakefile
-    $ curl --location {{your config file goes here}} > installfest.yml
+1. Change to the appropriate directory:
+  ```
+  $ cd ~/dev/ga/wdi6 # suggested
+  ```
 
-You can either run a script to step through the installation steps:
-```
-$ rake installfest:start
-```
+2. Download the rakefile:
+  ```
+  $ curl --location http://git.io/x6jq > Rakefile
+  ```
+
+3. Download the appropriate config file.
+  ```
+  $ curl --location {{your config file goes here}} > installfest.yml
+  ```
+
+4. You can either run a script to step through the installation steps:
+  ```
+  $ rake installfest:start
+  ```
 Or get the full instruction set:
-```
-$ open installfest.md
-```
+  ```
+  $ open installfest.md
+  ```
 
-Read and follow the given instructions.
+5. Read and follow the given instructions.
 
 `<<<<<<<<<<<<<<`
 
 ## For developers
 
 - Help
-```
-rake -T
-```
+  ```
+  rake -T
+  ```
 
 - Generate instructions
-```
-rake installfest:instructions > installfest.md
-```
+  ```
+  rake installfest:instructions > installfest.md
+  ```
 
 ### Configuration
 
@@ -58,7 +74,7 @@ List all possible packages via:
 ### Architecture:
 All required functionality is in this single Rakefile;
 the rake tasks, the supporting library code, and the tests.
-This is by design; to make it easier to install and use, at the expense of readability.  Students should be able to `curl` and run this independently.  
+This is by design; to make it easier to install and use, at the expense of readability.  As stated, students should be able to `curl` and run this independently.  
 
 ### Important methods
 - InstallFest#my_packages lists all packages of interest to you.

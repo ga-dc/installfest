@@ -10,7 +10,7 @@
 
 begin
   # pry is used during debugging,
-  #  but will not be available on students machines during installfest
+  #  but will not be available on student's machines during installfest
   # The Gemfile will not be available either.
   # We were commenting/uncommenting this line, but a "safe" require
   #  seems more reasonable (and less error prone).
