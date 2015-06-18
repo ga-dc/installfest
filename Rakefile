@@ -38,25 +38,37 @@ class InstallFest
   end
 
   def assert_equals(expected, shell_command)
-    actual = `#{shell_command}`.chomp
-    assert (actual == expected),
-           "Expected: '#{actual}' (via `#{shell_command}`)",
-           "To equal: '#{expected}'"
+    begin
+      actual = `#{shell_command}`.chomp
+      assert (actual == expected),
+             "Expected this: '#{actual}' (via `#{shell_command}`)",
+             "To equal this: '#{expected}'"
+    rescue Errno::ENOENT => err # command not found, no such file/dir
+     assert false, err, ''
+    end
   end
 
   def assert_match(match_pattern, shell_command)
-    value = `#{shell_command}`.chomp
-    assert (value =~ match_pattern),
-           "Expected: '#{value}' (via `#{shell_command}`)",
-           "To match: #{match_pattern}"
+    begin
+      value = `#{shell_command}`.chomp
+      assert (value =~ match_pattern),
+             "Expected this: '#{value}' (via `#{shell_command}`)",
+             "To match this: #{match_pattern.inspect}"
+    rescue Errno::ENOENT => err # command not found, no such file/dir
+      assert false, err, ''
+    end
   end
 
   def assert_version_is_sufficient(target_version, shell_command)
-    current_version = `#{shell_command}`.chomp
-    result = (Gem::Version.new(current_version) >= Gem::Version.new(target_version))
-    assert result,
-           "Required version: v#{current_version} (via `#{shell_command}`)",
-           "To match version: v#{target_version}"
+    begin
+      current_version = `#{shell_command}`.chomp
+      result = (Gem::Version.new(current_version) >= Gem::Version.new(target_version))
+      assert result,
+           "Expected this version: v#{current_version} (via `#{shell_command}`)",
+           "To match this version: v#{target_version}"
+    rescue Errno::ENOENT => err # command not found, no such file/dir
+      assert false, err, ''
+    end
   end
 
   def config_file
@@ -410,7 +422,7 @@ You can open Terminal by:
 
 ## Before you start...
 
-Today, you will be installing the basic software you need for the class. Each package will list the installation steps.  You will be entering these into Terminal.
+Today, you will be installing the basic software you need for the class. Each package will list the installation steps.  You will be entering these into another Terminal window.
 
 You should be able to copy and paste the lines into Terminal -- except for a few that have obvious prompts in them, like "YOUR NAME", which you should replace accordingly.
 
