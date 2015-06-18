@@ -1,15 +1,15 @@
-# InstallFest Tasks
+# Installfest Tasks
 
-![InstallFest logo](installfest_logo.png)
+![Installfest logo](installfest_logo.png)
 
-A collection of supporting (rake) tasks for InstallFest.
+A collection of supporting (rake) tasks for Installfest.
 
 Students should be able to download (or `curl`) and run this independently.
 
 [![Dependency Status](https://gemnasium.com/ga-dc/installfest.svg)](https://gemnasium.com/ga-dc/installfest)
 
 ## Sample Student Instructions
-Here are the instructions we provided our **students** during InstallFest
+Here are the instructions we provided our **students** during Installfest
 
 `>>>>>>>>>>>>>>`
 
@@ -81,6 +81,6 @@ the rake tasks, the supporting library code, and the tests.
 This is by design; to make it easier to install and use, at the expense of readability.  As stated, students should be able to `curl` and run this independently.  
 
 ### Important methods
-- InstallFest#my_packages lists all packages of interest to you.
-- InstallFest#packages lists all known packages, with supporting info.
-- InstallFest#assert_* are the various assertion methods.
+- Installfest#my_packages lists all packages of interest to you.
+- Installfest#packages lists all known packages, with supporting info.
+- Installfest#assert_* are the various assertion methods.

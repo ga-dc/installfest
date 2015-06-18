@@ -4,9 +4,9 @@
 # This is by design; to make it easier to install and use, at the expense of readability.
 
 # Important methods
-# InstallFest#my_packages lists all packages of interest to you.
-# InstallFest#packages lists all known packages, with suppporting info.
-# InstallFest#assert_* are the various assertion methods.
+# Installfest#my_packages lists all packages of interest to you.
+# Installfest#packages lists all known packages, with suppporting info.
+# Installfest#assert_* are the various assertion methods.
 
 begin
   # pry is used during debugging,
@@ -24,7 +24,7 @@ require 'yaml'
 
 ########################
 # Supporting Libraries
-class InstallFest
+class Installfest
   # TODO: extract Package
   def assert(boolean_expression, failure_message_for_actual, failure_message_for_expected)
     if boolean_expression
@@ -437,7 +437,7 @@ end
 require 'rake'
 
 namespace :installfest do
-  installfest = InstallFest.new
+  installfest = Installfest.new
   desc 'Verifies required items are installed correctly'
   task :doctor do
     installfest.doctor
@@ -476,10 +476,10 @@ end
 if $PROGRAM_NAME == __FILE__
   require 'minitest/autorun'
 
-  describe InstallFest do
+  describe Installfest do
     before do
       ENV['VERBOSE'] = 'false'
-      @installfest = InstallFest.new
+      @installfest = Installfest.new
     end
 
     describe '.assert' do
