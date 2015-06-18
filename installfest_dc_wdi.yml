@@ -1,0 +1,9 @@
+---
+
+- :atom
+- :xcode_cli_tools
+- :homebrew
+- :rvm
+- :ruby
+- :git
+- :git_configuration
