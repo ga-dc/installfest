@@ -147,6 +147,7 @@ class Installfest
         ],
         verify: -> { assert_version_is_sufficient('0.177.0', 'atom --version') }
       },
+
       git: {
         installation_steps: [
           '    $ brew install git'
@@ -160,6 +161,7 @@ class Installfest
         ykiwi: "The output of `git --version` is greater than or equal to 2.0
 "
       },
+
       git_configuration: {
         header: 'Configure Git',
         installation_steps: [
@@ -186,6 +188,7 @@ OR (for sublime)
         ],
         verify: -> { assert_equals('core.editor=atom --wait', 'git config --list | grep core.editor')}
       },
+
       homebrew: {
         header: %q(Homebrew (OSX's Package Manager)),
         installation_steps: [
@@ -199,6 +202,7 @@ OR (for sublime)
 - The output of `$ brew doctor` is `ready to brew`
         )
       },
+
       rvm: {
         header: 'RVM (Ruby Version Manager)',
         installation_steps: [
@@ -223,6 +227,7 @@ Then **close and reopen** the Terminal.
         verify: -> { assert_match(%r{.rvm/bin/rvm$}, 'which rvm') },
         ykiwi: %q(The output of `$ type rvm | head 1` is `rvm is a function`.  # as recommended in https://rvm.io/rvm/install)
       },
+
       ruby: {
         installation_steps: [
           %q(
@@ -238,12 +243,24 @@ Then, **close and reopen the terminal** to ensure the terminal is using these ch
 * The output of `$ ruby --version` **starts** with `ruby 2.2.1p85`.
         )
       },
+
+      slack: {
+        installation_steps: [
+          %q(
+- Open "App Store"
+- Install "Slack"
+          )
+        ],
+        verify: -> { assert_match(/Contents/, 'ls /Applications/slack.app') }
+      },
+
       sublime: {
         installation_steps: [
           'FIX ME'
         ],
         verify: -> { assert_match(/Sublime Text 2 Build/, 'subl --version') }
       },
+
       xcode_cli_tools: {
         header: 'XCode CLI tools',
         installation_steps: [
