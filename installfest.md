@@ -13,7 +13,7 @@ We recommend that you configure your system so that you can see both the instruc
 
 ## Open Terminal "app"
 
-If you haven't already, open Terminal so you can begin entering commands.
+If you haven't done so already, open Terminal so you can begin entering commands.
 
 You can open Terminal by:
 - typing "Terminal" into Spotlight (ensure you select the Termainl app)
@@ -51,17 +51,18 @@ Otherwise, go ahead and install RVM:
 
     $ \curl -sSL https://get.rvm.io | bash -s stable --auto-dotfiles
 
-Then **close and reopen** the Terminal.
+Then **CLOSE and REOPEN** the Terminal.
 
 
 ### You know it worked if...
 The output of `$ type rvm | head 1` is `rvm is a function`.  # as recommended in https://rvm.io/rvm/install
 ## ruby
 
-    $ source ~/.rvm/scripts/rvm
-    $ rvm install 2.2.1p85
+    $ rvm get stable
+    $ rvm install 2.2.1
+    $ rvm use 2.2.1 --default
 
-Then, **close and reopen the terminal** to ensure the terminal is using these changes.
+Then, **CLOSE and REOPEN the terminal** to ensure the terminal is using these changes.
 
 
 ### You know it worked if...
@@ -96,6 +97,11 @@ OR (for sublime)
 
     $ git config --global core.editor "subl --wait --new-window"
 
+## slack
+
+- Open "App Store"
+- Install "Slack"
+          
 
 ## Let's verify that everything was installed... programmatically.
 

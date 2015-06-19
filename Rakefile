@@ -218,7 +218,7 @@ Otherwise, go ahead and install RVM:
 
     $ \curl -sSL https://get.rvm.io | bash -s stable --auto-dotfiles
 
-Then **close and reopen** the Terminal.
+Then **CLOSE and REOPEN** the Terminal.
 )
         ],
         # TODO: https://rvm.io/rvm/install suggests using
@@ -231,10 +231,11 @@ Then **close and reopen** the Terminal.
       ruby: {
         installation_steps: [
           %q(
-    $ source ~/.rvm/scripts/rvm
-    $ rvm install 2.2.1p85
+    $ rvm get stable
+    $ rvm install 2.2.1
+    $ rvm use 2.2.1 --default
 
-Then, **close and reopen the terminal** to ensure the terminal is using these changes.
+Then, **CLOSE and REOPEN the terminal** to ensure the terminal is using these changes.
 )
         ],
         verify: -> { assert_match(/^ruby 2.2.1p85/, 'ruby --version') },
