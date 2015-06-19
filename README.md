@@ -8,46 +8,13 @@ Students should be able to download (or `curl`) and run this independently.
 
 [![Dependency Status](https://gemnasium.com/ga-dc/installfest.svg)](https://gemnasium.com/ga-dc/installfest)
 
-## Sample Student Instructions
-Here are the instructions we provided our **students** during Installfest
 
-`>>>>>>>>>>>>>>`
+## Managing Student Instructions
 
-You will be using 'rake', a ruby tool for managing commands.
+Instructions are provided to students via the [Project's GitHub pages](http://ga-dc.github.io/installfest) (gh-pages branch).
 
-Run the following commands, sequentially, to download the `Rakefile`, download the config file, and run the appropriate `rake` command to start installfest:
+Feel free to use the `student_instructions_template.md` as a starting point.
 
-1. Change to the appropriate directory:
-  ```
-  $ cd ~/dev/ga/wdi6 # suggested
-  ```
-
-2. Download the rakefile:
-  ```
-  $ curl --location http://git.io/vL4KB > Rakefile
-  ```
-
-3. Download the appropriate config file.
-  ```
-  $ curl --location {{your config file goes here}} > installfest.yml
-  ```
-  e.g. DC WDI
-  ```
-  $ curl --location https://raw.githubusercontent.com/ga-dc/installfest/master/installfest_dc_wdi.yml > installfest.yml
-  ```
-
-4. You can either run a script to step through the installation steps:
-  ```
-  $ rake installfest:start
-  ```
-Or get the full instruction set:
-  ```
-  $ open installfest.md
-  ```
-
-5. Read and follow the given instructions.
-
-`<<<<<<<<<<<<<<`
 
 ## For developers
 
