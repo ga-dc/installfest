@@ -291,21 +291,25 @@ Then, **close and reopen the terminal** to ensure the terminal is using these ch
   end
 
   def start
-   notify start_header
-   notify "\nPress enter when you are ready to continue."
-   $stdin.gets
-   notify "## Starting installation..."
+    system "clear"
+    notify start_header
+    notify "\nPress enter when you are ready to continue."
+    $stdin.gets
+    # notify "## Starting installation..."
     my_packages.each do |package_name|
       package = packages[package_name]
       # header defaults to package_name
       package = {header: package_name}.merge(package)
-      until verify_package(package_name, package)
+      system "clear"
+      until result = verify_package(package_name, package)
+        notify "\n#{'-' * 25}\nWARNING: This package is NOT installed correctly.  Follow the instructions below.  \nIf issues persist, raise your hand and someone will assist you."
         show_instructions_for(package)
-        notify "Press <enter> when you have completed the above steps."
+        notify "\nPress <enter> when you have completed the above steps."
         response = $stdin.gets.strip
-
+        system "clear"
       end
     end
+    system "clear"
     notify "\n## Everything is installed.  Running one final check..."
     Rake::Task["installfest:doctor"].execute
     notify start_footer
@@ -427,7 +431,7 @@ You can open Terminal by:
 
   def start_footer
     %q(
-## Congratulations!  Everything you need to get started is installed.
+## Congratulations!  You are good to go.
 
   Inform your instructors.
     )
@@ -443,8 +447,8 @@ Today, you will be installing the basic software you need for the class. Each pa
 
 You should be able to copy and paste the lines into Terminal -- except for a few that have obvious prompts in them, like "YOUR NAME", which you should replace accordingly.
 
-The lines below all start with `$`, but **you should not actually write the `$`.** Its purpose is just to make the starts of lines easy to see in these instructions.
-    )
+Note: The commands below all start with a dollar sign (`$`), but **you should not actually write the `$`.** The dollar sign is a standard convention to indicate a bash (terminal) command.
+)
   end
 
 end
