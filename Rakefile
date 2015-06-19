@@ -166,18 +166,22 @@ class Installfest
         header: 'Configure Git',
         installation_steps: [
           %q(
-    $ git config --global user.name  "YOUR NAME"
-    $ git config --global user.email "YOUR@EMAIL.COM"
-    $ git config --global color.ui always
-    $ git config --global color.branch.current   "green reverse"
-    $ git config --global color.branch.local     green
-    $ git config --global color.branch.remote    yellow
-    $ git config --global color.status.added     green
-    $ git config --global color.status.changed   yellow
-    $ git config --global color.status.untracked red
+### Personalize git
+    $ git config --global user.name  "YOUR NAME"'
+    $ git config --global user.email "YOUR@EMAIL.COM"'
+          ),
+          %q(
+### You can copy & paste all of these commands at once:
+    git config --global color.ui always
+    git config --global color.branch.current   "green reverse"
+    git config --global color.branch.local     green
+    git config --global color.branch.remote    yellow
+    git config --global color.status.added     green
+    git config --global color.status.changed   yellow
+    git config --global color.status.untracked red
 ),
           %q(
-## Tell git what editor to use for commits
+### Tell git what editor to use for commits
 
     $ git config --global core.editor "atom --wait"
 
@@ -186,7 +190,7 @@ OR (for sublime)
     $ git config --global core.editor "subl --wait --new-window"
 ),
         ],
-        verify: -> { assert_equals('core.editor=atom --wait', 'git config --list | grep core.editor')}
+        verify: -> { assert_equals('core.editor=atom  --wait', 'git config --list | grep core.editor')}
       },
 
       homebrew: {
