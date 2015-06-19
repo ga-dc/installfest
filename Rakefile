@@ -444,11 +444,18 @@ You can open Terminal by:
 
 ## Before you start...
 
-Today, you will be installing the basic software you need for the class. Each package will list the installation steps.  You will be entering these into another Terminal window.
+Today, you will be installing the basic software you need for the class.
+Each package will list the installation steps.
 
-You should be able to copy and paste the lines into Terminal -- except for a few that have obvious prompts in them, like "YOUR NAME", which you should replace accordingly.
+You will be entering these into another Terminal window.
+If you don't have that open, do so now.
 
-Note: The commands below all start with a dollar sign (`$`), but **you should not actually write the `$`.** The dollar sign is a standard convention to indicate a bash (terminal) command.
+You should be able to copy and paste the lines into Terminal.
+With these exceptions:
+- If you see all capitals (like "YOUR NAME"), replace with appropriate information.
+- The commands below all start with a dollar sign (`$`),
+but **you should not actually write the `$`.**
+The dollar sign is a standard convention to indicate a bash (terminal) command.
 )
   end
 
