@@ -244,7 +244,6 @@ Then, **CLOSE and REOPEN the terminal** to ensure the terminal is using these ch
         ],
         verify: -> { assert_match(/^ruby 2.2.1p85/, 'ruby --version') },
         ykiwi: %q(
-* The output of `which ruby` is `/usr/bin/ruby` and
 * The output of `$ ruby --version` **starts** with `ruby 2.2.1p85`.
         )
       },
