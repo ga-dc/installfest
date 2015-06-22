@@ -207,6 +207,21 @@ OR (for sublime)
         )
       },
 
+      postgres: {
+        header: 'PostgreSQL (A Database)',
+        installation_steps: [
+          %q(
+- Go to www.postgresapp.com
+- Click 'Download'
+- "Unzip" the file that downloads. (Double-click on it.)
+- Move the Postgres.app to your 'Applications' folder.
+- Double-click on Postgres.app
+- $ echo "export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.4/bin" >> ~/.bash_profile`
+          )
+        ],
+        verify: -> { assert_match(/Contents/, 'ls /Applications/Postgres.app') }
+      },
+
       rvm: {
         header: 'RVM (Ruby Version Manager)',
         installation_steps: [

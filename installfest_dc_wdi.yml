@@ -2,9 +2,10 @@
 
 - :atom
 - :xcode_cli_tools
-- :homebrew
+# - :homebrew
+- :postgres
 - :rvm
-- :ruby
+# - :ruby
 - :git
 - :git_configuration
 - :slack
