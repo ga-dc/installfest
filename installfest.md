@@ -55,7 +55,7 @@ Then **CLOSE and REOPEN** the Terminal.
 
 
 ### You know it worked if...
-The output of `$ type rvm | head 1` is `rvm is a function`.  # as recommended in https://rvm.io/rvm/install
+The output of `$ type rvm | head -n 1` is `rvm is a function`.  # as recommended in https://rvm.io/rvm/install
 ## ruby
 
     $ rvm get stable
@@ -78,18 +78,22 @@ The output of `git --version` is greater than or equal to 2.0
 
 ## Configure Git
 
-    $ git config --global user.name  "YOUR NAME"
-    $ git config --global user.email "YOUR@EMAIL.COM"
-    $ git config --global color.ui always
-    $ git config --global color.branch.current   "green reverse"
-    $ git config --global color.branch.local     green
-    $ git config --global color.branch.remote    yellow
-    $ git config --global color.status.added     green
-    $ git config --global color.status.changed   yellow
-    $ git config --global color.status.untracked red
+### Personalize git
+    $ git config --global user.name  "YOUR NAME"'
+    $ git config --global user.email "YOUR@EMAIL.COM"'
+          
+
+### You can copy & paste all of these commands at once:
+    git config --global color.ui always
+    git config --global color.branch.current   "green reverse"
+    git config --global color.branch.local     green
+    git config --global color.branch.remote    yellow
+    git config --global color.status.added     green
+    git config --global color.status.changed   yellow
+    git config --global color.status.untracked red
 
 
-## Tell git what editor to use for commits
+### Tell git what editor to use for commits
 
     $ git config --global core.editor "atom --wait"
 

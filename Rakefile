@@ -229,7 +229,7 @@ Then **CLOSE and REOPEN** the Terminal.
         #   the output of `$ type rvm | head 1` is `rvm is a function`.
         # However, this command didn't get this result within this script.
         verify: -> { assert_match(%r{.rvm/bin/rvm$}, 'which rvm') },
-        ykiwi: %q(The output of `$ type rvm | head 1` is `rvm is a function`.  # as recommended in https://rvm.io/rvm/install)
+        ykiwi: %q(The output of `$ type rvm | head -n 1` is `rvm is a function`.  # as recommended in https://rvm.io/rvm/install)
       },
 
       ruby: {
