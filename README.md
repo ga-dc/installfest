@@ -13,7 +13,7 @@ Students should be able to download (or `curl`) and run this independently.
 
 Instructions are provided to students via the [Project's GitHub pages](http://ga-dc.github.io/installfest) (gh-pages branch).
 
-Currently, we generate `index.html`, from the gh-pages' `readme.md`,  using 'grip' (`brew install grip`).
+Currently, we generate `index.html`, from the gh-pages' `readme.md`,  using 'grip' (`sudo easy_install pip; pip install grip`).
 
 1. `$ git checkout gh-pages`
 2. Make updates to `readme.md`
