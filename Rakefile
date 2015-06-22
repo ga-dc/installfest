@@ -82,7 +82,7 @@ class Installfest
   end
 
   def default_packages
-    [editor, :homebrew, :rvm, :ruby, :git, :git_configuration]
+    [editor, :homebrew, :postgres, :rvm, :ruby, :slack, :git, :git_configuration]
   end
 
   def display_instructions
@@ -216,7 +216,7 @@ OR (for sublime)
 - "Unzip" the file that downloads. (Double-click on it.)
 - Move the Postgres.app to your 'Applications' folder.
 - Double-click on Postgres.app
-- $ echo "export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.4/bin" >> ~/.bash_profile`
+- `$ echo "export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.4/bin" >> ~/.bash_profile`
           )
         ],
         verify: -> { assert_match(/Contents/, 'ls /Applications/Postgres.app') }
