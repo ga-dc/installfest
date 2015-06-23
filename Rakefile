@@ -346,6 +346,7 @@ Then, **CLOSE and REOPEN the terminal** to ensure the terminal is using these ch
         show_instructions_for(package)
         notify "\nPress <enter> when you have completed the above steps."
         response = $stdin.gets.strip
+        system "exec bash -l"
         system "clear"
       end
     end
