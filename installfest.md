@@ -38,6 +38,16 @@ You can open Terminal by:
 - The output of `$ which brew` is `/usr/local/bin/brew`.
 - The output of `$ brew doctor` is `ready to brew`
         
+## PostgreSQL (A Database)
+
+- Go to www.postgresapp.com
+- Click 'Download'
+- "Unzip" the file that downloads. (Double-click on it.)
+- Move the Postgres.app to your 'Applications' folder.
+- Double-click on Postgres.app
+- Be able to open Postgres from the command line:
+  - `$ echo "export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.4/bin" >> ~/.bash_profile`
+          
 ## RVM (Ruby Version Manager)
 
 First, check to see if you have `rbenv` installed already, since this conflicts with `rvm`:
@@ -67,7 +77,6 @@ Then, **CLOSE and REOPEN the terminal** to ensure the terminal is using these ch
 
 ### You know it worked if...
 
-* The output of `which ruby` is `/usr/bin/ruby` and
 * The output of `$ ruby --version` **starts** with `ruby 2.2.1p85`.
         
 ## git
@@ -101,6 +110,13 @@ OR (for sublime)
 
     $ git config --global core.editor "subl --wait --new-window"
 
+## Github (The Social Network of Code)
+
+- Go to Github.com and create an account. Make sure you add:
+  - A profile picture
+  - An e-mail address
+- Go to http://auth.wdidc.org/ and follow the instructions
+        
 ## slack
 
 - Open "App Store"
