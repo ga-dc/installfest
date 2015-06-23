@@ -136,8 +136,9 @@ class Installfest
         header: %q(Authorize WDI to use your github info),
         installation_steps: [
           %q(
-1. If you don't have a github username, go to Github.com and create an account. Make sure you add:
-  - A profile picture
+1. If you don't have a github username, go to Github.com and create an account. Make sure you update your Profile with:
+  - Your full name
+  - A recognizable profile picture
   - An e-mail address
 
 2. Go to http://auth.wdidc.org/ and follow the instructions
@@ -178,8 +179,8 @@ class Installfest
         installation_steps: [
           %q(
 ### Personalize git
-    $ git config --global user.name  "YOUR NAME"'
-    $ git config --global user.email "YOUR@EMAIL.COM"'
+    $ git config --global user.name  "YOUR FULL NAME"
+    $ git config --global user.email "YOUR@EMAIL.COM"
           ),
           %q(
 ### You can copy & paste all of these commands at once:
@@ -208,8 +209,9 @@ OR (for sublime)
         header: %q(Github (The Social Network of Code)),
         installation_steps: [
           %q(
-- Go to Github.com and create an account. Make sure you add:
-  - A profile picture
+- Go to Github.com and create an account. Make sure you update your Profile with:
+  - Your Name
+  - A recognizable profile picture
   - An e-mail address
         )],
         verify: -> { notify("Enter your github username and press enter"); @github_username = $stdin.gets.strip; assert(!@github_username.empty?, "Follow the instructions below.", '') }
@@ -286,7 +288,7 @@ Otherwise, go ahead and install RVM:
         installation_steps: [
           %q(
 - Open "App Store"
-- Install "Slack"
+- Install the free "Slack" app
           )
         ],
         verify: -> { assert_match(/Contents/, 'ls /Applications/slack.app') }
@@ -345,7 +347,7 @@ Otherwise, go ahead and install RVM:
         notify "\nPress <enter> when you have completed the above steps."
         response = $stdin.gets.strip
         system "clear"
-        notify "Restart installfest via: \n    rake installfest:start"
+        notify "One package, of many, is installed.  Now, restart installfest to continue: \n\n    $ rake installfest:start"
         system "exec bash -l"
       end
     end
