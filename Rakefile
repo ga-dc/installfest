@@ -228,11 +228,16 @@ OR (for sublime)
           %q(
 - Go to www.postgresapp.com
 - Click 'Download'
-- "Unzip" the file that downloads. (Double-click on it.)
 - Move the Postgres.app to your 'Applications' folder.
 - Double-click on Postgres.app
-- Be able to open Postgres from the command line:
-  - `$ echo "export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.4/bin" >> ~/.bash_profile`
+- Enable opening Postgres from the command line (via psql):
+    $ echo 'export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.4/bin' >> ~/.bash_profile
+
+- Open a **new** terminal and run:
+    $ cd ~/wdi
+    $ rake installfest:start
+
+- Close **this** Terminal.
           )
         ],
         verify: -> { assert_version_is_sufficient('9.4.0', 'psql --version | cut -f3 -d " "')}
