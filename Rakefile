@@ -60,9 +60,11 @@ class Installfest
   end
 
   def check_gh_username
-    puts "Type your Github username and press enter"
-    gh = $stdin.gets.chomp.downcase
-    cmd = "curl http://auth.wdidc.org/is_created.php?username=#{gh} --silent"
+    if @github_username.empty?
+      puts "Type your Github username and press enter"
+      @github_username = $stdin.gets.chomp.downcase
+    end
+    cmd = "curl http://auth.wdidc.org/is_created.php?username=#{@github_username} --silent"
     return cmd
   end
 
@@ -209,7 +211,7 @@ OR (for sublime)
   - A profile picture
   - An e-mail address
         )],
-        verify: -> { fail "How do we validate this?" }
+        verify: -> { notify("Enter your github username and press enter"); @github_username = $stdin.gets.strip; assert(!@github_username.empty?, "Follow the instructions below.", '') }
       },
 
       homebrew: {

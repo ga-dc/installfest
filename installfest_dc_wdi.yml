@@ -9,4 +9,5 @@
 - :slack
 - :git
 - :git_configuration
+- :github
 - :authorize_wdi
