@@ -14,5 +14,5 @@ Run the following commands, within Terminal, to start installfest.  You should b
 
 2. Download and start installfest:
   ```
-  curl https://raw.githubusercontent.com/ga-dc/installfest/master/installfest.sh | sh
+  curl http://git.io/vLxbY | sh
   ```
