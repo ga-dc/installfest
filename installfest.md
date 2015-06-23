@@ -26,6 +26,8 @@ You can open Terminal by:
 
     $ echo "EDITOR=atom" >> ~/.bash_profile
 
+## XCode CLI tools
+    $ xcode-select --install
 ## Homebrew (OSX's Package Manager)
     $ ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
     $ brew update && brew upgrade
@@ -76,11 +78,6 @@ Then, **CLOSE and REOPEN the terminal** to ensure the terminal is using these ch
 
 * The output of `$ ruby --version` **starts** with `ruby 2.2.1p85`.
         
-## slack
-
-- Open "App Store"
-- Install "Slack"
-          
 ## git
     $ brew install git
 
@@ -112,6 +109,11 @@ OR (for sublime)
 
     $ git config --global core.editor "subl --wait --new-window"
 
+## slack
+
+- Open "App Store"
+- Install "Slack"
+          
 
 ## Let's verify that everything was installed... programmatically.
 
