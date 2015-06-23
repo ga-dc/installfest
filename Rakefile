@@ -330,9 +330,9 @@ Otherwise, go ahead and install RVM:
         show_instructions_for(package)
         notify "\nPress <enter> when you have completed the above steps."
         response = $stdin.gets.strip
-        system "exec bash -l"
         system "clear"
         notify "Restart installfest via: \n    rake installfest:start"
+        system "exec bash -l"
       end
     end
 #    system "clear"
