@@ -8,18 +8,6 @@
 # Installfest#packages lists all known packages, with suppporting info.
 # Installfest#assert_* are the various assertion methods.
 
-begin
-  # pry is used during debugging,
-  #  but will not be available on student's machines during installfest
-  # The Gemfile will not be available either.
-  # We were commenting/uncommenting this line, but a "safe" require
-  #  seems more reasonable (and less error prone).
-  #  Translated: I forgot and committed "require 'pry'" and this caused problems. :)
-  require 'pry'
-rescue LoadError => err
-  abort 'Please install the "pry" gem via `$ gem install pry`. We depend on it.'
-end
-
 require 'yaml'
 
 ########################

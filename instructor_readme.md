@@ -27,6 +27,14 @@ In order to simplify the instructions, we are using a shortened url for `https:/
   rake installfest:instructions > installfest.md
   ```
 
+- You can debug using `--execute-continue`:
+```
+rake -E "require 'pry'" installfest:start
+# or
+rake -E "require 'debugger'" installfest:start
+```
+
+
 ### Configuration
 
 installfest.yml is a list of which packages are expected to be installed, in what order.  The list can contain any known package.  The current practice is to maintain one for each class (e.g. installfest_dc_wdi.yml) which is copied to `installfest.yml`.
