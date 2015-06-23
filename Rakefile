@@ -197,7 +197,7 @@ OR (for sublime)
     $ git config --global core.editor "subl --wait --new-window"
 ),
         ],
-        verify: -> { assert_equals('core.editor=atom  --wait', 'git config --list | grep core.editor')}
+        verify: -> { assert_equals('core.editor=atom --wait', 'git config --list | grep core.editor')}
       },
 
       github: {
@@ -209,7 +209,7 @@ OR (for sublime)
   - An e-mail address
 - Go to http://auth.wdidc.org/ and follow the instructions
         )],
-        verify: -> { assert_match(/PASS/, check_gh_username) } 
+        verify: -> { assert_match(/PASS/, check_gh_username) }
       },
 
       homebrew: {
