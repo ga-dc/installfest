@@ -39,6 +39,8 @@ rake -E "require 'debugger'" installfest:start
 
 installfest.yml is a list of which packages are expected to be installed, in what order.  The list can contain any known package.  The current practice is to maintain one for each class (e.g. installfest_dc_wdi.yml) which is copied to `installfest.yml`.
 
+**NOTE:** Make sure you update **your** installfest.yml whenever your class's template changes.
+
 Generate a sample config via:
 
     rake installfest:generate_config_file
