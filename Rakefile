@@ -135,9 +135,17 @@ class Installfest
         installation_steps: [
           %q(
 1. Download atom [from their website](https://atom.io) and install.
-2. Then configure your terminal to use 'atom'.
+2. Run "atom" and select "Atom | Install Shell Commands".
+3. Then configure your terminal to use 'atom'.
 
     $ echo "EDITOR=atom" >> ~/.bash_profile
+
+4.  In order to utilize these changes, start a **new** Terminal window and run:
+
+    $ cd ~/wdi
+    $ rake installfest:start
+
+5. Close **this** Terminal window.
 )
         ],
         verify: -> { assert_version_is_sufficient('0.177.0', 'atom --version') }
