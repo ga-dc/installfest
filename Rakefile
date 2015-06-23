@@ -136,10 +136,11 @@ class Installfest
         header: %q(Authorize WDI to use your github info),
         installation_steps: [
           %q(
-- If you don't have a github username, go to Github.com and create an account. Make sure you add:
+1. If you don't have a github username, go to Github.com and create an account. Make sure you add:
   - A profile picture
   - An e-mail address
-- Go to http://auth.wdidc.org/ and follow the instructions
+
+2. Go to http://auth.wdidc.org/ and follow the instructions
         )],
         verify: -> { assert_match(/PASS/, check_gh_username) }
       },
