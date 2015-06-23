@@ -483,14 +483,18 @@ You can open Terminal by:
 ## Before you start...
 
 Today, you will be installing the basic software you need for the class.
-Each package will list the installation steps.
 
+If you have ANY questions, raise your hand for assistance.
+
+Each package will list the installation steps.
 You will be entering these into another Terminal window.
 If you don't have that open, do so now.
 
+Read through every instruction carefully and follow them to the letter.
+
 You should be able to copy and paste the lines into Terminal.
 With these exceptions:
-- If you see all capitals (like "YOUR NAME"), replace with appropriate information.
+- If you see all capitals (like "YOUR NAME"), replace with your appropriate information.
 - The commands below all start with a dollar sign (`$`),
 but **you should not actually write the `$`.**
 The dollar sign is a standard convention to indicate a bash (terminal) command.
