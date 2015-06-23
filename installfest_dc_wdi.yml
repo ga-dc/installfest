@@ -6,7 +6,7 @@
 - :postgres
 - :rvm
 - :ruby
+- :slack
 - :git
 - :git_configuration
-- :github
-- :slack
+- :authorize_wdi

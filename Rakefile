@@ -60,7 +60,7 @@ class Installfest
   end
 
   def check_gh_username
-    puts "Please enter your Github username"
+    puts "Type your Github username and press enter"
     gh = $stdin.gets.chomp.downcase
     cmd = "curl http://auth.wdidc.org/is_created.php?username=#{gh} --silent"
     return cmd
@@ -130,6 +130,18 @@ class Installfest
   #   ykiwi (You Know It Worked If): manual verification
   def packages
     {
+      authorize_wdi: {
+        header: %q(Authorize WDI to use your github info),
+        installation_steps: [
+          %q(
+- If you don't have a github username, go to Github.com and create an account. Make sure you add:
+  - A profile picture
+  - An e-mail address
+- Go to http://auth.wdidc.org/ and follow the instructions
+        )],
+        verify: -> { assert_match(/PASS/, check_gh_username) }
+      },
+
       atom: {
         header: '"Atom" Text Editor',
         installation_steps: [
@@ -196,9 +208,8 @@ OR (for sublime)
 - Go to Github.com and create an account. Make sure you add:
   - A profile picture
   - An e-mail address
-- Go to http://auth.wdidc.org/ and follow the instructions
         )],
-        verify: -> { assert_match(/PASS/, check_gh_username) }
+        verify: -> { fail "How do we validate this?" }
       },
 
       homebrew: {
