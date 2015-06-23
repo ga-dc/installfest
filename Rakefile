@@ -139,13 +139,6 @@ class Installfest
 3. Then configure your terminal to use 'atom'.
 
     $ echo "EDITOR=atom" >> ~/.bash_profile
-
-4.  In order to utilize these changes, start a **new** Terminal window and run:
-
-    $ cd ~/wdi
-    $ rake installfest:start
-
-5. Close **this** Terminal window.
 )
         ],
         verify: -> { assert_version_is_sufficient('0.177.0', 'atom --version') }
@@ -232,12 +225,6 @@ OR (for sublime)
 - Double-click on Postgres.app
 - Enable opening Postgres from the command line (via psql):
     $ echo 'export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.4/bin' >> ~/.bash_profile
-
-- Open a **new** terminal and run:
-    $ cd ~/wdi
-    $ rake installfest:start
-
-- Close **this** Terminal.
           )
         ],
         verify: -> { assert_version_is_sufficient('9.4.0', 'psql --version | cut -f3 -d " "')}
@@ -257,8 +244,6 @@ If the output is anything other than blank, get an instructor to help you uninst
 Otherwise, go ahead and install RVM:
 
     $ \curl -sSL https://get.rvm.io | bash -s stable --auto-dotfiles
-
-Then **CLOSE and REOPEN** the Terminal.
 )
         ],
         # TODO: https://rvm.io/rvm/install suggests using
@@ -275,7 +260,6 @@ Then **CLOSE and REOPEN** the Terminal.
     $ rvm install 2.2.1
     $ rvm use 2.2.1 --default
 
-Then, **CLOSE and REOPEN the terminal** to ensure the terminal is using these changes.
 )
         ],
         verify: -> { assert_match(/^ruby 2.2.1p85/, 'ruby --version') },
@@ -348,6 +332,7 @@ Then, **CLOSE and REOPEN the terminal** to ensure the terminal is using these ch
         response = $stdin.gets.strip
         system "exec bash -l"
         system "clear"
+        notify "Restart installfest via: \n    rake installfest:start"
       end
     end
 #    system "clear"
@@ -493,6 +478,8 @@ You will be entering these into another Terminal window.
 If you don't have that open, do so now.
 
 Read through every instruction carefully and follow them to the letter.
+
+You will be restarting the process after each package is installed.
 
 You should be able to copy and paste the lines into Terminal.
 With these exceptions:
