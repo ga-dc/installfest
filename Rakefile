@@ -220,7 +220,7 @@ OR (for sublime)
   - `$ echo "export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.4/bin" >> ~/.bash_profile`
           )
         ],
-        verify: -> { assert_match(/\/usr\/local\/bin\/psql/, 'which psql') }
+        verify: -> { assert_version_is_sufficient('9.4.0', 'psql --version | cut -f3 -d " "')}
       },
 
       rvm: {
