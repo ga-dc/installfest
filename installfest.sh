@@ -6,5 +6,3 @@
 curl --location https://raw.githubusercontent.com/ga-dc/installfest/master/Rakefile > Rakefile
 # Download the config for THIS class
 curl --location https://raw.githubusercontent.com/ga-dc/installfest/master/installfest_dc_wdi.yml > installfest.yml
-# Start installfest
-rake installfest:start

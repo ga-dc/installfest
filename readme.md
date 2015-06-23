@@ -18,4 +18,5 @@ If you have ANY questions, raise your hand for assistance.
 2. Download and start installfest:
   ```
   curl --location http://git.io/vLxbY | sh
+  rake installfest:start
   ```
