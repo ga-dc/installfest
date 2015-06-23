@@ -8,4 +8,5 @@
 - :ruby
 - :git
 - :git_configuration
+- :github
 - :slack

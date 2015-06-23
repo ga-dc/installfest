@@ -45,7 +45,8 @@ You can open Terminal by:
 - "Unzip" the file that downloads. (Double-click on it.)
 - Move the Postgres.app to your 'Applications' folder.
 - Double-click on Postgres.app
-- `$ echo "export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.4/bin" >> ~/.bash_profile`
+- Be able to open Postgres from the command line:
+  - `$ echo "export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.4/bin" >> ~/.bash_profile`
           
 ## RVM (Ruby Version Manager)
 
@@ -109,6 +110,13 @@ OR (for sublime)
 
     $ git config --global core.editor "subl --wait --new-window"
 
+## Github (The Social Network of Code)
+
+- Go to Github.com and create an account. Make sure you add:
+  - A profile picture
+  - An e-mail address
+- Go to http://auth.wdidc.org/ and follow the instructions
+        
 ## slack
 
 - Open "App Store"
