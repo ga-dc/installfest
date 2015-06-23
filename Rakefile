@@ -71,6 +71,13 @@ class Installfest
     end
   end
 
+  def check_gh_username
+    puts "Please enter your Github username"
+    gh = $stdin.gets.chomp.downcase
+    cmd = "curl http://auth.wdidc.org/is_created.php?username=#{gh} --silent"
+    return cmd
+  end
+
   def config_file
     'installfest.yml'
   end
@@ -191,6 +198,18 @@ OR (for sublime)
 ),
         ],
         verify: -> { assert_equals('core.editor=atom  --wait', 'git config --list | grep core.editor')}
+      },
+
+      github: {
+        header: %q(Github (The Social Network of Code)),
+        installation_steps: [
+          %q(
+- Go to Github.com and create an account. Make sure you add:
+  - A profile picture
+  - An e-mail address
+- Go to http://auth.wdidc.org/ and follow the instructions
+        )],
+        verify: -> { assert_match(/PASS/, check_gh_username) } 
       },
 
       homebrew: {
@@ -329,9 +348,9 @@ Then, **CLOSE and REOPEN the terminal** to ensure the terminal is using these ch
         system "clear"
       end
     end
-    system "clear"
-    notify "\n## Everything is installed.  Running one final check..."
-    Rake::Task["installfest:doctor"].execute
+#    system "clear"
+#    notify "\n## Everything is installed.  Running one final check..."
+#    Rake::Task["installfest:doctor"].execute
     notify start_footer
   end
 
