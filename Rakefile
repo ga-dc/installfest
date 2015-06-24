@@ -157,7 +157,7 @@ class Installfest
     $ echo "EDITOR=atom" >> ~/.bash_profile
 )
         ],
-        verify: -> { assert_version_is_sufficient('0.177.0', 'atom --version') }
+        verify: -> { assert_version_is_sufficient('0.2177.0', 'atom --version') }
       },
 
       git: {
@@ -346,9 +346,9 @@ Otherwise, go ahead and install RVM:
         show_instructions_for(package)
         notify "\nPress <enter> when you have completed the above steps."
         response = $stdin.gets.strip
-        system "clear"
-        notify "One package, of many, is installed.  Now, restart installfest to continue: \n\n    $ rake installfest:start"
-        system "exec bash -l"
+
+        notify "One package, of many, is installed. \nReloading bash (for latest config) and restarting installfest to continue..."
+        system "exec bash -l -c 'rake installfest:start'"
       end
     end
 #    system "clear"
