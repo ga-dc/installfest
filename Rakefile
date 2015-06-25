@@ -4,7 +4,6 @@
 # This is by design; to make it easier to install and use, at the expense of readability.
 
 # Important methods
-# Installfest#my_packages lists all packages of interest to you.
 # Installfest#packages lists all known packages, with suppporting info.
 # Installfest#assert_* are the various assertion methods.
 
@@ -73,9 +72,9 @@ class Installfest
   end
 
   def configured_packages
-    if File.exist?(config_file)
-      YAML.load_file(config_file)
-    end
+    YAML.load_file(config_file)
+  rescue Errno::ENOENT
+    fail "The config file (#{config_file}) is required. Your class should have a 'template' to copy."
   end
 
   def default_packages
@@ -88,7 +87,7 @@ class Installfest
 
   # checks for valid installation
   def doctor
-    my_packages.each do |package_name|
+    configured_packages.each do |package_name|
       verify_package(package_name, packages[package_name])
     end
   end
@@ -104,7 +103,7 @@ class Installfest
 
   def instructions
     instructions = instruction_header
-    my_packages.each do |package_name|
+    configured_packages.each do |package_name|
       package = packages.fetch(package_name)
       package = {header: package_name}.merge(package)
       instructions += instructions_for(package)
@@ -117,11 +116,6 @@ class Installfest
 
   def generate_config
     File.open(config_file, 'w') {|f| f.write default_packages.to_yaml }
-  end
-
-  # list of packages to check
-  def my_packages
-    configured_packages || default_packages
   end
 
   # information about all packages
@@ -342,7 +336,7 @@ Otherwise, go ahead and install RVM:
       $stdin.gets
     end
     # notify "## Starting installation..."
-    my_packages.each do |package_name|
+    configured_packages.each do |package_name|
       package = packages[package_name]
       # header defaults to package_name
       package = {header: package_name}.merge(package)
