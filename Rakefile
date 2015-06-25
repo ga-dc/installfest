@@ -256,6 +256,9 @@ class Installfest
 2. Otherwise, go ahead and install RVM:
 
     $ \curl -sSL https://get.rvm.io | bash -s stable --auto-dotfiles
+
+3. Reload this shell, to initialize rvm.
+    $ exec bash -l
 )
         ],
         # TODO: https://rvm.io/rvm/install suggests using
