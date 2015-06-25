@@ -59,11 +59,10 @@ class Installfest
   end
 
   def check_gh_username
-    if @github_username.empty?
-      puts "Type your Github username and press enter"
-      @github_username = $stdin.gets.chomp.downcase
+    if github_username.to_s.empty?
+      persist_github_username(request_github_username)
     end
-    cmd = "curl http://auth.wdidc.org/is_created.php?username=#{@github_username} --silent"
+    cmd = "curl http://auth.wdidc.org/is_created.php?username=#{github_username} --silent"
     return cmd
   end
 
@@ -130,12 +129,7 @@ class Installfest
         header: %q(Authorize WDI to use your github info),
         installation_steps: [
           %q(
-1. If you don't have a github username, go to Github.com and create an account. Make sure you update your Profile with:
-  - Your full name
-  - A recognizable profile picture
-  - An e-mail address
-
-2. Go to http://auth.wdidc.org/ and follow the instructions
+1. Go to http://auth.wdidc.org/ and follow the instructions
         )],
         verify: -> { assert_match(/PASS/, check_gh_username) }
       },
@@ -207,8 +201,11 @@ OR (for sublime)
   - Your Name
   - A recognizable profile picture
   - An e-mail address
+
+- Add it to your system configuration:
+    $ echo "export GITHUB_USERNAME='YOUR GITHUB USERNAME' >> ~/.bash_profile"
         )],
-        verify: -> { notify("Enter your github username and press enter"); @github_username = $stdin.gets.strip; assert(!@github_username.empty?, "Follow the instructions below.", '') }
+        verify: -> { assert(!github_username.to_s.empty?, "Follow the instructions below.", '') }
       },
 
       homebrew: {
@@ -306,6 +303,10 @@ Otherwise, go ahead and install RVM:
     }
   end
 
+  def github_username
+    ENV["GITHUB_USERNAME"]
+  end
+
   def instruction_file
     File.expand_path('installfest.md')
   end
@@ -322,6 +323,17 @@ Otherwise, go ahead and install RVM:
   def open_instructions
     generate_instruction_file instruction_file
     open instruction_file
+  end
+
+  def request_github_username
+    notify("\nEnter your github username and press enter")
+    $stdin.gets.strip
+  end
+
+  def persist_github_username(github_username)
+    unless system("echo 'export GITHUB_USERNAME=#{github_username}' >> ~/.bash_profile")
+      fail "Unable to set the environment variable (GITHUB_USERNAME)"
+    end
   end
 
   def skip_header?
