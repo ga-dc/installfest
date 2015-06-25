@@ -145,7 +145,7 @@ class Installfest
     $ echo "EDITOR=atom" >> ~/.bash_profile
 )
         ],
-        verify: -> { assert_version_is_sufficient('0.177.0', 'atom --version') }
+        verify: -> { assert_version_is_sufficient('1.0.0', 'atom --version') }
       },
 
       git: {
