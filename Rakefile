@@ -368,8 +368,10 @@ class Installfest
         notify "\nPress <enter> when you have completed the above steps."
         response = $stdin.gets.strip
 
+        # We need to reload the bash config and restart installfest.
+        # `exec` (ruby) and `exec` (bash) did the trick
         notify "One package, of many, is installed. \nReloading bash (for latest config) and restarting installfest to continue..."
-        system "exec bash -l -c 'rake installfest:start SKIP_HEADER=true'"
+        exec "exec bash -l -c 'rake installfest:start SKIP_HEADER=true'"
       end
     end
 #    system "clear"
