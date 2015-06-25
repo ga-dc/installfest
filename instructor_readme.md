@@ -45,6 +45,11 @@ rake -E "require 'pry'" installfest:start
 rake -E "require 'debugger'" installfest:start
 ```
 
+- You can skip the initial instructions header via SKIP_HEADER:
+```
+rake installfest:start SKIP_HEADER=true
+```
+
 
 ### Configuration
 

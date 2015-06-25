@@ -352,7 +352,7 @@ class Installfest
   end
 
   def skip_header?
-    !!ENV['SKIP_HEADER'].to_s.match(/|t|true/i) # no value, t, T, true, True, etc
+    !!ENV['SKIP_HEADER'].to_s.match(/t|true/i) # t, T, true, True, etc
   end
 
   def start
