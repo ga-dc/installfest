@@ -207,7 +207,7 @@ class Installfest
 
 2. Add it to your system configuration:
 
-    $ echo "export GITHUB_USERNAME='YOUR GITHUB USERNAME' >> ~/.bash_profile"
+    $ echo "export GITHUB_USERNAME='YOUR GITHUB USERNAME'" >> ~/.bash_profile
         )],
         verify: -> { assert(!github_username.to_s.empty?, "Follow the instructions below.", '') }
       },
