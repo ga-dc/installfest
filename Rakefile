@@ -166,12 +166,12 @@ class Installfest
         header: 'Configure Git',
         installation_steps: [
           %q(
-### Personalize git
+1. Personalize git
     $ git config --global user.name  "YOUR FULL NAME"
     $ git config --global user.email "YOUR@EMAIL.COM"
           ),
           %q(
-### You can copy & paste all of these commands at once:
+2. You can copy & paste all of these commands at once:
     git config --global color.ui always
     git config --global color.branch.current   "green reverse"
     git config --global color.branch.local     green
@@ -181,13 +181,16 @@ class Installfest
     git config --global color.status.untracked red
 ),
           %q(
-### Tell git what editor to use for commits
+3. Tell git what editor to use for commits
+
+  3a. If you chose to use sublime:
+
+    $ git config --global core.editor "subl --wait --new-window"
+
+  3b. OR, if you are using atom (the default):
 
     $ git config --global core.editor "atom --wait"
 
-OR (for sublime)
-
-    $ git config --global core.editor "subl --wait --new-window"
 ),
         ],
         verify: -> { assert_equals('core.editor=atom --wait', 'git config --list | grep core.editor')}
@@ -197,12 +200,13 @@ OR (for sublime)
         header: %q(Github (The Social Network of Code)),
         installation_steps: [
           %q(
-- Go to Github.com and create an account. Make sure you update your Profile with:
+1. Go to Github.com and create an account. Make sure you update your Profile with:
   - Your Name
   - A recognizable profile picture
   - An e-mail address
 
-- Add it to your system configuration:
+2. Add it to your system configuration:
+
     $ echo "export GITHUB_USERNAME='YOUR GITHUB USERNAME' >> ~/.bash_profile"
         )],
         verify: -> { assert(!github_username.to_s.empty?, "Follow the instructions below.", '') }
@@ -226,11 +230,11 @@ OR (for sublime)
         header: 'PostgreSQL (A Database)',
         installation_steps: [
           %q(
-- Go to www.postgresapp.com
-- Click 'Download'
-- Move the Postgres.app to your 'Applications' folder.
-- Double-click on Postgres.app
-- Enable opening Postgres from the command line (via psql):
+1. Download Postgres.app from www.postgresapp.com
+2. Move the Postgres.app to your 'Applications' folder.
+3. Open the Postgres.app
+4. Configure bash to enable opening Postgres from the command line (via psql):
+
     $ echo 'export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.4/bin' >> ~/.bash_profile
           )
         ],
@@ -241,14 +245,14 @@ OR (for sublime)
         header: 'RVM (Ruby Version Manager)',
         installation_steps: [
           %q(
-First, check to see if you have `rbenv` installed already, since this conflicts with `rvm`:
+1. First, check to see if you have `rbenv` installed already, since this conflicts with `rvm`:
 
     $ which rbenv
 
-If the output is anything other than blank, get an instructor to help you uninstall.
+  1a. If the output is anything other than blank, get an instructor to help you uninstall.
 ),
           %q(
-Otherwise, go ahead and install RVM:
+2. Otherwise, go ahead and install RVM:
 
     $ \curl -sSL https://get.rvm.io | bash -s stable --auto-dotfiles
 )
@@ -263,6 +267,8 @@ Otherwise, go ahead and install RVM:
       ruby: {
         installation_steps: [
           %q(
+1. Update rvm, install ruby, and configure your default version:
+
     $ rvm get stable
     $ rvm install 2.2.1
     $ rvm use 2.2.1 --default
@@ -278,8 +284,7 @@ Otherwise, go ahead and install RVM:
       slack: {
         installation_steps: [
           %q(
-- Open "App Store"
-- Install the free "Slack" app
+1. Install the free "Slack" app from the App Store
           )
         ],
         verify: -> { assert_match(/Contents/, 'ls /Applications/slack.app') }
@@ -295,7 +300,11 @@ Otherwise, go ahead and install RVM:
       xcode_cli_tools: {
         header: 'XCode CLI tools',
         installation_steps: [
-          %q(    $ xcode-select --install)
+          %q(
+1. Install the SCode CLI tools
+
+    $ xcode-select --install
+          )
         ],
         verify: -> { assert_version_is_sufficient('2339', 'xcode-select --version | head -n1 | cut -f3 -d " " | sed "s/[.]//g"' ) }
 
