@@ -22,63 +22,66 @@ You can open Terminal by:
 ## "Atom" Text Editor
 
 1. Download atom [from their website](https://atom.io) and install.
-2. Then configure your terminal to use 'atom'.
+2. Run "atom" and select "Atom | Install Shell Commands".
+3. Then configure your terminal to use 'atom'.
 
     $ echo "EDITOR=atom" >> ~/.bash_profile
 
 ## XCode CLI tools
+
+1. Install the SCode CLI tools
+
     $ xcode-select --install
-## Homebrew (OSX's Package Manager)
-    $ ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-    $ brew update && brew upgrade
-    $ echo 'export PATH="/usr/local/bin:$PATH"' >> ~/.bash_profile
-
-### You know it worked if...
-
-- The output of `$ which brew` is `/usr/local/bin/brew`.
-- The output of `$ brew doctor` is `ready to brew`
-        
+          
 ## PostgreSQL (A Database)
 
-- Go to www.postgresapp.com
-- Click 'Download'
-- "Unzip" the file that downloads. (Double-click on it.)
-- Move the Postgres.app to your 'Applications' folder.
-- Double-click on Postgres.app
-- Be able to open Postgres from the command line:
-  - `$ echo "export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.4/bin" >> ~/.bash_profile`
+1. Download Postgres.app from www.postgresapp.com
+2. Move the Postgres.app to your 'Applications' folder.
+3. Open the Postgres.app
+  3a.  Look for the elephant in the the menu bar.
+4. Configure bash to enable opening Postgres from the command line (via psql):
+
+    $ echo 'export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.4/bin' >> ~/.bash_profile
           
 ## RVM (Ruby Version Manager)
 
-First, check to see if you have `rbenv` installed already, since this conflicts with `rvm`:
+1. First, check to see if you have `rbenv` installed already, since this conflicts with `rvm`:
 
     $ which rbenv
 
-If the output is anything other than blank, get an instructor to help you uninstall.
+  1a. If the output is anything other than blank, get an instructor to help you uninstall.
 
 
-Otherwise, go ahead and install RVM:
+2. Otherwise, go ahead and install RVM:
 
     $ \curl -sSL https://get.rvm.io | bash -s stable --auto-dotfiles
 
-Then **CLOSE and REOPEN** the Terminal.
+3. Reload this shell, to initialize rvm.
+    $ exec bash -l
 
 
 ### You know it worked if...
 The output of `$ type rvm | head -n 1` is `rvm is a function`.  # as recommended in https://rvm.io/rvm/install
 ## ruby
 
+1. Update rvm
     $ rvm get stable
-    $ rvm install 2.2.1
-    $ rvm use 2.2.1 --default
 
-Then, **CLOSE and REOPEN the terminal** to ensure the terminal is using these changes.
+2. Install ruby
+    $ rvm install 2.2.1
+
+3. Configure your default version of ruby
+    $ rvm use 2.2.1 --default
 
 
 ### You know it worked if...
 
 * The output of `$ ruby --version` **starts** with `ruby 2.2.1p85`.
         
+## slack
+
+1. Install the free "Slack" app from the App Store
+          
 ## git
     $ brew install git
 
@@ -87,12 +90,12 @@ The output of `git --version` is greater than or equal to 2.0
 
 ## Configure Git
 
-### Personalize git
-    $ git config --global user.name  "YOUR NAME"'
-    $ git config --global user.email "YOUR@EMAIL.COM"'
+1. Personalize git
+    $ git config --global user.name  "YOUR FULL NAME"
+    $ git config --global user.email "YOUR@EMAIL.COM"
           
 
-### You can copy & paste all of these commands at once:
+2. You can copy & paste all of these commands at once:
     git config --global color.ui always
     git config --global color.branch.current   "green reverse"
     git config --global color.branch.local     green
@@ -102,26 +105,32 @@ The output of `git --version` is greater than or equal to 2.0
     git config --global color.status.untracked red
 
 
-### Tell git what editor to use for commits
+3. Tell git what editor to use for commits
 
-    $ git config --global core.editor "atom --wait"
-
-OR (for sublime)
+  3a. If you chose to use sublime:
 
     $ git config --global core.editor "subl --wait --new-window"
 
+  3b. OR, if you are using atom (the default):
+
+    $ git config --global core.editor "atom --wait"
+
+
 ## Github (The Social Network of Code)
 
-- Go to Github.com and create an account. Make sure you add:
-  - A profile picture
+1. Go to Github.com and create an account. Make sure you update your Profile with:
+  - Your Name
+  - A recognizable profile picture
   - An e-mail address
-- Go to http://auth.wdidc.org/ and follow the instructions
-        
-## slack
 
-- Open "App Store"
-- Install "Slack"
-          
+2. Add it to your system configuration:
+
+    $ echo "export GITHUB_USERNAME='YOUR GITHUB USERNAME'" >> ~/.bash_profile
+        
+## Authorize WDI to use your github info
+
+1. Go to http://auth.wdidc.org/ and follow the instructions
+        
 
 ## Let's verify that everything was installed... programmatically.
 
