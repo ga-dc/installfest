@@ -14,6 +14,17 @@ Students should be able to download (or `curl`) and run this independently.  We 
 The base readme.md provides instructions for students.
 In order to simplify the instructions, we are using a shortened url for `https://raw.githubusercontent.com/ga-dc/installfest/master/installfest.sh`
 
+## TLDR
+- packages to install are configured via installfest.yml (should be a "template" for your class)
+- `rake installfest:start` will:
+   - loop thru each package in installfest.yml (), for each package...
+     - check to see if package is installed correctly.
+     - if so, next package
+     - if not, provide instructions.  
+      - Once the students hits enter, to indicate they have completed instructions,
+        - reload bash (to load new configuration) and
+        - restart process
+
 
 ## For developers
 

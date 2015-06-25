@@ -330,11 +330,17 @@ Otherwise, go ahead and install RVM:
     open instruction_file
   end
 
+  def skip_header?
+    !!ENV['SKIP_HEADER'].to_s.match(/|t|true/i) # no value, t, T, true, True, etc
+  end
+
   def start
-    system "clear"
-    notify start_header
-    notify "\nPress enter when you are ready to continue."
-    $stdin.gets
+    unless skip_header?
+      system "clear"
+      notify start_header
+      notify "\nPress enter when you are ready to continue."
+      $stdin.gets
+    end
     # notify "## Starting installation..."
     my_packages.each do |package_name|
       package = packages[package_name]
@@ -348,7 +354,7 @@ Otherwise, go ahead and install RVM:
         response = $stdin.gets.strip
 
         notify "One package, of many, is installed. \nReloading bash (for latest config) and restarting installfest to continue..."
-        system "exec bash -l -c 'rake installfest:start'"
+        system "exec bash -l -c 'rake installfest:start SKIP_HEADER=true'"
       end
     end
 #    system "clear"
