@@ -518,19 +518,20 @@ Today, you will be installing the basic software you need for the class.
 
 If you have ANY questions, raise your hand for assistance.
 
+1. You will be reading instructions from one Terminal window and
+2. Entering these commands into *another* Terminal window.
+** If you don't have the additional Terminal open, do so now. **
+
+
 Each package will list the installation steps.
-You will be entering these into another Terminal window.
-If you don't have that open, do so now.
 
 Read through every instruction carefully and follow them to the letter.
 
-You will be restarting the process after each package is installed.
-
 You should be able to copy and paste the lines into Terminal.
 With these exceptions:
-- If you see all capitals (like "YOUR NAME"), replace with your appropriate information.
-- The commands below all start with a dollar sign (`$`),
-but **you should not actually write the `$`.**
+- If you see all capitals (like "YOUR NAME"), replace this placeholder with your appropriate information.
+- Commands will start with a dollar sign (`$`),
+but you should NOT actually copy/type the `$` into your Terminal.
 The dollar sign is a standard convention to indicate a bash (terminal) command.
 )
   end
