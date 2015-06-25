@@ -22,7 +22,7 @@ You can open Terminal by:
 ## "Atom" Text Editor
 
 1. Download atom [from their website](https://atom.io) and install.
-2. Run "atom" and select "Atom | Install Shell Commands".
+2. Run "atom".  From the "Atom" menu, select "Install Shell Commands".
 3. Then configure your terminal to use 'atom'.
 
     $ echo "EDITOR=atom" >> ~/.bash_profile
@@ -92,7 +92,7 @@ The output of `git --version` is greater than or equal to 2.0
 
 1. Personalize git
     $ git config --global user.name  "YOUR FULL NAME"
-    $ git config --global user.email "YOUR@EMAIL.COM"
+    $ git config --global user.email "THE_EMAIL_YOU_USE_FOR_GITHUB@EMAIL.COM"
           
 
 2. You can copy & paste all of these commands at once:
@@ -135,9 +135,3 @@ The output of `git --version` is greater than or equal to 2.0
 ## Let's verify that everything was installed... programmatically.
 
     $ rake installfest:doctor
-
-## Sign Up for GitHub
-
-Complete the "sign up" steps at www.GitHub.com
-
-Write your github username on the whiteboard.
