@@ -19,7 +19,7 @@ class Installfest
     else
       message = colorize("FAIL", :red)
       message += "\n  #{failure_message_for_actual}"
-      message += "\n  #{failure_message_for_expected}."
+      message += "\n  #{failure_message_for_expected}"
       return OpenStruct.new( status: false, message: message )
     end
   end
@@ -209,7 +209,7 @@ class Installfest
 
     $ echo "export GITHUB_USERNAME='YOUR GITHUB USERNAME'" >> ~/.bash_profile
         )],
-        verify: -> { assert(!github_username.to_s.empty?, "Follow the instructions below.", '') }
+        verify: -> { assert(!github_username.to_s.empty?, "We can't find your github username.", "") }
       },
 
       homebrew: {
@@ -233,6 +233,7 @@ class Installfest
 1. Download Postgres.app from www.postgresapp.com
 2. Move the Postgres.app to your 'Applications' folder.
 3. Open the Postgres.app
+  3a.  Look for the elephant in the the menu bar.
 4. Configure bash to enable opening Postgres from the command line (via psql):
 
     $ echo 'export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.4/bin' >> ~/.bash_profile
@@ -267,12 +268,14 @@ class Installfest
       ruby: {
         installation_steps: [
           %q(
-1. Update rvm, install ruby, and configure your default version:
-
+1. Update rvm
     $ rvm get stable
-    $ rvm install 2.2.1
-    $ rvm use 2.2.1 --default
 
+2. Install ruby
+    $ rvm install 2.2.1
+
+3. Configure your default version of ruby
+    $ rvm use 2.2.1 --default
 )
         ],
         verify: -> { assert_match(/^ruby 2.2.1p85/, 'ruby --version') },
