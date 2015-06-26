@@ -8,15 +8,24 @@ Read through every instruction carefully and follow them to the letter.  Compute
 
 If you have ANY questions, raise your hand for assistance.
 
-
 1. Make your working directory for WDI:
   ```
   mkdir ~/wdi
   cd ~/wdi
   ```
 
-2. Download and start installfest:
+## For Mac OSX
+
+1. Download and start installfest:
   ```
   curl --location http://git.io/vLxbY | sh
   rake installfest:start
+  ```
+
+## For Linux
+
+1. Download and view your instructions:
+  ```
+  curl --location https://raw.githubusercontent.com/ga-dc/installfest/master/installfest_linux.sh | sh
+  rake installfest:instructions
   ```

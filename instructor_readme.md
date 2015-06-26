@@ -50,6 +50,13 @@ rake -E "require 'debugger'" installfest:start
 rake installfest:start SKIP_HEADER=true
 ```
 
+### For linux
+
+```
+cp installfest_dc_wdi_linux.yml installfest.yml
+rake installfest:instructions > installfest_linux.md
+```
+
 
 ### Configuration
 

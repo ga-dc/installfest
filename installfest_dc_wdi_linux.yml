@@ -1,14 +1,10 @@
 ---
 
-- :osx_header
+- :linux_header
 - :common_header
+- :gorails
 - :atom
-- :xcode_cli_tools
-- :homebrew
-- :postgres
-- :rvm
-- :ruby
-- :slack
+- :linux_slack
 - :git
 - :git_configuration
 - :github

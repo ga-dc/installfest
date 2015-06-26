@@ -101,7 +101,7 @@ class Installfest
   end
 
   def instructions
-    instructions = instruction_header
+    instructions = '' # instruction_header
     configured_packages.each do |package_name|
       package = packages.fetch(package_name)
       package = {header: package_name}.merge(package)
@@ -212,6 +212,27 @@ class Installfest
         verify: -> { assert(!github_username.to_s.empty?, "We can't find your github username.", "") }
       },
 
+      gorails: {
+        header: "Go Rails (Installing ruby & rails)",
+        installation_steps: [
+          %q(
+1. Browse to https://gorails.com/setup/ubuntu
+2. Choose your specific version of Ubuntu.
+3. Installing Ruby:
+  - Choose the most recent version of ruby.
+  - Choose "Using rvm"
+  - Install rvm and ruby
+4. Configuring Git: follow all instructions
+5. Installing Rails
+  - Choose the most recent version of Rails and follow the instructions.
+6. Setting up MySQL: SKIP this section
+7. Setting Up PostgreSQL: follow all instructions
+8. Final Steps: optional.
+          )
+        ],
+        verify: -> { assert_match(/postgres/, 'ps aux | grep "[p]ostgres"') },
+      },
+
       homebrew: {
         header: %q(Homebrew (OSX's Package Manager)),
         installation_steps: [
@@ -224,6 +245,72 @@ class Installfest
 - The output of `$ which brew` is `/usr/local/bin/brew`.
 - The output of `$ brew doctor` is `ready to brew`
         )
+      },
+
+      installfest_doctor: {
+        header: "Verifying the installation",
+        installation_steps: [
+          %q(
+1. Let's verify that everything was installed... programmatically.
+
+    $ rake installfest:doctor
+          )
+        ],
+        verify: -> { assert_match(/foo/, 'rake installfest:doctor') },
+      },
+
+      linux_header: {
+        header: 'Welcome to Installfest - for Linux!',
+        installation_steps: [
+          %q(
+Until our scripts have been updated to work with Linux, you will be ignoring the class-wide instructions and following the instructions below.
+          )
+        ],
+        verify: -> { assert(true, nil, nil) }
+      },
+
+      linux_slack: {
+        header: 'Slack for linux (Scud Cloud)',
+        installation_steps: [
+          %q(
+1. Install Scud Cloud
+          )
+        ],
+        verify: -> { assert(true, "PENDING", "Verification pending") }
+      },
+
+      common_header: {
+        header: "Before you start...",
+        installation_steps: [
+          %q(
+Today, you will be installing the basic software you need for the class.
+
+If you have ANY questions, raise your hand for assistance.
+
+1. You will be reading instructions from one Terminal window and
+2. Entering these commands into *another* Terminal window.
+** If you don't have the additional Terminal open, do so now. **
+
+
+Each package will list the installation steps.
+
+Read through every instruction carefully and follow them to the letter.
+
+You should be able to copy and paste the lines into Terminal.
+With these exceptions:
+- If you see all capitals (like "YOUR NAME"), replace this placeholder with your appropriate information.
+- Commands will start with a dollar sign (`$`),
+but you should NOT actually copy/type the `$` into your Terminal.
+The dollar sign is a standard convention to indicate a bash (terminal) command.
+          )
+        ],
+        verify: -> { assert(true, nil, nil) }
+      },
+
+      osx_header: {
+        header: "# Welcome to Installfest!",
+        installation_steps: [''],
+        verify: -> { true }
       },
 
       postgres: {
@@ -419,9 +506,9 @@ private
 
   def instruction_footer
     %q(
-## Let's verify that everything was installed... programmatically.
+## Congratulations!  You are good to go.
 
-    $ rake installfest:doctor
+  Inform your instructors.
 )
   end
 
@@ -502,33 +589,6 @@ You can open Terminal by:
     )
   end
 
-  def start_header
-    %q(
-# Welcome to Installfest!
-
-## Before you start...
-
-Today, you will be installing the basic software you need for the class.
-
-If you have ANY questions, raise your hand for assistance.
-
-1. You will be reading instructions from one Terminal window and
-2. Entering these commands into *another* Terminal window.
-** If you don't have the additional Terminal open, do so now. **
-
-
-Each package will list the installation steps.
-
-Read through every instruction carefully and follow them to the letter.
-
-You should be able to copy and paste the lines into Terminal.
-With these exceptions:
-- If you see all capitals (like "YOUR NAME"), replace this placeholder with your appropriate information.
-- Commands will start with a dollar sign (`$`),
-but you should NOT actually copy/type the `$` into your Terminal.
-The dollar sign is a standard convention to indicate a bash (terminal) command.
-)
-  end
 
 end
 
