@@ -584,20 +584,23 @@ if $PROGRAM_NAME == __FILE__
 
     describe '.assert' do
       it "simply returns true for true boolean_expression" do
-        @installfest.assert(true, 'test_actual', 'test_expected').must_equal true
+        result = @installfest.assert(true, 'test_actual', 'test_expected')
+        result.status.must_equal true
       end
 
       describe 'when boolean_expression is false' do
         it "returns false" do
-          @installfest.assert(false, 'test_actual', 'test_expected').must_equal false
+          result = @installfest.assert(false, 'test_actual', 'test_expected')
+          result.status.must_equal false
         end
 
         it "notifies the user of a failure" do
           ENV["VERBOSE"] = 'true'
+          result = nil
           out, err = capture_io do
-            @installfest.assert(false, 'test_actual', 'test_expected')
+            result = @installfest.assert(false, 'test_actual', 'test_expected')
           end
-          assert_match(/FAIL/i, err)
+          assert_match(/FAIL/i, result.message)
         end
 
         it "notifies the user, unless ENV['VERBOSE'] == 'false'" do
@@ -621,7 +624,8 @@ if $PROGRAM_NAME == __FILE__
         ['1.10', 'echo 1.2', false]
       ].each do |target_version, current_version, expectation|
         it "uses 'natural' comparison for string versions (#{current_version} is #{expectation ? '' : 'not '}> #{target_version})" do
-          @installfest.assert_version_is_sufficient(target_version, current_version).must_equal(expectation)
+          result = @installfest.assert_version_is_sufficient(target_version, current_version)
+          result.status.must_equal(expectation)
         end
       end
     end
