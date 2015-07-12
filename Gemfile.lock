@@ -7,6 +7,7 @@ GEM
     coderay (1.1.0)
     columnize (0.9.0)
     method_source (0.8.2)
+    minitest (5.7.0)
     pry (0.10.1)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
@@ -14,6 +15,7 @@ GEM
     pry-byebug (3.1.0)
       byebug (~> 4.0)
       pry (~> 0.10)
+    rake (10.4.2)
     slop (3.6.0)
 
 PLATFORMS
@@ -21,7 +23,9 @@ PLATFORMS
 
 DEPENDENCIES
   awesome_print
+  minitest
   pry-byebug
+  rake
 
 BUNDLED WITH
-   1.10.2
+   1.10.5
