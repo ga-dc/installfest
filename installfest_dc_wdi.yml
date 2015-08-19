@@ -10,4 +10,5 @@
 - :git
 - :git_configuration
 - :github
+- :bash_prompt
 - :authorize_wdi

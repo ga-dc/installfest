@@ -1,3 +1,5 @@
+# require 'pry-byebug'
+
 # Architecture:
 # All required functionality is in this single Rakefile;
 #   the rake tasks, the supporting library code, and the tests.
@@ -105,7 +107,9 @@ class Installfest
     configured_packages.each do |package_name|
       package = packages.fetch(package_name)
       package = {header: package_name}.merge(package)
+      instructions += "\n"
       instructions += instructions_for(package)
+      instructions += "\n"
     end
     instructions += "\n"
     instructions += instruction_footer
@@ -148,9 +152,35 @@ class Installfest
         verify: -> { assert_version_is_sufficient('1.0.0', 'atom --version') }
       },
 
+      bash_prompt: {
+        installation_steps: [
+          "Now, let's update our prompt to show which git branch I am in.",
+          %q(
+1. Install the bash-completion script.
+    $ brew install bash-completion
+          ),
+          %q(
+2. Configure your prompt to show you working dir and git branch.  Copy and paste these lines to your ~/.bash_profile:
+    if [ -f $(brew --prefix)/etc/bash_completion ]; then
+      . $(brew --prefix)/etc/bash_completion
+    fi
+    source $(brew --prefix)/etc/bash_completion.d/git-prompt.sh
+    GIT_PS1_SHOWDIRTYSTATE=1 # display the unstaged (*) and staged (+) indicators
+    PS1="\w\$(__git_ps1) \n$ "
+          ),
+          %q(
+3. Sample prompt (context: in "installfest" dir, branch is "master" with unstaged changes):
+~/dev/ga/apps/installfest (master *)
+$
+          ),
+        ],
+        verify: -> { assert_match(/git_ps1/, 'cat ~/.bash_profile | grep PS1') },
+        ykiwi: "You see the current git branch in your prompt, when you navigate to a directory within a git repository."
+      },
+
       git: {
         installation_steps: [
-          '    $ brew install git'
+          "    $ brew install git\n"
         ],
         verify: lambda do
           assert_version_is_sufficient(
@@ -483,7 +513,7 @@ You can open Terminal by:
     end
     you_know_it_worked_if = package[:ykiwi]
     if you_know_it_worked_if
-      instructions += "\n\n### You know it worked if..."
+      instructions += "\n\n### You know it worked if...\n"
       instructions += "\n" + you_know_it_worked_if
     end
     return instructions
