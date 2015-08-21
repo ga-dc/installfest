@@ -144,9 +144,10 @@ class Installfest
           %q(
 1. Download atom [from their website](https://atom.io) and install.
 2. Run "atom".  From the "Atom" menu, select "Install Shell Commands".
-3. Then configure your terminal to use 'atom'.
-
-    $ echo "EDITOR=atom" >> ~/.bash_profile
+3. Then configure your terminal to use 'atom'.  This command appends the text "EDITOR=atom" to a config file.
+```
+$ echo "EDITOR=atom" >> ~/.bash_profile
+```
 )
         ],
         verify: -> { assert_version_is_sufficient('1.0.0', 'atom --version') }
@@ -154,19 +155,29 @@ class Installfest
 
       bash_prompt: {
         installation_steps: [
-          "Now, let's update our prompt to show which git branch I am in.",
+          "Update your prompt to show which git branch your are in.",
           %q(
 1. Install the bash-completion script.
-    $ brew install bash-completion
+```
+$ brew install bash-completion`
+```
           ),
           %q(
-2. Configure your prompt to show you working dir and git branch.  Copy and paste these lines to your ~/.bash_profile:
-    if [ -f $(brew --prefix)/etc/bash_completion ]; then
-      . $(brew --prefix)/etc/bash_completion
-    fi
-    source $(brew --prefix)/etc/bash_completion.d/git-prompt.sh
-    GIT_PS1_SHOWDIRTYSTATE=1 # display the unstaged (*) and staged (+) indicators
-    PS1="\w\$(__git_ps1) \n$ "
+2. Configure your prompt to show you working dir and git branch.
+  - Open your `~/.bash_profile` file in atom.
+  ```
+  atom ~/.bash_profile
+  ```
+
+  - Copy and paste these lines to your ~/.bash_profile:
+  ```
+  if [ -f $(brew --prefix)/etc/bash_completion ]; then
+    . $(brew --prefix)/etc/bash_completion
+  fi
+  source $(brew --prefix)/etc/bash_completion.d/git-prompt.sh
+  GIT_PS1_SHOWDIRTYSTATE=1 # display the unstaged (*) and staged (+) indicators
+  PS1="\w\$(__git_ps1) \n$ "
+  ```
           ),
           %q(
 3. Sample prompt (context: in "installfest" dir, branch is "master" with unstaged changes):
@@ -180,7 +191,11 @@ $
 
       git: {
         installation_steps: [
-          "    $ brew install git\n"
+          %q(
+```
+$ brew install git
+```
+          )
         ],
         verify: lambda do
           assert_version_is_sufficient(
@@ -188,8 +203,7 @@ $
             'git --version | head -n1 | cut -f3 -d " "'
           ) # non-abbreviated flag names are not available in BSD
         end,
-        ykiwi: "The output of `git --version` is greater than or equal to 2.0
-"
+        ykiwi: "The output of `git --version` is greater than or equal to 2.0"
       },
 
       git_configuration: {
@@ -197,30 +211,36 @@ $
         installation_steps: [
           %q(
 1. Personalize git
-    $ git config --global user.name  "YOUR FULL NAME"
-    $ git config --global user.email "THE_EMAIL_YOU_USE_FOR_GITHUB@EMAIL.COM"
-          ),
-          %q(
-2. You can copy & paste all of these commands at once:
-    git config --global color.ui always
-    git config --global color.branch.current   "green reverse"
-    git config --global color.branch.local     green
-    git config --global color.branch.remote    yellow
-    git config --global color.status.added     green
-    git config --global color.status.changed   yellow
-    git config --global color.status.untracked red
-),
-          %q(
+  - Your Full Name:
+
+    `$ git config --global user.name  "YOUR FULL NAME"`
+
+  - The email in your github profile (https://github.com):
+
+    `$ git config --global user.email "THE_EMAIL_YOU_USE_FOR_GITHUB@EMAIL.COM"`
+
+2. Configure git's colors (you can copy & paste all of these commands at once):
+  ```
+  git config --global color.ui always
+  git config --global color.branch.current   "green reverse"
+  git config --global color.branch.local     green
+  git config --global color.branch.remote    yellow
+  git config --global color.status.added     green
+  git config --global color.status.changed   yellow
+  git config --global color.status.untracked red
+  ```
+
 3. Tell git what editor to use for commits
 
   3a. If you chose to use sublime:
-
-    $ git config --global core.editor "subl --wait --new-window"
+  ```
+  $ git config --global core.editor "subl --wait --new-window"
+  ```
 
   3b. OR, if you are using atom (the default):
-
-    $ git config --global core.editor "atom --wait"
-
+  ```
+  $ git config --global core.editor "atom --wait"
+  ```
 ),
         ],
         verify: -> { assert_equals('core.editor=atom --wait', 'git config --list | grep core.editor')}
@@ -230,14 +250,19 @@ $
         header: %q(Github (The Social Network of Code)),
         installation_steps: [
           %q(
-1. Go to Github.com and create an account. Make sure you update your Profile with:
+If you don't have a github account:
+  - Go to https://github.com and create an account.
+
+We use information from your github account throughout the class.
+
+1. Make sure you update your Profile with:
   - Your Name
   - A recognizable profile picture
   - An e-mail address
 
-2. Add it to your system configuration:
+2. Add your github username to your system configuration (replacing "YOUR GITHUB USERNAME"):
 
-    $ echo "export GITHUB_USERNAME='YOUR GITHUB USERNAME'" >> ~/.bash_profile
+  `$ echo "export GITHUB_USERNAME='YOUR GITHUB USERNAME'" >> ~/.bash_profile`
         )],
         verify: -> { assert(!github_username.to_s.empty?, "We can't find your github username.", "") }
       },
@@ -245,9 +270,20 @@ $
       homebrew: {
         header: %q(Homebrew (OSX's Package Manager)),
         installation_steps: [
-          %q(    $ ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"),
-          %q(    $ brew update && brew upgrade),
-          %q(    $ echo 'export PATH="/usr/local/bin:$PATH"' >> ~/.bash_profile)
+          %q(
+1. Download and install Homebrew:
+  ```
+  $ ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  ```
+2. Ensure you have the latest version of everything
+  ```
+  $ brew update && brew upgrade
+  ```
+3. ensure apps installed via Homebrew will be found via your Path.
+  ```
+  $ echo 'export PATH="/usr/local/bin:$PATH"' >> ~/.bash_profile
+  ```
+          ),
         ],
         verify: -> { assert_match(/is ready to brew/, 'brew doctor') },
         ykiwi: %q(
@@ -263,10 +299,11 @@ $
 1. Download Postgres.app from www.postgresapp.com
 2. Move the Postgres.app to your 'Applications' folder.
 3. Open the Postgres.app
-  3a.  Look for the elephant in the the menu bar.
+  -  Look for the elephant in the the menu bar.
 4. Configure bash to enable opening Postgres from the command line (via psql):
-
-    $ echo 'export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.4/bin' >> ~/.bash_profile
+  ```
+  $ echo 'export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.4/bin' >> ~/.bash_profile
+  ```
           )
         ],
         verify: -> { assert_version_is_sufficient('9.4.0', 'psql --version | cut -f3 -d " "')}
@@ -276,19 +313,20 @@ $
         header: 'RVM (Ruby Version Manager)',
         installation_steps: [
           %q(
-1. First, check to see if you have `rbenv` installed already, since this conflicts with `rvm`:
+1. First, check to see if you have `rbenv` installed already, since this conflicts with `rvm`.  If the output of the following command is anything *other than* blank, get an instructor to help you uninstall.
+  ```
+  $ which rbenv
+  ```
 
-    $ which rbenv
-
-  1a. If the output is anything other than blank, get an instructor to help you uninstall.
-),
-          %q(
 2. Otherwise, go ahead and install RVM:
-
-    $ \curl -sSL https://get.rvm.io | bash -s stable --auto-dotfiles
+  ```
+  $ \curl -sSL https://get.rvm.io | bash -s stable --auto-dotfiles
+  ```
 
 3. Reload this shell, to initialize rvm.
-    $ exec bash -l
+  ```
+  $ exec bash -l
+  ```
 )
         ],
         # TODO: https://rvm.io/rvm/install suggests using
@@ -337,9 +375,10 @@ $
         header: 'XCode CLI tools',
         installation_steps: [
           %q(
-1. Install the SCode CLI tools
-
-    $ xcode-select --install
+1. Install the XCode CLI tools
+```
+$ xcode-select --install
+```
           )
         ],
         verify: -> { assert_version_is_sufficient('2339', 'xcode-select --version | head -n1 | cut -f3 -d " " | sed "s/[.]//g"' ) }
@@ -459,13 +498,13 @@ private
     %q(
 # Installfest!
 
-##Before you start...
+## Before you start...
 
 We will be installing multiple applications.  The installation steps will be provided for each application.
 
 You should be able to copy and paste the lines into Terminal -- except for a few that have obvious prompts in them, like "YOUR NAME", which you should replace accordingly.
 
-The lines below all start with `$`, but **you shouldn't actually write the `$`.** Its purpose is just to make the starts of lines easy to see in these instructions.
+Many instructions start with dollar a sign (`$`).  The dollar sign is a convention used to indicate a bash (terminal) command.  You **should not** actually write the `$`.
 
 We recommend that you configure your system so that you can see both the instructions and Terminal at the same time.
 
