@@ -159,7 +159,7 @@ $ echo "EDITOR=atom" >> ~/.bash_profile
           %q(
 1. Install the bash-completion script.
 ```
-$ brew install bash-completion`
+$ brew install bash-completion
 ```
           ),
           %q(
@@ -513,7 +513,7 @@ We recommend that you configure your system so that you can see both the instruc
 If you haven't done so already, open Terminal so you can begin entering commands.
 
 You can open Terminal by:
-- typing "Terminal" into Spotlight (ensure you select the Termainl app)
+- typing "Terminal" into Spotlight (ensure you select the Terminal app)
 - or you can open it from Finder, look in "Applications > Utilities".
     )
   end
