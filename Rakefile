@@ -269,6 +269,21 @@ Until our scripts have been updated to work with Linux, you will be ignoring the
         verify: -> { assert(true, nil, nil) }
       },
 
+      linux_node: {
+        header: 'Node, for Linux',
+        installation_steps: [
+          %Q(In Debian based distributions, there is a name clash with another utility called node. The suggested solution is to also install the nodejs-legacy apt package, which renames node to nodejs.
+```
+apt-get install nodejs-legacy npm
+nodejs --version
+npm --version
+```
+          )
+        ],
+        verify: -> { assert(true, "PENDING", "Verification pending") }
+
+      },
+
       linux_slack: {
         header: 'Slack for linux (Scud Cloud)',
         installation_steps: [

@@ -1,0 +1,12 @@
+---
+
+- :linux_header
+- :common_header
+- :gorails
+- :atom
+- :linux_slack
+- :git
+- :git_configuration
+- :github
+- :linux_node
+- :authorize_wdi
