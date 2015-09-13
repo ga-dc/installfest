@@ -16,7 +16,7 @@ We recommend that you configure your system so that you can see both the instruc
 If you haven't done so already, open Terminal so you can begin entering commands.
 
 You can open Terminal by:
-- typing "Terminal" into Spotlight (ensure you select the Termainl app)
+- typing "Terminal" into Spotlight (ensure you select the Terminal app)
 - or you can open it from Finder, look in "Applications > Utilities".
     
 
@@ -196,7 +196,7 @@ Update your prompt to show which git branch your are in.
 
 1. Install the bash-completion script.
 ```
-$ brew install bash-completion`
+$ brew install bash-completion
 ```
           
 
@@ -206,14 +206,18 @@ $ brew install bash-completion`
   atom ~/.bash_profile
   ```
 
-  - Copy and paste these lines to your ~/.bash_profile:
+  - Copy and paste these lines to your ~/.bash_profile, prior to `[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*`:
   ```
-  if [ -f $(brew --prefix)/etc/bash_completion ]; then
-    . $(brew --prefix)/etc/bash_completion
+  if  [ -f $(brew --prefix)/etc/bash_completion ]; then
+    source $(brew --prefix)/etc/bash_completion
   fi
-  source $(brew --prefix)/etc/bash_completion.d/git-prompt.sh
-  GIT_PS1_SHOWDIRTYSTATE=1 # display the unstaged (*) and staged (+) indicators
-  PS1="\w\$(__git_ps1) \n$ "
+
+  if  [ -f $(brew --prefix)/etc/bash_completion.d/git-prompt.sh ]; then
+    source $(brew --prefix)/etc/bash_completion.d/git-prompt.sh
+    GIT_PS1_SHOWDIRTYSTATE=1 # display the unstaged (*) and staged (+) indicators
+    # set your prompt. path: \w, git branch & status: $(__git_ps1), newline: \n, dollar sign delimiter: \$
+    PS1='\w$(__git_ps1) \n\$ '
+  fi
   ```
           
 
