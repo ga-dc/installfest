@@ -203,7 +203,7 @@ $ brew install git
         ],
         verify: lambda do
           assert_version_is_sufficient(
-            '2.3.0',
+            '2.5.0',
             'git --version | head -n1 | cut -f3 -d " "'
           ) # non-abbreviated flag names are not available in BSD
         end,
