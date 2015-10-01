@@ -324,7 +324,7 @@ We use information from your github account throughout the class.
 
 2. Otherwise, go ahead and install RVM:
   ```
-  $ \curl -sSL https://get.rvm.io | bash -s stable --auto-dotfiles
+  $ \curl -sSL https://get.rvm.io | bash
   ```
 
 3. Reload this shell, to initialize rvm.
@@ -344,18 +344,18 @@ We use information from your github account throughout the class.
         installation_steps: [
           %q(
 1. Update rvm
-    $ rvm get stable
+    $ rvm get master
 
 2. Install ruby
-    $ rvm install 2.2.1
+    $ rvm install 2.2.3
 
 3. Configure your default version of ruby
-    $ rvm use 2.2.1 --default
+    $ rvm use 2.2.3 --default
 )
         ],
-        verify: -> { assert_match(/^ruby 2.2.1p85/, 'ruby --version') },
+        verify: -> { assert_match(/^ruby 2.2.3p173/, 'ruby --version') },
         ykiwi: %q(
-* The output of `$ ruby --version` **starts** with `ruby 2.2.1p85`.
+* The output of `$ ruby --version` **starts** with `ruby 2.2.3p173`.
         )
       },
 

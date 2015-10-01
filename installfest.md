@@ -103,19 +103,19 @@ The output of `$ type rvm | head -n 1` is `rvm is a function`.  # as recommended
 ## ruby
 
 1. Update rvm
-    $ rvm get stable
+    $ rvm get master
 
 2. Install ruby
-    $ rvm install 2.2.1
+    $ rvm install 2.2.3
 
 3. Configure your default version of ruby
-    $ rvm use 2.2.1 --default
+    $ rvm use 2.2.3 --default
 
 
 ### You know it worked if...
 
 
-* The output of `$ ruby --version` **starts** with `ruby 2.2.1p85`.
+* The output of `$ ruby --version` **starts** with `ruby 2.2.3p173`.
         
 
 
