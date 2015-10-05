@@ -39,7 +39,7 @@ class Installfest
 
   def assert_match(match_pattern, shell_command)
     begin
-      value = `#{shell_command}`.chomp
+      value = `#{shell_command} 2>&1`.chomp
       assert (value =~ match_pattern),
              "Expected this: '#{value}' (via `#{shell_command}`)",
              "To match this: #{match_pattern.inspect}"
@@ -216,7 +216,13 @@ $
 7. Reboot back into OS X & you'll be able to write to `/usr/local` & install Homebrew.
           )
         ],
-        verify: -> {  case compare_versions('10.11', `sw_vers -productVersion`); when -1; return true; when 0, 1; assert_match(//, 'sudo touch /usr/wdi_test_sip_disabled.txt'); end }
+        verify: -> {  case compare_versions('10.11', `sw_vers -productVersion`)
+                      when -1
+                        return true
+                      when 0, 1
+                        assert_match(/^$/, 'sudo touch /usr/wdi_test_sip_disabled.txt')
+                      end
+                    }
       },
 
       git: {
