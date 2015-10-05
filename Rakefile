@@ -51,7 +51,7 @@ class Installfest
   def assert_version_is_sufficient(target_version, shell_command)
     begin
       current_version = `#{shell_command}`.chomp
-      result = (Gem::Version.new(current_version) >= Gem::Version.new(target_version))
+      result = (compare_versions(current_version, target_version) >= 0)
       assert result,
            "Expected this version: v#{current_version} (via `#{shell_command}`)",
            "To match this version: v#{target_version}"
@@ -66,6 +66,10 @@ class Installfest
     end
     cmd = "curl http://auth.wdidc.org/is_created.php?username=#{github_username} --silent"
     return cmd
+  end
+
+  def compare_versions(current_version, target_version)
+    Gem::Version.new(current_version) <=> Gem::Version.new(target_version)
   end
 
   def config_file
@@ -191,6 +195,28 @@ $
         ],
         verify: -> { assert_match(/git_ps1/, 'cat ~/.bash_profile | grep PS1') },
         ykiwi: "You see the current git branch in your prompt, when you navigate to a directory within a git repository."
+      },
+
+      disable_system_integrity_protection: {
+        installation_steps: [
+          %q(
+1. Reboot into Recovery mode (Hold Cmd+R on boot) & access the Terminal.
+2. In that terminal run:
+    `csrutil disable`
+3. Reboot back into OS X
+4. Open your Terminal application and execute:
+
+  ```bash
+    sudo mkdir /usr/local && sudo chflags norestricted /usr/local && sudo chown -R $(whoami):admin /usr/local
+  ```
+
+5. Reboot back into Recovery Mode & access the Terminal again.
+6. In that terminal execute:
+  `csrutil enable`
+7. Reboot back into OS X & you'll be able to write to `/usr/local` & install Homebrew.
+          )
+        ],
+        verify: -> {  case compare_versions('10.11', `sw_vers -productVersion`); when -1; return true; when 0, 1; assert_match(//, 'sudo touch /usr/wdi_test_sip_disabled.txt'); end }
       },
 
       git: {
@@ -339,7 +365,7 @@ We use information from your github account throughout the class.
           %q(
 1. Update to the latest version of Ruby Gems
   ```
-  gem update --system`
+  $ gem update --system`
   ```
           )
         ],
@@ -705,8 +731,11 @@ if $PROGRAM_NAME == __FILE__
         ['1', 'echo 2', true],
         ['1', 'echo 10', true],
         ['1.2', 'echo 1.3', true],
+        ['1.2', 'echo 1.2', true],
         ['1.2', 'echo 1.2.1', true],
         ['1.2', 'echo 1.10', true],
+        ['1.2', 'echo 1.1', false],
+        ['1.2', 'echo 1.1.9', false],
         ['2', 'echo 1', false],
         ['1.10', 'echo 1.2', false]
       ].each do |target_version, current_version, expectation|
