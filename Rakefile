@@ -30,8 +30,8 @@ class Installfest
     begin
       actual = `#{shell_command}`.chomp
       assert (actual == expected),
-             "Expected this: '#{actual}' (via `#{shell_command}`)",
-             "To equal this: '#{expected}'"
+             "Actual result: '#{actual}' (via `#{shell_command}`)",
+             "Should equal : '#{expected}'"
     rescue Errno::ENOENT => err # command not found, no such file/dir
      assert false, err, ''
     end
@@ -41,8 +41,8 @@ class Installfest
     begin
       value = `#{shell_command} 2>&1`.chomp
       assert (value =~ match_pattern),
-             "Expected this: '#{value}' (via `#{shell_command}`)",
-             "To match this: #{match_pattern.inspect}"
+             "Actual result: '#{value}' (via `#{shell_command}`)",
+             "Should match : #{match_pattern.inspect}"
     rescue Errno::ENOENT => err # command not found, no such file/dir
       assert false, err, ''
     end
@@ -53,8 +53,8 @@ class Installfest
       current_version = `#{shell_command}`.chomp
       result = (compare_versions(current_version, target_version) >= 0)
       assert result,
-           "Expected this version: v#{current_version} (via `#{shell_command}`)",
-           "To match this version: v#{target_version}"
+           "Actual version: v#{current_version} (via `#{shell_command}`)",
+           "Should match  : v#{target_version}"
     rescue Errno::ENOENT => err # command not found, no such file/dir
       assert false, err, ''
     end
