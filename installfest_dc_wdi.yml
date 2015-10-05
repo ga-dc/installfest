@@ -6,6 +6,7 @@
 - :postgres
 - :rvm
 - :ruby
+- :ruby_gems
 - :slack
 - :git
 - :git_configuration

@@ -313,6 +313,39 @@ We use information from your github account throughout the class.
         verify: -> { assert_version_is_sufficient('9.4.0', 'psql --version | cut -f3 -d " "')}
       },
 
+
+      ruby: {
+        installation_steps: [
+          %q(
+1. Update rvm
+    $ rvm get master
+
+2. Install ruby
+    $ rvm install 2.2.3
+
+3. Configure your default version of ruby
+    $ rvm use 2.2.3 --default
+          )
+        ],
+        verify: -> { assert_match(/^ruby 2.2.3p173/, 'ruby --version') },
+        ykiwi: %q(
+* The output of `$ ruby --version` **starts** with `ruby 2.2.3p173`.
+        )
+      },
+
+      ruby_gems: {
+        header: "Ruby Gems",
+        installation_steps: [
+          %q(
+1. Update to the latest version of Ruby Gems
+  ```
+  gem update --system`
+  ```
+          )
+        ],
+        verify: -> { assert_version_is_sufficient('2.4.8', 'gem -v') }
+      },
+
       rvm: {
         header: 'RVM (Ruby Version Manager)',
         installation_steps: [
@@ -338,25 +371,6 @@ We use information from your github account throughout the class.
         # However, this command didn't get this result within this script.
         verify: -> { assert_match(%r{.rvm/bin/rvm$}, 'which rvm') },
         ykiwi: %q(The output of `$ type rvm | head -n 1` is `rvm is a function`.  # as recommended in https://rvm.io/rvm/install)
-      },
-
-      ruby: {
-        installation_steps: [
-          %q(
-1. Update rvm
-    $ rvm get master
-
-2. Install ruby
-    $ rvm install 2.2.3
-
-3. Configure your default version of ruby
-    $ rvm use 2.2.3 --default
-)
-        ],
-        verify: -> { assert_match(/^ruby 2.2.3p173/, 'ruby --version') },
-        ykiwi: %q(
-* The output of `$ ruby --version` **starts** with `ruby 2.2.3p173`.
-        )
       },
 
       slack: {
@@ -586,7 +600,7 @@ Today, you will be installing the basic software you need for the class.
 If you have ANY questions, raise your hand for assistance.
 
 1. You will be reading instructions from one Terminal window and
-2. Entering these commands into *another* Terminal window.
+2. Entering these commands into *another* Terminal window.  We recommend you arrange them side-by-side.
 ** If you don't have the additional Terminal open, do so now. **
 
 
