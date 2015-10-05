@@ -20,6 +20,21 @@ You can open Terminal by:
 - or you can open it from Finder, look in "Applications > Utilities".
     
 
+## El Capitan ONLY!!  Disable SIP (System Integrity Protection)
+
+1. Reboot into Recovery mode (Hold Cmd+R on boot) & access the Terminal.
+2. Disable SIP:
+  ```
+  $ csrutil disable
+  ```
+3. Reboot back into OS X
+4. Now that SIP is disabled, ensure Homebrew can write to "/usr/local":
+  ```bash
+  $ sudo mkdir /usr/local && sudo chflags norestricted /usr/local && sudo chown -R $(whoami):admin /usr/local
+  ```
+          
+
+
 ## "Atom" Text Editor
 
 1. Download atom [from their website](https://atom.io) and install.
@@ -86,7 +101,7 @@ $ xcode-select --install
 
 2. Otherwise, go ahead and install RVM:
   ```
-  $ \curl -sSL https://get.rvm.io | bash -s stable --auto-dotfiles
+  $ \curl -sSL https://get.rvm.io | bash
   ```
 
 3. Reload this shell, to initialize rvm.
@@ -110,13 +125,22 @@ The output of `$ type rvm | head -n 1` is `rvm is a function`.  # as recommended
 
 3. Configure your default version of ruby
     $ rvm use 2.2.3 --default
-
+          
 
 ### You know it worked if...
 
 
 * The output of `$ ruby --version` **starts** with `ruby 2.2.3p173`.
         
+
+
+## Ruby Gems
+
+1. Update to the latest version of Ruby Gems
+  ```
+  $ gem update --system`
+  ```
+          
 
 
 ## slack

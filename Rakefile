@@ -198,22 +198,19 @@ $
       },
 
       disable_system_integrity_protection: {
+        header: "El Capitan ONLY!!  Disable SIP (System Integrity Protection)",
         installation_steps: [
           %q(
 1. Reboot into Recovery mode (Hold Cmd+R on boot) & access the Terminal.
-2. In that terminal run:
-    `csrutil disable`
-3. Reboot back into OS X
-4. Open your Terminal application and execute:
-
-  ```bash
-    sudo mkdir /usr/local && sudo chflags norestricted /usr/local && sudo chown -R $(whoami):admin /usr/local
+2. Disable SIP:
   ```
-
-5. Reboot back into Recovery Mode & access the Terminal again.
-6. In that terminal execute:
-  `csrutil enable`
-7. Reboot back into OS X & you'll be able to write to `/usr/local` & install Homebrew.
+  $ csrutil disable
+  ```
+3. Reboot back into OS X
+4. Now that SIP is disabled, ensure Homebrew can write to the "/usr/local" directory:
+  ```bash
+  $ sudo mkdir /usr/local && sudo chflags norestricted /usr/local && sudo chown -R $(whoami):admin /usr/local
+  ```
           )
         ],
         verify: -> {  case compare_versions('10.11', `sw_vers -productVersion`)
