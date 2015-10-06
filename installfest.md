@@ -24,11 +24,11 @@ You can open Terminal by:
 
 1. Reboot into Recovery mode (Hold Cmd+R on boot) & access the Terminal.
 2. Disable SIP:
-  ```
+  ```bash
   $ csrutil disable
   ```
 3. Reboot back into OS X
-4. Now that SIP is disabled, ensure Homebrew can write to "/usr/local":
+4. Now that SIP is disabled, ensure Homebrew can write to the "/usr/local" directory:
   ```bash
   $ sudo mkdir /usr/local && sudo chflags norestricted /usr/local && sudo chown -R $(whoami):admin /usr/local
   ```
@@ -40,7 +40,7 @@ You can open Terminal by:
 1. Download atom [from their website](https://atom.io) and install.
 2. Run "atom".  From the "Atom" menu, select "Install Shell Commands".
 3. Then configure your terminal to use 'atom'.  This command appends the text "EDITOR=atom" to a config file.
-```
+```bash
 $ echo "EDITOR=atom" >> ~/.bash_profile
 ```
 
@@ -49,7 +49,7 @@ $ echo "EDITOR=atom" >> ~/.bash_profile
 ## XCode CLI tools
 
 1. Install the XCode CLI tools
-```
+```bash
 $ xcode-select --install
 ```
           
@@ -58,15 +58,15 @@ $ xcode-select --install
 ## Homebrew (OSX's Package Manager)
 
 1. Download and install Homebrew:
-  ```
+  ```bash
   $ ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
   ```
 2. Ensure you have the latest version of everything
-  ```
+  ```bash
   $ brew update && brew upgrade
   ```
 3. ensure apps installed via Homebrew will be found via your Path.
-  ```
+  ```bash
   $ echo 'export PATH="/usr/local/bin:$PATH"' >> ~/.bash_profile
   ```
           
@@ -86,7 +86,7 @@ $ xcode-select --install
 3. Open the Postgres.app
   -  Look for the elephant in the the menu bar.
 4. Configure bash to enable opening Postgres from the command line (via psql):
-  ```
+  ```bash
   $ echo 'export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.4/bin' >> ~/.bash_profile
   ```
           
@@ -95,36 +95,40 @@ $ xcode-select --install
 ## RVM (Ruby Version Manager)
 
 1. First, check to see if you have `rbenv` installed already, since this conflicts with `rvm`.  If the output of the following command is anything *other than* blank, get an instructor to help you uninstall.
-  ```
+  ```bash
   $ which rbenv
   ```
 
-2. Otherwise, go ahead and install RVM:
+2. Otherwise, go ahead and install RVM (yes, there is a leading slash):
   ```
   $ \curl -sSL https://get.rvm.io | bash
   ```
 
 3. Reload this shell, to initialize rvm.
-  ```
+  ```bash
   $ exec bash -l
   ```
 
 
 ### You know it worked if...
 
-The output of `$ type rvm | head -n 1` is `rvm is a function`.  # as recommended in https://rvm.io/rvm/install
+The output of `$ type rvm | head -n 1` is "rvm is a function" (as recommended in https://rvm.io/rvm/install)
 
 
 ## ruby
 
 1. Update rvm
-    $ rvm get master
-
+  ```bash
+  $ rvm get master
+  ```
 2. Install ruby
-    $ rvm install 2.2.3
-
+  ```bash
+  $ rvm install 2.2.3
+  ```
 3. Configure your default version of ruby
-    $ rvm use 2.2.3 --default
+  ```bash
+  $ rvm use 2.2.3 --default
+  ```
           
 
 ### You know it worked if...
@@ -137,8 +141,8 @@ The output of `$ type rvm | head -n 1` is `rvm is a function`.  # as recommended
 ## Ruby Gems
 
 1. Update to the latest version of Ruby Gems
-  ```
-  $ gem update --system`
+  ```bash
+  $ gem update --system
   ```
           
 
@@ -151,7 +155,7 @@ The output of `$ type rvm | head -n 1` is `rvm is a function`.  # as recommended
 
 ## git
 
-```
+```bash
 $ brew install git
 ```
           
@@ -173,7 +177,7 @@ The output of `git --version` is greater than or equal to 2.0
     `$ git config --global user.email "THE_EMAIL_YOU_USE_FOR_GITHUB@EMAIL.COM"`
 
 2. Configure git's colors (you can copy & paste all of these commands at once):
-  ```
+  ```bash
   git config --global color.ui always
   git config --global color.branch.current   "green reverse"
   git config --global color.branch.local     green
@@ -186,12 +190,12 @@ The output of `git --version` is greater than or equal to 2.0
 3. Tell git what editor to use for commits
 
   3a. If you chose to use sublime:
-  ```
+  ```bash
   $ git config --global core.editor "subl --wait --new-window"
   ```
 
   3b. OR, if you are using atom (the default):
-  ```
+  ```bash
   $ git config --global core.editor "atom --wait"
   ```
 
@@ -211,43 +215,44 @@ We use information from your github account throughout the class.
 
 2. Add your github username to your system configuration (replacing "YOUR GITHUB USERNAME"):
 
-  `$ echo "export GITHUB_USERNAME='YOUR GITHUB USERNAME'" >> ~/.bash_profile`
+  ```bash
+  $ echo "export GITHUB_USERNAME='YOUR GITHUB USERNAME'" >> ~/.bash_profile
+  ```
         
 
 
-## bash_prompt
+## Bash Prompt (includes git branch)
 Update your prompt to show which git branch your are in.
 
 1. Install the bash-completion script.
-```
-$ brew install bash-completion
-```
-          
-
+  ```bash
+  $ brew install bash-completion
+  ```
 2. Configure your prompt to show you working dir and git branch.
   - Open your `~/.bash_profile` file in atom.
-  ```
-  atom ~/.bash_profile
-  ```
+    ```bash
+    $ atom ~/.bash_profile
+    ```
 
   - Copy and paste these lines to your ~/.bash_profile, prior to `[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*`:
-  ```
-  if  [ -f $(brew --prefix)/etc/bash_completion ]; then
-    source $(brew --prefix)/etc/bash_completion
-  fi
 
-  if  [ -f $(brew --prefix)/etc/bash_completion.d/git-prompt.sh ]; then
-    source $(brew --prefix)/etc/bash_completion.d/git-prompt.sh
-    GIT_PS1_SHOWDIRTYSTATE=1 # display the unstaged (*) and staged (+) indicators
-    # set your prompt. path: \w, git branch & status: $(__git_ps1), newline: \n, dollar sign delimiter: \$
-    PS1='\w$(__git_ps1) \n\$ '
-  fi
-  ```
-          
+    ```bash
+    if  [ -f $(brew --prefix)/etc/bash_completion ]; then
+      source $(brew --prefix)/etc/bash_completion
+    fi
 
-3. Sample prompt (context: in "installfest" dir, branch is "master" with unstaged changes):
-~/dev/ga/apps/installfest (master *)
-$
+    if  [ -f $(brew --prefix)/etc/bash_completion.d/git-prompt.sh ]; then
+      source $(brew --prefix)/etc/bash_completion.d/git-prompt.sh
+      GIT_PS1_SHOWDIRTYSTATE=1 # display the unstaged (*) and staged (+) indicators
+      # set your prompt. path: \w, git branch & status: $(__git_ps1), newline: \n, dollar sign delimiter: \$
+      PS1='\w$(__git_ps1) \n\$ '
+    fi
+    ```
+3. This will change your bash prompt to something like this sample prompt (context: in "installfest" dir, branch is "master" with unstaged changes):
+  <pre>
+  ~/dev/ga/apps/installfest (master *)
+  $
+  </pre>
           
 
 ### You know it worked if...
@@ -262,5 +267,6 @@ You see the current git branch in your prompt, when you navigate to a directory 
 
 
 ## Let's verify that everything was installed... programmatically.
-
-    $ rake installfest:doctor
+  ```bash
+  $ rake installfest:doctor
+  ```

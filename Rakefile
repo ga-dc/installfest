@@ -149,7 +149,7 @@ class Installfest
 1. Download atom [from their website](https://atom.io) and install.
 2. Run "atom".  From the "Atom" menu, select "Install Shell Commands".
 3. Then configure your terminal to use 'atom'.  This command appends the text "EDITOR=atom" to a config file.
-```
+```bash
 $ echo "EDITOR=atom" >> ~/.bash_profile
 ```
 )
@@ -158,39 +158,39 @@ $ echo "EDITOR=atom" >> ~/.bash_profile
       },
 
       bash_prompt: {
+        header: "Bash Prompt (includes git branch)",
         installation_steps: [
           "Update your prompt to show which git branch your are in.",
           %q(
 1. Install the bash-completion script.
-```
-$ brew install bash-completion
-```
-          ),
-          %q(
+  ```bash
+  $ brew install bash-completion
+  ```
 2. Configure your prompt to show you working dir and git branch.
   - Open your `~/.bash_profile` file in atom.
-  ```
-  atom ~/.bash_profile
-  ```
+    ```bash
+    $ atom ~/.bash_profile
+    ```
 
   - Copy and paste these lines to your ~/.bash_profile, prior to `[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*`:
-  ```
-  if  [ -f $(brew --prefix)/etc/bash_completion ]; then
-    source $(brew --prefix)/etc/bash_completion
-  fi
 
-  if  [ -f $(brew --prefix)/etc/bash_completion.d/git-prompt.sh ]; then
-    source $(brew --prefix)/etc/bash_completion.d/git-prompt.sh
-    GIT_PS1_SHOWDIRTYSTATE=1 # display the unstaged (*) and staged (+) indicators
-    # set your prompt. path: \w, git branch & status: $(__git_ps1), newline: \n, dollar sign delimiter: \$
-    PS1='\w$(__git_ps1) \n\$ '
-  fi
-  ```
-          ),
-          %q(
-3. Sample prompt (context: in "installfest" dir, branch is "master" with unstaged changes):
-~/dev/ga/apps/installfest (master *)
-$
+    ```bash
+    if  [ -f $(brew --prefix)/etc/bash_completion ]; then
+      source $(brew --prefix)/etc/bash_completion
+    fi
+
+    if  [ -f $(brew --prefix)/etc/bash_completion.d/git-prompt.sh ]; then
+      source $(brew --prefix)/etc/bash_completion.d/git-prompt.sh
+      GIT_PS1_SHOWDIRTYSTATE=1 # display the unstaged (*) and staged (+) indicators
+      # set your prompt. path: \w, git branch & status: $(__git_ps1), newline: \n, dollar sign delimiter: \$
+      PS1='\w$(__git_ps1) \n\$ '
+    fi
+    ```
+3. This will change your bash prompt to something like this sample prompt (context: in "installfest" dir, branch is "master" with unstaged changes):
+  <pre>
+  ~/dev/ga/apps/installfest (master *)
+  $
+  </pre>
           ),
         ],
         verify: -> { assert_match(/git_ps1/, 'cat ~/.bash_profile | grep PS1') },
@@ -203,7 +203,7 @@ $
           %q(
 1. Reboot into Recovery mode (Hold Cmd+R on boot) & access the Terminal.
 2. Disable SIP:
-  ```
+  ```bash
   $ csrutil disable
   ```
 3. Reboot back into OS X
@@ -225,7 +225,7 @@ $
       git: {
         installation_steps: [
           %q(
-```
+```bash
 $ brew install git
 ```
           )
@@ -253,7 +253,7 @@ $ brew install git
     `$ git config --global user.email "THE_EMAIL_YOU_USE_FOR_GITHUB@EMAIL.COM"`
 
 2. Configure git's colors (you can copy & paste all of these commands at once):
-  ```
+  ```bash
   git config --global color.ui always
   git config --global color.branch.current   "green reverse"
   git config --global color.branch.local     green
@@ -266,12 +266,12 @@ $ brew install git
 3. Tell git what editor to use for commits
 
   3a. If you chose to use sublime:
-  ```
+  ```bash
   $ git config --global core.editor "subl --wait --new-window"
   ```
 
   3b. OR, if you are using atom (the default):
-  ```
+  ```bash
   $ git config --global core.editor "atom --wait"
   ```
 ),
@@ -295,7 +295,9 @@ We use information from your github account throughout the class.
 
 2. Add your github username to your system configuration (replacing "YOUR GITHUB USERNAME"):
 
-  `$ echo "export GITHUB_USERNAME='YOUR GITHUB USERNAME'" >> ~/.bash_profile`
+  ```bash
+  $ echo "export GITHUB_USERNAME='YOUR GITHUB USERNAME'" >> ~/.bash_profile
+  ```
         )],
         verify: -> { assert(!github_username.to_s.empty?, "We can't find your github username.", "") }
       },
@@ -305,15 +307,15 @@ We use information from your github account throughout the class.
         installation_steps: [
           %q(
 1. Download and install Homebrew:
-  ```
+  ```bash
   $ ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
   ```
 2. Ensure you have the latest version of everything
-  ```
+  ```bash
   $ brew update && brew upgrade
   ```
 3. ensure apps installed via Homebrew will be found via your Path.
-  ```
+  ```bash
   $ echo 'export PATH="/usr/local/bin:$PATH"' >> ~/.bash_profile
   ```
           ),
@@ -334,7 +336,7 @@ We use information from your github account throughout the class.
 3. Open the Postgres.app
   -  Look for the elephant in the the menu bar.
 4. Configure bash to enable opening Postgres from the command line (via psql):
-  ```
+  ```bash
   $ echo 'export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.4/bin' >> ~/.bash_profile
   ```
           )
@@ -347,13 +349,17 @@ We use information from your github account throughout the class.
         installation_steps: [
           %q(
 1. Update rvm
-    $ rvm get master
-
+  ```bash
+  $ rvm get master
+  ```
 2. Install ruby
-    $ rvm install 2.2.3
-
+  ```bash
+  $ rvm install 2.2.3
+  ```
 3. Configure your default version of ruby
-    $ rvm use 2.2.3 --default
+  ```bash
+  $ rvm use 2.2.3 --default
+  ```
           )
         ],
         verify: -> { assert_match(/^ruby 2.2.3p173/, 'ruby --version') },
@@ -367,8 +373,8 @@ We use information from your github account throughout the class.
         installation_steps: [
           %q(
 1. Update to the latest version of Ruby Gems
-  ```
-  $ gem update --system`
+  ```bash
+  $ gem update --system
   ```
           )
         ],
@@ -380,17 +386,17 @@ We use information from your github account throughout the class.
         installation_steps: [
           %q(
 1. First, check to see if you have `rbenv` installed already, since this conflicts with `rvm`.  If the output of the following command is anything *other than* blank, get an instructor to help you uninstall.
-  ```
+  ```bash
   $ which rbenv
   ```
 
-2. Otherwise, go ahead and install RVM:
+2. Otherwise, go ahead and install RVM (yes, there is a leading slash):
   ```
   $ \curl -sSL https://get.rvm.io | bash
   ```
 
 3. Reload this shell, to initialize rvm.
-  ```
+  ```bash
   $ exec bash -l
   ```
 )
@@ -399,7 +405,7 @@ We use information from your github account throughout the class.
         #   the output of `$ type rvm | head 1` is `rvm is a function`.
         # However, this command didn't get this result within this script.
         verify: -> { assert_match(%r{.rvm/bin/rvm$}, 'which rvm') },
-        ykiwi: %q(The output of `$ type rvm | head -n 1` is `rvm is a function`.  # as recommended in https://rvm.io/rvm/install)
+        ykiwi: %q[The output of `$ type rvm | head -n 1` is "rvm is a function" (as recommended in https://rvm.io/rvm/install)]
       },
 
       slack: {
@@ -423,7 +429,7 @@ We use information from your github account throughout the class.
         installation_steps: [
           %q(
 1. Install the XCode CLI tools
-```
+```bash
 $ xcode-select --install
 ```
           )
@@ -536,8 +542,9 @@ private
   def instruction_footer
     %q(
 ## Let's verify that everything was installed... programmatically.
-
-    $ rake installfest:doctor
+  ```bash
+  $ rake installfest:doctor
+  ```
 )
   end
 
