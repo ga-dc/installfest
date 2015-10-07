@@ -276,7 +276,7 @@ $ brew install git
   ```
 ),
         ],
-        verify: -> { assert_equals('core.editor=atom --wait', 'git config --list | grep core.editor')}
+        verify: -> { assert_match(/core.editor=#{editor} --wait/, 'git config --list | grep core.editor')}
       },
 
       github: {
@@ -486,7 +486,6 @@ If you installed node without using 'brew install node', follow these instructio
           )
         ],
         verify: -> { assert_version_is_sufficient('2339', 'xcode-select --version | head -n1 | cut -f3 -d " " | sed "s/[.]//g"' ) }
-
       }
     }
   end
