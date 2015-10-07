@@ -61,7 +61,7 @@ If you installed node without using 'brew install node', follow these instructio
 
 1. First, uninstall the files listed in nodejs' Bill of Materials (bom):
   ```
-  lsbom -f -l -s -pf /var/db/receipts/org.nodejs.pkg.bom | while read f; do  sudo rm /usr/local/${f}; done
+  lsbom -f -l -s -pf /var/db/receipts/org.nodejs.node.pkg.bom | while read f; do  sudo rm /usr/local/${f}; done
   sudo rm -rf /usr/local/lib/node /usr/local/lib/node_modules /var/db/receipts/org.nodejs.*
   ```
 
@@ -309,7 +309,8 @@ You see the current git branch in your prompt, when you navigate to a directory 
 
 ## Authorize WDI to use your github info
 
-1. Go to http://auth.wdidc.org/ and follow the instructions
+1. Go to http://garnet.wdidc.org/github/authorize/
+2. Click "Authorize Application" to allow GA to access to your public information.
         
 
 
