@@ -3,6 +3,7 @@
 - :disable_system_integrity_protection
 - :atom
 - :xcode_cli_tools
+- :uninstall_non_brew_node
 - :homebrew
 - :postgres
 - :rvm
