@@ -150,10 +150,9 @@ class Installfest
 1. Download atom [from their website](https://atom.io) and install.
 2. Run "atom".  From the "Atom" menu, select "Install Shell Commands".
 3. Then configure your terminal to use 'atom'.  This command appends the text "EDITOR=atom" to a config file.
-```bash
-$ echo "EDITOR=atom" >> ~/.bash_profile
-```
-)
+
+    $ echo "EDITOR=atom" >> ~/.bash_profile
+          )
         ],
         verify: -> { assert_version_is_sufficient('1.0.0', 'atom --version') }
       },
@@ -164,18 +163,18 @@ $ echo "EDITOR=atom" >> ~/.bash_profile
           "Update your prompt to show which git branch your are in.",
           %q(
 1. Install the bash-completion script.
-  ```bash
-  $ brew install bash-completion
-  ```
+
+    $ brew install bash-completion
+
 2. Configure your prompt to show you working dir and git branch.
   - Open your `~/.bash_profile` file in atom.
-    ```bash
+
     $ atom ~/.bash_profile
-    ```
+
 
   - Copy and paste these lines to your ~/.bash_profile, prior to `[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*`:
 
-    ```bash
+
     if  [ -f $(brew --prefix)/etc/bash_completion ]; then
       source $(brew --prefix)/etc/bash_completion
     fi
@@ -186,7 +185,7 @@ $ echo "EDITOR=atom" >> ~/.bash_profile
       # set your prompt. path: \w, git branch & status: $(__git_ps1), newline: \n, dollar sign delimiter: \$
       PS1='\w$(__git_ps1) \n\$ '
     fi
-    ```
+
 3. This will change your bash prompt to something like this sample prompt (context: in "installfest" dir, branch is "master" with unstaged changes):
   <pre>
   ~/dev/ga/apps/installfest (master *)
@@ -204,14 +203,13 @@ $ echo "EDITOR=atom" >> ~/.bash_profile
           %q(
 1. Reboot into Recovery mode (Hold Cmd+R on boot) & access the Terminal.
 2. Disable SIP:
-  ```bash
-  $ csrutil disable
-  ```
+
+    $ csrutil disable
+
 3. Reboot back into OS X
 4. Now that SIP is disabled, ensure Homebrew can write to the "/usr/local" directory:
-  ```bash
-  $ sudo mkdir /usr/local && sudo chflags norestricted /usr/local && sudo chown -R $(whoami):admin /usr/local
-  ```
+
+    $ sudo mkdir /usr/local && sudo chflags norestricted /usr/local && sudo chown -R $(whoami):admin /usr/local
           )
         ],
         verify: -> {  case compare_versions('10.11', `sw_vers -productVersion`)
@@ -226,9 +224,8 @@ $ echo "EDITOR=atom" >> ~/.bash_profile
       git: {
         installation_steps: [
           %q(
-```bash
-$ brew install git
-```
+
+    $ brew install git
           )
         ],
         verify: lambda do
@@ -254,28 +251,27 @@ $ brew install git
     `$ git config --global user.email "THE_EMAIL_YOU_USE_FOR_GITHUB@EMAIL.COM"`
 
 2. Configure git's colors (you can copy & paste all of these commands at once):
-  ```bash
-  git config --global color.ui always
-  git config --global color.branch.current   "green reverse"
-  git config --global color.branch.local     green
-  git config --global color.branch.remote    yellow
-  git config --global color.status.added     green
-  git config --global color.status.changed   yellow
-  git config --global color.status.untracked red
-  ```
+
+    git config --global color.ui always
+    git config --global color.branch.current   "green reverse"
+    git config --global color.branch.local     green
+    git config --global color.branch.remote    yellow
+    git config --global color.status.added     green
+    git config --global color.status.changed   yellow
+    git config --global color.status.untracked red
+
 
 3. Tell git what editor to use for commits
 
   3a. If you chose to use sublime:
-  ```bash
-  $ git config --global core.editor "subl --wait --new-window"
-  ```
+
+    $ git config --global core.editor "subl --wait --new-window"
+
 
   3b. OR, if you are using atom (the default):
-  ```bash
-  $ git config --global core.editor "atom --wait"
-  ```
-),
+
+    $ git config --global core.editor "atom --wait"
+          ),
         ],
         verify: -> { assert_match(/core.editor=#{editor} --wait/, 'git config --list | grep core.editor')}
       },
@@ -296,9 +292,8 @@ We use information from your github account throughout the class.
 
 2. Add your github username to your system configuration (replacing "YOUR GITHUB USERNAME"):
 
-  ```bash
-  $ echo "export GITHUB_USERNAME='YOUR GITHUB USERNAME'" >> ~/.bash_profile
-  ```
+
+    $ echo "export GITHUB_USERNAME='YOUR GITHUB USERNAME'" >> ~/.bash_profile
         )],
         verify: -> { assert(!github_username.to_s.empty?, "We can't find your github username.", "") }
       },
@@ -308,17 +303,16 @@ We use information from your github account throughout the class.
         installation_steps: [
           %q(
 1. Download and install Homebrew:
-  ```bash
-  $ ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-  ```
+
+    $ ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+
 2. Ensure you have the latest version of everything
-  ```bash
-  $ brew update && brew upgrade
-  ```
+
+    $ brew update && brew upgrade
+
 3. ensure apps installed via Homebrew will be found via your Path.
-  ```bash
-  $ echo 'export PATH="/usr/local/bin:$PATH"' >> ~/.bash_profile
-  ```
+
+    $ echo 'export PATH="/usr/local/bin:$PATH"' >> ~/.bash_profile
           ),
         ],
         verify: -> { assert_match(/is ready to brew/, 'brew doctor') },
@@ -337,9 +331,8 @@ We use information from your github account throughout the class.
 3. Open the Postgres.app
   -  Look for the elephant in the the menu bar.
 4. Configure bash to enable opening Postgres from the command line (via psql):
-  ```bash
-  $ echo 'export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.4/bin' >> ~/.bash_profile
-  ```
+
+    $ echo 'export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.4/bin' >> ~/.bash_profile
           )
         ],
         verify: -> { assert_version_is_sufficient('9.4.0', 'psql --version | cut -f3 -d " "')}
@@ -349,17 +342,16 @@ We use information from your github account throughout the class.
         installation_steps: [
           %q(
 1. Update rvm
-  ```bash
-  $ rvm get master
-  ```
+
+    $ rvm get master
+
 2. Install ruby
-  ```bash
-  $ rvm install 2.2.3
-  ```
+
+    $ rvm install 2.2.3
+
 3. Configure your default version of ruby
-  ```bash
-  $ rvm use 2.2.3 --default
-  ```
+
+    $ rvm use 2.2.3 --default
           )
         ],
         verify: -> { assert_match(/^ruby 2.2.3p173/, 'ruby --version') },
@@ -373,9 +365,8 @@ We use information from your github account throughout the class.
         installation_steps: [
           %q(
 1. Update to the latest version of Ruby Gems
-  ```bash
-  $ gem update --system
-  ```
+
+    $ gem update --system
           )
         ],
         verify: -> { assert_version_is_sufficient('2.4.8', 'gem -v') }
@@ -386,19 +377,18 @@ We use information from your github account throughout the class.
         installation_steps: [
           %q(
 1. First, check to see if you have `rbenv` installed already, since this conflicts with `rvm`.  If the output of the following command is anything *other than* blank, get an instructor to help you uninstall.
-  ```bash
-  $ which rbenv
-  ```
+
+    $ which rbenv
+
 
 2. Otherwise, go ahead and install RVM (yes, there is a leading slash):
-  ```
-  $ \curl -sSL https://get.rvm.io | bash
-  ```
+
+    $ \curl -sSL https://get.rvm.io | bash
+
 
 3. Reload this shell, to initialize rvm.
-  ```bash
-  $ exec bash -l
-  ```
+
+    $ exec bash -l
 )
         ],
         # TODO: https://rvm.io/rvm/install suggests using
@@ -432,45 +422,44 @@ We use information from your github account throughout the class.
 If you installed node without using 'brew install node', follow these instructions to uninstall that version.
 
 1. First, uninstall the files listed in nodejs' Bill of Materials (bom):
-  ```
-  $ lsbom -f -l -s -pf /var/db/receipts/org.nodejs.node.pkg.bom | while read f; do  sudo rm /usr/local/${f}; done
-  $ sudo rm -rf /usr/local/lib/node /usr/local/lib/node_modules /var/db/receipts/org.nodejs.*
-  ```
+
+    $ lsbom -f -l -s -pf /var/db/receipts/org.nodejs.node.pkg.bom | while read f; do  sudo rm /usr/local/${f}; done
+    $ sudo rm -rf /usr/local/lib/node /usr/local/lib/node_modules /var/db/receipts/org.nodejs.*
+
 
 2. Go to /usr/local/lib and delete any node and node_modules
-  ```
-  $ cd /usr/local/lib
-  $ sudo rm -rf node*
-  ```
+
+    $ cd /usr/local/lib
+    $ sudo rm -rf node*
+
 
 3. Go to /usr/local/include and delete any node and node_modules directory
-  ```
-  $ cd /usr/local/include
-  $ sudo rm -rf node*
-  ```
+
+    $ cd /usr/local/include
+    $ sudo rm -rf node*
+
 4. Go to /usr/local/bin and delete any node executable
-  ```
-  $ cd /usr/local/bin
-  $ sudo rm -rf /usr/local/bin/npm
-  $ ls -las
-  ```
+
+    $ cd /usr/local/bin
+    $ sudo rm -rf /usr/local/bin/npm
+    $ ls -las
+
 5. Remove man docs
-  ```
-  $ sudo rm -rf /usr/local/share/man/man1/node.1
-  ```
+
+    $ sudo rm -rf /usr/local/share/man/man1/node.1
+
 6. Remove debugging info
-  ```
-  $ sudo rm -rf /usr/local/lib/dtrace/node.d
-  ```
+
+    $ sudo rm -rf /usr/local/lib/dtrace/node.d
+
 8. Remove from Home dir
-  ```
-  $ sudo rm -rf ~/.npm
-  ```
+
+    $ sudo rm -rf ~/.npm
+
 9. Check your Home directory for any "local" or "lib" or "include" folders, and delete any "node" or "node_modules" from there
 10. Finally, ensure you have permissions to "/usr/local/"
-  ```
-  $ sudo chown -R `whoami`:staff /usr/local
-  ```
+
+    $ sudo chown -R `whoami`:staff /usr/local
           )
         ],
         verify: -> { assert_match(/No such file/, 'ls /var/db/receipts/org.nodejs*') }
@@ -481,9 +470,8 @@ If you installed node without using 'brew install node', follow these instructio
         installation_steps: [
           %q(
 1. Install the XCode CLI tools
-  ```bash
-  $ xcode-select --install
-  ```
+
+    $ xcode-select --install
           )
         ],
         verify: -> { assert_version_is_sufficient('2339', 'xcode-select --version | head -n1 | cut -f3 -d " " | sed "s/[.]//g"' ) }
@@ -593,9 +581,9 @@ private
   def instruction_footer
     %q(
 ## Let's verify that everything was installed... programmatically.
-  ```bash
-  $ rake installfest:doctor
-  ```
+
+    $ rake installfest:doctor
+
 )
   end
 
