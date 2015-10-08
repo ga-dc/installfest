@@ -328,7 +328,7 @@ We use information from your github account throughout the class.
           %q(
 1. Download Postgres.app from www.postgresapp.com
 2. Move the Postgres.app to your 'Applications' folder.
-3. Open the Postgres.app
+3. Open the Postgres.app (using "right-click + open" for this non-Mac App store app)
   -  Look for the elephant in the the menu bar.
 4. Configure bash to enable opening Postgres from the command line (via psql):
 
