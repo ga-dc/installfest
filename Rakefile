@@ -553,9 +553,9 @@ If you installed node without using 'brew install node', follow these instructio
         exec "exec bash -l -c 'rake installfest:start SKIP_HEADER=true'"
       end
     end
-#    system "clear"
-#    notify "\n## Everything is installed.  Running one final check..."
-#    Rake::Task["installfest:doctor"].execute
+    system "clear"
+    notify "\n## Everything is installed.  Running one final check..."
+    Rake::Task["installfest:doctor"].execute
     notify start_footer
   end
 
