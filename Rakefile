@@ -244,13 +244,17 @@ class Installfest
 1. Personalize git
   - Your Full Name:
 
-    `$ git config --global user.name  "YOUR FULL NAME"`
+    $ git config --global user.name  "YOUR FULL NAME"
 
   - The email in your github profile (https://github.com):
 
-    `$ git config --global user.email "THE_EMAIL_YOU_USE_FOR_GITHUB@EMAIL.COM"`
+    $ git config --global user.email "THE_EMAIL_YOU_USE_FOR_GITHUB@EMAIL.COM"
 
-2. Configure git's colors (you can copy & paste all of these commands at once):
+2. Configure the default push mode:
+
+    $ git config --global push.default simple
+
+3. Configure git's colors (you can copy & paste all of these commands at once):
 
     git config --global color.ui always
     git config --global color.branch.current   "green reverse"
