@@ -125,7 +125,7 @@ If you installed node without using 'brew install node', follow these instructio
 
 1. Download Postgres.app from www.postgresapp.com
 2. Move the Postgres.app to your 'Applications' folder.
-3. Open the Postgres.app
+3. Open the Postgres.app (using "right-click + open" for this non-Mac App store app)
   -  Look for the elephant in the the menu bar.
 4. Configure bash to enable opening Postgres from the command line (via psql):
 
@@ -207,13 +207,17 @@ The output of `git --version` is greater than or equal to 2.0
 1. Personalize git
   - Your Full Name:
 
-    `$ git config --global user.name  "YOUR FULL NAME"`
+    $ git config --global user.name  "YOUR FULL NAME"
 
   - The email in your github profile (https://github.com):
 
-    `$ git config --global user.email "THE_EMAIL_YOU_USE_FOR_GITHUB@EMAIL.COM"`
+    $ git config --global user.email "THE_EMAIL_YOU_USE_FOR_GITHUB@EMAIL.COM"
 
-2. Configure git's colors (you can copy & paste all of these commands at once):
+2. Configure the default push mode:
+
+    $ git config --global push.default simple
+
+3. Configure git's colors (you can copy & paste all of these commands at once):
 
     git config --global color.ui always
     git config --global color.branch.current   "green reverse"
@@ -234,6 +238,22 @@ The output of `git --version` is greater than or equal to 2.0
   3b. OR, if you are using atom (the default):
 
     $ git config --global core.editor "atom --wait"
+          
+
+
+## Register a global gitignore file
+
+1. Backup your existing global_gitignore (if it exists).  You can ignore a "No such file or directory" error:
+
+    $ mv ~/.gitignore_global ~/.gitignore_global.bak
+
+2. Download the provided global gitignore file to your home dir:
+
+    $ curl -sSL https://raw.githubusercontent.com/ga-dc/installfest/master/support/gitignore_global -o ~/.gitignore_global
+
+3. Configure git to use this global gitignore file:
+
+    $ git config --global core.excludesfile ~/.gitignore_global
           
 
 

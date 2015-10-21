@@ -302,8 +302,31 @@ We use information from your github account throughout the class.
         verify: -> { assert(!github_username.to_s.empty?, "We can't find your github username.", "") }
       },
 
+      global_gitignore: {
+        header: "Register a global gitignore file",
+        installation_steps: [
+          %q(
+1. Backup your existing global_gitignore (if it exists).  You can ignore a "No such file or directory" error:
+
+    $ mv ~/.gitignore_global ~/.gitignore_global.bak
+
+2. Download the provided global gitignore file to your home dir:
+
+    $ curl -sSL https://raw.githubusercontent.com/ga-dc/installfest/master/support/gitignore_global -o ~/.gitignore_global
+
+3. Configure git to use this global gitignore file:
+
+    $ git config --global core.excludesfile ~/.gitignore_global
+          )
+        ],
+        verify: -> {
+          assert_match(/\.DS\_Store/, 'cat ~/.gitignore_global | grep "DS_Store"') &&
+          assert_match(/Users\/.*\/.gitignore_global/, 'git config --global --list | grep core.excludesfile')
+        }
+      },
+
       homebrew: {
-        header: %q(Homebrew (OSX's Package Manager)),
+        header: "Homebrew (OSX's Package Manager)",
         installation_steps: [
           %q(
 1. Download and install Homebrew:
