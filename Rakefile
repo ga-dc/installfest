@@ -14,15 +14,37 @@ require 'yaml'
 ########################
 # Supporting Libraries
 class Installfest
+  class CommandResult
+    attr_reader :status, :message
+    def initialize(status, message)
+      @status = !!status
+      @message = message
+    end
+
+    def merge(other)
+      status = @status && other.status
+      messages = []
+      if status
+        messages << @message # either message is fine
+      else
+        # gather all failure messages
+        messages << @message unless @status
+        messages << other.message unless other.status
+      end
+      CommandResult.new(status, messages.join(';'))
+    end
+
+  end
+
   # TODO: extract Package
   def assert(boolean_expression, failure_message_for_actual, failure_message_for_expected)
     if boolean_expression
-      return OpenStruct.new( status: true, message: 'met' )
+      return CommandResult.new(true, 'met')
     else
-      message = colorize("FAIL", :red)
+      message = colorize("Expectation NOT met", :red)
       message += "\n  #{failure_message_for_actual}"
       message += "\n  #{failure_message_for_expected}"
-      return OpenStruct.new( status: false, message: message )
+      return CommandResult.new(false, message)
     end
   end
 
@@ -214,7 +236,7 @@ class Installfest
         ],
         verify: -> {  case compare_versions('10.11', `sw_vers -productVersion`)
                       when -1
-                        return true
+                        assert true, nil, nil
                       when 0, 1
                         assert_match(/^$/, 'sudo touch /usr/wdi_test_sip_disabled.txt')
                       end
@@ -302,8 +324,33 @@ We use information from your github account throughout the class.
         verify: -> { assert(!github_username.to_s.empty?, "We can't find your github username.", "") }
       },
 
+      global_gitignore: {
+        header: "Register a global gitignore file",
+        installation_steps: [
+          %q(
+1. Backup your existing global_gitignore (if it exists).  You can ignore a "No such file or directory" error:
+
+    $ mv ~/.gitignore_global ~/.gitignore_global.bak
+
+2. Download the provided global gitignore file to your home dir:
+
+    $ curl -sSL https://raw.githubusercontent.com/ga-dc/installfest/master/support/gitignore_global -o ~/.gitignore_global
+
+3. Configure git to use this global gitignore file:
+
+    $ git config --global core.excludesfile ~/.gitignore_global
+          )
+        ],
+        verify: -> {
+          assert_file = assert_match(/\.DS\_Store/, 'cat ~/.gitignore_global | grep "DS_Store"')
+          assert_config = assert_match(/Users\/.*\/.gitignore_global/, 'git config --global --list | grep core.excludesfile')
+
+          assert_file.merge(assert_config)
+        }
+      },
+
       homebrew: {
-        header: %q(Homebrew (OSX's Package Manager)),
+        header: "Homebrew (OSX's Package Manager)",
         installation_steps: [
           %q(
 1. Download and install Homebrew:
@@ -766,7 +813,7 @@ if $PROGRAM_NAME == __FILE__
           out, err = capture_io do
             result = @installfest.assert(false, 'test_actual', 'test_expected')
           end
-          assert_match(/FAIL/i, result.message)
+          assert_match(/NOT met/i, result.message)
         end
 
         it "notifies the user, unless ENV['VERBOSE'] == 'false'" do
@@ -808,6 +855,37 @@ if $PROGRAM_NAME == __FILE__
       it "includes 'sublime', when EDITOR is 'subl'" do
         ENV['EDITOR'] = 'subl'
         @installfest.packages.keys.must_include :sublime
+      end
+    end
+  end
+
+  describe Installfest::CommandResult do
+    before do
+      @result = Installfest::CommandResult.new(true, "MESSAGE")
+    end
+
+    it "responds to #status" do
+      @result.status.must_equal(true)
+    end
+    it "responds to #message" do
+      @result.message.must_equal("MESSAGE")
+    end
+
+    it "converts status to boolean" do
+      Installfest::CommandResult.new(nil, "MESSAGE").status.must_equal(false)
+    end
+
+    describe "#merge" do
+      before do
+        @other_result = Installfest::CommandResult.new(false, "OTHER MESSAGE")
+      end
+
+      it "'ands' the statuses" do
+        @result.merge(@other_result).status.must_equal false
+      end
+
+      it "combines failure messages" do
+        @result.merge(@other_result).message.must_equal "OTHER MESSAGE"
       end
     end
   end
