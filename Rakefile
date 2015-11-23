@@ -41,7 +41,7 @@ class Installfest
     if boolean_expression
       return CommandResult.new(true, 'met')
     else
-      message = colorize("FAIL", :red)
+      message = colorize("Expectation NOT met", :red)
       message += "\n  #{failure_message_for_actual}"
       message += "\n  #{failure_message_for_expected}"
       return CommandResult.new(false, message)
@@ -813,7 +813,7 @@ if $PROGRAM_NAME == __FILE__
           out, err = capture_io do
             result = @installfest.assert(false, 'test_actual', 'test_expected')
           end
-          assert_match(/FAIL/i, result.message)
+          assert_match(/NOT met/i, result.message)
         end
 
         it "notifies the user, unless ENV['VERBOSE'] == 'false'" do
