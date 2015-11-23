@@ -14,15 +14,23 @@ require 'yaml'
 ########################
 # Supporting Libraries
 class Installfest
+  class CommandResult
+    attr_reader :status, :message
+    def initialize(status, message)
+      @status = !!status
+      @message = message
+    end
+  end
+
   # TODO: extract Package
   def assert(boolean_expression, failure_message_for_actual, failure_message_for_expected)
     if boolean_expression
-      return OpenStruct.new( status: true, message: 'met' )
+      return CommandResult.new(true, 'met')
     else
       message = colorize("FAIL", :red)
       message += "\n  #{failure_message_for_actual}"
       message += "\n  #{failure_message_for_expected}"
-      return OpenStruct.new( status: false, message: message )
+      return CommandResult.new(false, message)
     end
   end
 
@@ -832,6 +840,23 @@ if $PROGRAM_NAME == __FILE__
         ENV['EDITOR'] = 'subl'
         @installfest.packages.keys.must_include :sublime
       end
+    end
+  end
+
+  describe Installfest::CommandResult do
+    before do
+      @result = Installfest::CommandResult.new(true, "MESSAGE")
+    end
+
+    it "responds to #status" do
+      @result.status.must_equal(true)
+    end
+    it "responds to #message" do
+      @result.message.must_equal("MESSAGE")
+    end
+
+    it "converts status to boolean" do
+      Installfest::CommandResult.new(nil, "MESSAGE").status.must_equal(false)
     end
   end
 
