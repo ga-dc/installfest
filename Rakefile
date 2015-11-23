@@ -20,6 +20,20 @@ class Installfest
       @status = !!status
       @message = message
     end
+
+    def merge(other)
+      status = @status && other.status
+      messages = []
+      if status
+        messages << @message # either message is fine
+      else
+        # gather all failure messages
+        messages << @message unless @status
+        messages << other.message unless other.status
+      end
+      CommandResult.new(status, messages.join(';'))
+    end
+
   end
 
   # TODO: extract Package
@@ -222,7 +236,7 @@ class Installfest
         ],
         verify: -> {  case compare_versions('10.11', `sw_vers -productVersion`)
                       when -1
-                        return true
+                        assert true, nil, nil
                       when 0, 1
                         assert_match(/^$/, 'sudo touch /usr/wdi_test_sip_disabled.txt')
                       end
@@ -328,8 +342,10 @@ We use information from your github account throughout the class.
           )
         ],
         verify: -> {
-          assert_match(/\.DS\_Store/, 'cat ~/.gitignore_global | grep "DS_Store"') &&
-          assert_match(/Users\/.*\/.gitignore_global/, 'git config --global --list | grep core.excludesfile')
+          assert_file = assert_match(/\.DS\_Store/, 'cat ~/.gitignore_global | grep "DS_Store"')
+          assert_config = assert_match(/Users\/.*\/.gitignore_global/, 'git config --global --list | grep core.excludesfile')
+
+          assert_file.merge(assert_config)
         }
       },
 
@@ -857,6 +873,20 @@ if $PROGRAM_NAME == __FILE__
 
     it "converts status to boolean" do
       Installfest::CommandResult.new(nil, "MESSAGE").status.must_equal(false)
+    end
+
+    describe "#merge" do
+      before do
+        @other_result = Installfest::CommandResult.new(false, "OTHER MESSAGE")
+      end
+
+      it "'ands' the statuses" do
+        @result.merge(@other_result).status.must_equal false
+      end
+
+      it "combines failure messages" do
+        @result.merge(@other_result).message.must_equal "OTHER MESSAGE"
+      end
     end
   end
 
