@@ -86,7 +86,7 @@ class Installfest
     if github_username.to_s.empty?
       persist_github_username(request_github_username)
     end
-    cmd = "curl http://garnet.wdidc.org/users/is-registered.json?github_username=#{github_username} --silent"
+    cmd = "curl http://garnet.wdidc.org/users/#{github_username}/is_registered.json --silent"
     return cmd
   end
 
