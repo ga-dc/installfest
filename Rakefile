@@ -411,6 +411,18 @@ We use information from your github account throughout the class.
         )
       },
 
+      ruby_bundler: {
+        header: "Ruby Gem (Bundler)",
+        installation_steps: [
+          %q(
+1. Update to the latest version of Bundler, a Ruby Gem
+
+    $ gem install bundler -v 1.11.2 && gem cleanup bundler
+          )
+        ],
+        verify: -> { assert_version_is_sufficient('1.11.0', 'gem list bundler | head -n1  | cut -f2 -d " " | sed "s/[()]//g"') }
+      },
+
       ruby_gems: {
         header: "Ruby Gems",
         installation_steps: [
