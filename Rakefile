@@ -321,7 +321,7 @@ We use information from your github account throughout the class.
 
     $ echo "export GITHUB_USERNAME='YOUR GITHUB USERNAME'" >> ~/.bash_profile
         )],
-        verify: -> { assert(!github_username.to_s.empty?, "We can't find your github username.", "") }
+        verify: -> { assert(github_username != "YOUR GITHUB USERNAME" && !github_username.to_s.empty?, "This github username is unexpected ('#{github_username}').", "") }
       },
 
       global_gitignore: {
