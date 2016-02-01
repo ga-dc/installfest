@@ -215,7 +215,7 @@ class Installfest
   </pre>
           ),
         ],
-        verify: -> { assert_match(/git_ps1/, 'cat ~/.bash_profile | grep PS1') },
+        verify: -> { assert_match(/git_ps1/, 'source ~/.bash_profile > /dev/null && echo $PS1') },
         ykiwi: "You see the current git branch in your prompt, when you navigate to a directory within a git repository."
       },
 
