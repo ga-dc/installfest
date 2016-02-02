@@ -223,15 +223,7 @@ class Installfest
         header: "El Capitan ONLY!!  Disable SIP (System Integrity Protection)",
         installation_steps: [
           %q(
-1. Reboot into Recovery mode (Hold Cmd+R on boot) & access the Terminal.
-2. Disable SIP:
-
-    $ csrutil disable
-
-3. Reboot back into OS X
-4. Now that SIP is disabled, ensure Homebrew can write to the "/usr/local" directory:
-
-    $ sudo mkdir /usr/local && sudo chflags norestricted /usr/local && sudo chown -R $(whoami):admin /usr/local
+1. Follow [these instructions to disable SIP](https://github.com/ga-dc/installfest/blob/master/disable_sip_for_homebrew.md).
           )
         ],
         verify: -> {  case compare_versions(`sw_vers -productVersion`, '10.11.0')
