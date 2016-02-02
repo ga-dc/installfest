@@ -9,6 +9,7 @@
 - :rvm
 - :ruby
 - :ruby_gems
+- :ruby_bundler
 - :slack
 - :git
 - :git_configuration

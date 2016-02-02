@@ -176,7 +176,7 @@ class Installfest
     $ echo "EDITOR=atom" >> ~/.bash_profile
           )
         ],
-        verify: -> { assert_version_is_sufficient('1.0.0', 'atom --version') }
+        verify: -> { assert_version_is_sufficient('1.4.0', 'atom --version') }
       },
 
       bash_prompt: {
@@ -252,7 +252,7 @@ class Installfest
         ],
         verify: lambda do
           assert_version_is_sufficient(
-            '2.5.0',
+            '2.7.0',
             'git --version | head -n1 | cut -f3 -d " "'
           ) # non-abbreviated flag names are not available in BSD
         end,
@@ -386,7 +386,7 @@ We use information from your github account throughout the class.
     $ echo 'export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.4/bin' >> ~/.bash_profile
           )
         ],
-        verify: -> { assert_version_is_sufficient('9.4.0', 'psql --version | cut -f3 -d " "')}
+        verify: -> { assert_version_is_sufficient('9.5.0', 'psql --version | cut -f3 -d " "')}
       },
 
       ruby: {
@@ -411,6 +411,18 @@ We use information from your github account throughout the class.
         )
       },
 
+      ruby_bundler: {
+        header: "Ruby Gem (Bundler)",
+        installation_steps: [
+          %q(
+1. Update to the latest version of Bundler, a Ruby Gem
+
+    $ gem install bundler -v 1.11.2 && gem cleanup bundler
+          )
+        ],
+        verify: -> { assert_version_is_sufficient('1.11.0', 'gem list bundler | head -n1  | cut -f2 -d " " | sed "s/[()]//g"') }
+      },
+
       ruby_gems: {
         header: "Ruby Gems",
         installation_steps: [
@@ -420,7 +432,7 @@ We use information from your github account throughout the class.
     $ gem update --system
           )
         ],
-        verify: -> { assert_version_is_sufficient('2.4.8', 'gem -v') }
+        verify: -> { assert_version_is_sufficient('2.5.2', 'gem -v') }
       },
 
       rvm: {
@@ -525,7 +537,7 @@ If you installed node without using 'brew install node', follow these instructio
     $ xcode-select --install
           )
         ],
-        verify: -> { assert_version_is_sufficient('2339', 'xcode-select --version | head -n1 | cut -f3 -d " " | sed "s/[.]//g"' ) }
+        verify: -> { assert_version_is_sufficient('2343', 'xcode-select --version | head -n1 | cut -f3 -d " " | sed "s/[.]//g"' ) }
       }
     }
   end
