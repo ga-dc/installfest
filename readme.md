@@ -24,7 +24,7 @@ If you have ANY questions, raise your hand for assistance.
 3. Download the latest Installfest Rakefile to this directory (via `curl` command).
   
   ```
-  curl --location http://git.io/vLxbY | sh
+  curl --location https://git.io/vLxbY | sh
   ```
 
 4. Run the appropriate rake command (Rake is a tool for managing scripts in Ruby):
