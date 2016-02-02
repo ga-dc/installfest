@@ -733,13 +733,13 @@ You can open Terminal by:
 
 - You should be able to COPY AND PASTE the lines into Terminal. We don't recommend typing the commands manually since a single typo can make a command malfunction.
 
-- If you see words in all-capitals (like "YOUR NAME"), they're a placeholder that you should replace with whatever's appropriate.
+- If you see words in all-capitals (like "YOUR NAME"), replace them with whatever's appropriate.
 
-- Copy and paste ONE COMMAND AT A TIME. Each command should be a single line, but note that if your window is narrow some lines may "wrap" and appear as multiple lines. Most commands will begin with a dollar sign (`$`), so keep an eye out for that. On that note...
+- Copy and paste ONE COMMAND AT A TIME. Each command should be a single line, but if your window is narrow some lines may "wrap" and appear as multiple lines. Most commands will begin with a dollar sign (`$`). On that note...
 
-- You **SHOULD NOT** include the `$` when copying and pasting -- include everything AFTER it. The dollar sign is an industry convention that signals "This is an individual command to be copied and pasted."
+- You **SHOULD NOT** include the `$` when copying and pasting. Instead, copy and paste everything AFTER it. The dollar sign is an industry convention that signals "This is an individual command to be copied and pasted."
 
-- You should have TWO TERMINAL WINDOWS open at the same time: one in which this script is running, and one in which you can type stuff. This is because you can't type stuff into the window in which this script is running -- you can only hit the "return" key when prompted -- so you'll need the other window to actually issue commands. Open a new window by pressing Command + N.
+- You should have TWO TERMINAL WINDOWS open at the same time: one in which this script is running, and one in which you can type stuff. This is because you can't type stuff into the window in which this script is running -- you can only hit the "return" key when prompted. Open a new window by pressing Command + N. There's going to be a lot of text, so make the windows as TALL as you can.
 
 #{colorize("## Getting started...", :green)}
 
@@ -750,6 +750,8 @@ You can open Terminal by:
 - Typing "Terminal" into Spotlight (ensure you select the Terminal app). Open spotlight by clicking the little magnifying glass in the top-right corner of your screen, or hitting Command + Space. Or...
 
 - In the Finder, going to the "Applications" folder, then "Utilities", then double-clicking "Terminal".
+
+It doesn't matter what directory you're in when entering commands.
 )
   end
 
