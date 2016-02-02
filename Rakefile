@@ -644,29 +644,21 @@ private
 
 ## Before you start...
 
-PLEASE READ THIS WHOLE PAGE! You're going to be installing a lot of stuff on your computer in a way you probably never have before. It's perfectly safe, but it's going to look scary!
+We will be installing multiple applications.  The installation steps will be provided for each application.
 
-- THE WAY THIS WORKS: This script is going to check for different pieces of software on your computer. If you don't have those pieces of software -- or you do, but they need to be tweaked -- the script will stop and tell you what to do. When you're done, the script will restart. This will continue until everything is set up correctly.
+You should be able to copy and paste the lines into Terminal -- except for a few that have obvious prompts in them, like "YOUR NAME", which you should replace accordingly.
 
-- You should be able to COPY AND PASTE the lines into Terminal.
+Many instructions start with dollar a sign (`$`).  The dollar sign is a convention used to indicate a bash (terminal) command.  You **should not** actually write the `$`.
 
-- Copy and paste ONE LINE AT A TIME.
+We recommend that you configure your system so that you can see both the instructions and Terminal at the same time.
 
-- If you see words in all-capitals (like "YOUR NAME"), they're a placeholder that you should replace with whatever's appropriate.
+## Open Terminal "app"
 
-- Many instructions start with a dollar sign (`$`). This just indicates a new line.  You **SHOULD NOT** actually write the `$`.
-
-- You should have TWO TERMINAL WINDOWS open at the same time: one in which this script is running, and one in which you can type stuff. Open a new window by pressing Command + N. You CANNOT type stuff into the window in which this script is running: literally all you can do in that window is hit the "Return" key.
-
-## Getting started...
-
-If you haven't done so already, open the Terminal app so you can begin entering commands.
+If you haven't done so already, open Terminal so you can begin entering commands.
 
 You can open Terminal by:
-
-- Typing "Terminal" into Spotlight (ensure you select the Terminal app). Open spotlight by clicking the little magnifying glass in the top-right corner of your screen, or hitting Command + Space.
-
-- In the Finder, going to the "Applications" folder, then "Utilities", then double-clicking "Terminal".
+- typing "Terminal" into Spotlight (ensure you select the Terminal app)
+- or you can open it from Finder, look in "Applications > Utilities".
     )
   end
 
@@ -725,29 +717,33 @@ You can open Terminal by:
 
   def start_header
     %q(
-# Welcome to Installfest!
+# Installfest!
 
 ## Before you start...
 
-Today, you will be installing the basic software you need for the class.
+PLEASE READ THIS WHOLE PAGE! You're going to be installing a lot of stuff on your computer in a way you probably never have before.
 
-If you have ANY questions, raise your hand for assistance.
+- THE WAY THIS WORKS: This script is going to check for different pieces of software on your computer. If you don't have those pieces of software -- or you do, but they need to be tweaked -- the script will stop and tell you what to do. When you're done, the script will restart. This will continue until everything is set up correctly.
 
-1. You will be reading instructions from one Terminal window and
-2. Entering these commands into *another* Terminal window.  We recommend you arrange them side-by-side.
-** If you don't have the additional Terminal open, do so now. **
+- You should be able to COPY AND PASTE the lines into Terminal.
 
+- Copy and paste ONE LINE AT A TIME.
 
-Each package will list the installation steps.
+- If you see words in all-capitals (like "YOUR NAME"), they're a placeholder that you should replace with whatever's appropriate.
 
-Read through every instruction carefully and follow them to the letter.
+- Many instructions start with a dollar sign (`$`). This just indicates a new line.  You **SHOULD NOT** actually write the `$`.
 
-You should be able to copy and paste the lines into Terminal.
-With these exceptions:
-- If you see all capitals (like "YOUR NAME"), replace this placeholder with your appropriate information.
-- Commands will start with a dollar sign (`$`),
-but you should NOT actually copy/type the `$` into your Terminal.
-The dollar sign is a standard convention to indicate a bash (terminal) command.
+- You should have TWO TERMINAL WINDOWS open at the same time: one in which this script is running, and one in which you can type stuff. This is because you can't type stuff into the window in which this script is running -- you can only hit the "return" key when prompted -- so you'll need the other window to actually issue commands. Open a new window by pressing Command + N.
+
+## Getting started...
+
+If you haven't done so already, open the Terminal app so you can begin entering commands.
+
+You can open Terminal by:
+
+- Typing "Terminal" into Spotlight (ensure you select the Terminal app). Open spotlight by clicking the little magnifying glass in the top-right corner of your screen, or hitting Command + Space.
+
+- In the Finder, going to the "Applications" folder, then "Utilities", then double-clicking "Terminal".
 )
   end
 
