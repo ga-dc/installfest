@@ -725,13 +725,13 @@ PLEASE READ THIS WHOLE PAGE! You're going to be installing a lot of stuff on you
 
 - THE WAY THIS WORKS: This script is going to check for different pieces of software on your computer. If you don't have those pieces of software -- or you do, but they need to be tweaked -- the script will stop and tell you what to do. When you're done, the script will restart. This will continue until everything is set up correctly.
 
-- You should be able to COPY AND PASTE the lines into Terminal.
-
-- Copy and paste ONE LINE AT A TIME.
+- You should be able to COPY AND PASTE the lines into Terminal. We don't recommend typing the commands manually since a single typo can make a command malfunction.
 
 - If you see words in all-capitals (like "YOUR NAME"), they're a placeholder that you should replace with whatever's appropriate.
 
-- Many instructions start with a dollar sign (`$`). This just indicates a new line.  You **SHOULD NOT** actually write the `$`.
+- Copy and paste ONE COMMAND AT A TIME. Each command should be a single line, but note that if your window is narrow some lines may "wrap" and appear as multiple lines. Most commands will begin with a dollar sign (`$`), so keep an eye out for that. On that note...
+
+- You **SHOULD NOT** include the `$` when copying and pasting -- include everything AFTER it. The dollar sign is an industry convention that signals "This is an individual command to be copied and pasted."
 
 - You should have TWO TERMINAL WINDOWS open at the same time: one in which this script is running, and one in which you can type stuff. This is because you can't type stuff into the window in which this script is running -- you can only hit the "return" key when prompted -- so you'll need the other window to actually issue commands. Open a new window by pressing Command + N.
 
