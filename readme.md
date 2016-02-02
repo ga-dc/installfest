@@ -10,18 +10,25 @@ If you have ANY questions, raise your hand for assistance.
 
 
 1. Make your working directory for WDI.  You will use this directory throughout the course:
+  
   ```
   mkdir ~/wdi
   ```
+
 2. Change to that directory:
+  
   ```
   cd ~/wdi
   ```
+  
 3. Download the latest Installfest Rakefile to this directory (via `curl` command).
+  
   ```
   curl --location http://git.io/vLxbY | sh
   ```
+
 4. Run the appropriate rake command (Rake is a tool for managing scripts in Ruby):
+
   ```
   rake installfest:start
   ```
