@@ -648,18 +648,24 @@ PLEASE READ THIS WHOLE PAGE! You're going to be installing a lot of stuff on you
 
 - THE WAY THIS WORKS: This script is going to check for different pieces of software on your computer. If you don't have those pieces of software -- or you do, but they need to be tweaked -- the script will stop and tell you what to do. When you're done, the script will restart. This will continue until everything is set up correctly.
 
-- You should be able to COPY AND PASTE the lines into Terminal -- except for a few that have obvious prompts in them, like "YOUR NAME", which you should replace accordingly.
+- You should be able to COPY AND PASTE the lines into Terminal.
 
-- Many instructions start with a dollar sign (`$`).  The dollar sign is a convention used to indicate a bash (terminal) command.  You **SHOULD NOT** actually write the `$`.
+- Copy and paste ONE LINE AT A TIME.
 
-- You should have TWO TERMINAL WINDOWS open at the same time: one in which this script is running, and one in which you can type stuff. You CANNOT type stuff into the window in which this script is running: literally all you can do in that window is hit the "Return" key.
+- If you see words in all-capitals (like "YOUR NAME"), they're a placeholder that you should replace with whatever's appropriate.
+
+- Many instructions start with a dollar sign (`$`). This just indicates a new line.  You **SHOULD NOT** actually write the `$`.
+
+- You should have TWO TERMINAL WINDOWS open at the same time: one in which this script is running, and one in which you can type stuff. Open a new window by pressing Command + N. You CANNOT type stuff into the window in which this script is running: literally all you can do in that window is hit the "Return" key.
 
 ## Getting started...
 
 If you haven't done so already, open the Terminal app so you can begin entering commands.
 
 You can open Terminal by:
+
 - Typing "Terminal" into Spotlight (ensure you select the Terminal app). Open spotlight by clicking the little magnifying glass in the top-right corner of your screen, or hitting Command + Space.
+
 - In the Finder, going to the "Applications" folder, then "Utilities", then double-clicking "Terminal".
     )
   end
