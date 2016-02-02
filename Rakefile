@@ -159,7 +159,7 @@ class Installfest
         header: %q(Authorize WDI to use your github info),
         installation_steps: [
           %q(
-1. Go to http://garnet.wdidc.org/github/authorize/
+1. Go to http://garnet.wdidc.org/github/authorize?invite_code=14b71bca6df0c463f47f6e03742141e2
 2. Click "Authorize Application" to allow GA to access to your public information.
         )],
         verify: -> { assert_match(/true/, check_gh_username) }
