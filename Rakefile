@@ -41,7 +41,7 @@ class Installfest
     if boolean_expression
       return CommandResult.new(true, 'met')
     else
-      message = "\nExtra debugging info:"
+      message = "\nNOT met. Extra debugging info:"
       message += "\n  #{failure_message_for_actual}"
       message += "\n  #{failure_message_for_expected}"
       return CommandResult.new(false, colorize(message, :grey))
