@@ -41,10 +41,10 @@ class Installfest
     if boolean_expression
       return CommandResult.new(true, 'met')
     else
-      message = colorize("Expectation NOT met", :red)
+      message = "\nNOT met. Extra debugging info:"
       message += "\n  #{failure_message_for_actual}"
       message += "\n  #{failure_message_for_expected}"
-      return CommandResult.new(false, message)
+      return CommandResult.new(false, colorize(message, :grey))
     end
   end
 
@@ -182,7 +182,7 @@ class Installfest
       bash_prompt: {
         header: "Bash Prompt (includes git branch)",
         installation_steps: [
-          "Update your prompt to show which git branch your are in.",
+          "Update your prompt to show which git branch you are in.",
           %q(
 1. Install the bash-completion script.
 
@@ -581,7 +581,12 @@ If you installed node without using 'brew install node', follow these instructio
       package = {header: package_name}.merge(package)
       system "clear"
       until result = verify_package(package_name, package)
-        notify "\n#{'-' * 25}\nWARNING: This package is NOT installed correctly.  Follow the instructions below.  \nIf issues persist, raise your hand and someone will assist you."
+        notify colorize(%Q(#{'-' * 25}
+IT'S YOUR TURN! Either you haven't installed this application yet, or it needs some tweaking.
+
+Just follow the steps below!
+
+If issues persist, raise your hand and an instructor will assist you.), :green)
         show_instructions_for(package)
         notify "\nPress <enter> when you have completed the above steps."
         response = $stdin.gets.strip
@@ -614,7 +619,8 @@ private
       yellow: 33,
       blue: 34,
       magenta: 35,
-      cyan: 36
+      cyan: 36,
+      grey: 37
     }
   end
 
@@ -708,38 +714,44 @@ You can open Terminal by:
 
 
   def start_footer
-    %q(
-## Congratulations!  You are good to go.
+    %Q(
+## #{colorize("Congratulations", :green)}!  You are good to go.
 
   Inform your instructors.
     )
   end
 
   def start_header
-    %q(
-# Welcome to Installfest!
+    %Q(
+#{colorize("# Welcome to Installfest!", :green)}
 
-## Before you start...
+#{colorize("## Before you start...", :green)}
 
-Today, you will be installing the basic software you need for the class.
+#{colorize("PLEASE READ THIS WHOLE PAGE!", :red)} You're going to be installing a lot of stuff on your computer in a way you probably never have before.
 
-If you have ANY questions, raise your hand for assistance.
+- THE WAY THIS WORKS: This script is going to check for different pieces of software on your computer. If you don't have those pieces of software -- or you do, but they need to be tweaked -- the script will stop and tell you what to do. When you're done, the script will restart. This will continue until everything is set up correctly.
 
-1. You will be reading instructions from one Terminal window and
-2. Entering these commands into *another* Terminal window.  We recommend you arrange them side-by-side.
-** If you don't have the additional Terminal open, do so now. **
+- You should be able to COPY AND PASTE the lines into Terminal. We don't recommend typing the commands manually since a single typo can make a command malfunction.
 
+- If you see words in all-capitals (like "YOUR NAME"), replace them with whatever's appropriate.
 
-Each package will list the installation steps.
+- Copy and paste ONE COMMAND AT A TIME. Each command should be a single line, but if your window is narrow some lines may "wrap" and appear as multiple lines. Most commands will begin with a dollar sign (`$`). On that note...
 
-Read through every instruction carefully and follow them to the letter.
+- You **SHOULD NOT** include the `$` when copying and pasting. Instead, copy and paste everything AFTER it. The dollar sign is an industry convention that signals "This is an individual command to be copied and pasted."
 
-You should be able to copy and paste the lines into Terminal.
-With these exceptions:
-- If you see all capitals (like "YOUR NAME"), replace this placeholder with your appropriate information.
-- Commands will start with a dollar sign (`$`),
-but you should NOT actually copy/type the `$` into your Terminal.
-The dollar sign is a standard convention to indicate a bash (terminal) command.
+- You should have TWO TERMINAL WINDOWS open at the same time: one in which this script is running, and one in which you can type stuff. This is because you can't type stuff into the window in which this script is running -- you can only hit the "return" key when prompted. Open a new window by pressing Command + N. There's going to be a lot of text, so make the windows as TALL as you can.
+
+#{colorize("## Getting started...", :green)}
+
+If you haven't done so already, open the Terminal app so you can begin entering commands.
+
+You can open Terminal by:
+
+- Typing "Terminal" into Spotlight (ensure you select the Terminal app). Open spotlight by clicking the little magnifying glass in the top-right corner of your screen, or hitting Command + Space. Or...
+
+- In the Finder, going to the "Applications" folder, then "Utilities", then double-clicking "Terminal".
+
+It doesn't matter what directory you're in when entering commands.
 )
   end
 
