@@ -41,10 +41,10 @@ class Installfest
     if boolean_expression
       return CommandResult.new(true, 'met')
     else
-      message = colorize("Expectation NOT met", :red)
+      message = "\nExtra debugging info:"
       message += "\n  #{failure_message_for_actual}"
       message += "\n  #{failure_message_for_expected}"
-      return CommandResult.new(false, message)
+      return CommandResult.new(false, colorize(message, :grey))
     end
   end
 
@@ -581,7 +581,12 @@ If you installed node without using 'brew install node', follow these instructio
       package = {header: package_name}.merge(package)
       system "clear"
       until result = verify_package(package_name, package)
-        notify "\n#{'-' * 25}\nIT'S YOUR TURN! Either you haven't installed this application yet, or it needs some tweaking. No worries! Just follow the steps below. :)\nIf issues persist, raise your hand and an instructor will assist you."
+        notify colorize(%Q(#{'-' * 25}
+IT'S YOUR TURN! Either you haven't installed this application yet, or it needs some tweaking.
+
+Just follow the steps below!
+
+If issues persist, raise your hand and an instructor will assist you.), :green)
         show_instructions_for(package)
         notify "\nPress <enter> when you have completed the above steps."
         response = $stdin.gets.strip
@@ -614,7 +619,8 @@ private
       yellow: 33,
       blue: 34,
       magenta: 35,
-      cyan: 36
+      cyan: 36,
+      grey: 37
     }
   end
 
@@ -708,20 +714,20 @@ You can open Terminal by:
 
 
   def start_footer
-    %q(
-## Congratulations!  You are good to go.
+    %Q(
+## #{colorize("Congratulations", :green)}!  You are good to go.
 
   Inform your instructors.
     )
   end
 
   def start_header
-    %q(
-# Installfest!
+    %Q(
+#{colorize("# Welcome to Installfest!", :green)}
 
-## Before you start...
+#{colorize("## Before you start...", :green)}
 
-PLEASE READ THIS WHOLE PAGE! You're going to be installing a lot of stuff on your computer in a way you probably never have before.
+#{colorize("PLEASE READ THIS WHOLE PAGE!", :red)} You're going to be installing a lot of stuff on your computer in a way you probably never have before.
 
 - THE WAY THIS WORKS: This script is going to check for different pieces of software on your computer. If you don't have those pieces of software -- or you do, but they need to be tweaked -- the script will stop and tell you what to do. When you're done, the script will restart. This will continue until everything is set up correctly.
 
@@ -735,13 +741,13 @@ PLEASE READ THIS WHOLE PAGE! You're going to be installing a lot of stuff on you
 
 - You should have TWO TERMINAL WINDOWS open at the same time: one in which this script is running, and one in which you can type stuff. This is because you can't type stuff into the window in which this script is running -- you can only hit the "return" key when prompted -- so you'll need the other window to actually issue commands. Open a new window by pressing Command + N.
 
-## Getting started...
+#{colorize("## Getting started...", :green)}
 
 If you haven't done so already, open the Terminal app so you can begin entering commands.
 
 You can open Terminal by:
 
-- Typing "Terminal" into Spotlight (ensure you select the Terminal app). Open spotlight by clicking the little magnifying glass in the top-right corner of your screen, or hitting Command + Space.
+- Typing "Terminal" into Spotlight (ensure you select the Terminal app). Open spotlight by clicking the little magnifying glass in the top-right corner of your screen, or hitting Command + Space. Or...
 
 - In the Finder, going to the "Applications" folder, then "Utilities", then double-clicking "Terminal".
 )
