@@ -1,4 +1,4 @@
-# require 'pry-byebug'
+ require 'pry-byebug'
 
 # Architecture:
 # All required functionality is in this single Rakefile;
@@ -353,11 +353,11 @@ We use information from your github account throughout the class.
         header: "Homebrew (OSX's Package Manager)",
         installation_steps: [
           %q(
-1. Download and install Homebrew:
+1. Download and install Homebrew.  You may be notified that we need to install Xcode Command Line Tools.  If so, just follow the presented instructions:
 
     $ ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
-2. Ensure you have the latest version of everything
+2. Once that command has completed, ensure you have the latest version of everything:
 
     $ brew update && brew upgrade
 
