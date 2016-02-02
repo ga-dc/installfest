@@ -234,13 +234,13 @@ class Installfest
     $ sudo mkdir /usr/local && sudo chflags norestricted /usr/local && sudo chown -R $(whoami):admin /usr/local
           )
         ],
-        verify: -> {  case compare_versions('10.11', `sw_vers -productVersion`)
-                      when -1
-                        assert true, nil, nil
-                      when 0, 1
-                        assert_match(/^$/, 'sudo touch /usr/wdi_test_sip_disabled.txt')
-                      end
-                    }
+        verify: -> {  case compare_versions(`sw_vers -productVersion`, '10.11.0')
+                  when -1 # not El Capitan, pass test and skip this step.
+                    assert true, nil, nil
+                  when 0, 1 # is El Capitan, ensure /usr/local is writable
+                    assert_match(/^$/, 'sudo touch /usr/local/wdi_test_sip_disabled.txt')
+                  end
+                }
       },
 
       git: {
