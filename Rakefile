@@ -375,7 +375,7 @@ We use information from your github account throughout the class.
   -  Look for the elephant in the the menu bar.
 4. Configure bash to enable opening Postgres from the command line (via psql):
 
-    $ echo 'export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.4/bin' >> ~/.bash_profile
+    $ echo 'export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/latest/bin' >> ~/.bash_profile
           )
         ],
         verify: -> { assert_version_is_sufficient('9.5.0', 'psql --version | cut -f3 -d " "')}
