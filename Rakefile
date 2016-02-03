@@ -208,11 +208,10 @@ class Installfest
       PS1='\w$(__git_ps1) \n\$ '
     fi
 
-3. This will change your bash prompt to something like this sample prompt (context: in "installfest" dir, branch is "master" with unstaged changes):
-  <pre>
+    This will change your bash prompt to something like this sample prompt (context: in "installfest" dir, branch is "master" with unstaged changes):
+
   ~/dev/ga/apps/installfest (master *)
   $
-  </pre>
           ),
         ],
         verify: -> { assert_match(/git_ps1/, 'source ~/.bash_profile > /dev/null && echo $PS1') },
@@ -734,36 +733,21 @@ You can open Terminal by:
   end
 
   def start_header
-    %Q(
-#{colorize("# Welcome to Installfest!", :green)}
+    %Q(#{colorize("-- Welcome to Installfest!", :green)}
 
-#{colorize("## Before you start...", :green)}
+#{colorize("-- Getting started...", :green)}
 
-#{colorize("PLEASE READ THIS WHOLE PAGE!", :red)} You're going to be installing a lot of stuff on your computer in a way you probably never have before.
+If you haven't done so already, open up a #{colorize("second Terminal window", :magenta)} so you can begin entering commands. (Press Command + N).
 
-- THE WAY THIS WORKS: This script is going to check for different pieces of software on your computer. If you don't have those pieces of software -- or you do, but they need to be tweaked -- the script will stop and tell you what to do. When you're done, the script will restart. This will continue until everything is set up correctly.
+There's going to be a lot of text, so make this window and that window as tall as you can to accommodate it.
 
-- You should be able to COPY AND PASTE the lines into Terminal. We don't recommend typing the commands manually since a single typo can make a command malfunction.
+#{colorize("-- How this works", :green)}
 
-- If you see words in all-capitals (like "YOUR NAME"), replace them with whatever's appropriate.
+This script will check to see whether certain applications have been installed on your computer. If they haven't, or if they still need tweaking, the script will stop and prompt you with a series of commands to enter. Write them in the OTHER Terminal window.
 
-- Copy and paste ONE COMMAND AT A TIME. Each command should be a single line, but if your window is narrow some lines may "wrap" and appear as multiple lines. Most commands will begin with a dollar sign (`$`). On that note...
+Depending on how much programming you've done before, you may have already completed some of these steps. So, for example, if Step 1 is to "Download Atom" and you've already downloaded it, go ahead to Step 2.
 
-- You **SHOULD NOT** include the `$` when copying and pasting. Instead, copy and paste everything AFTER it. The dollar sign is an industry convention that signals "This is an individual command to be copied and pasted."
-
-- You should have TWO TERMINAL WINDOWS open at the same time: one in which this script is running, and one in which you can type stuff. This is because you can't type stuff into the window in which this script is running -- you can only hit the "return" key when prompted. Open a new window by pressing Command + N. There's going to be a lot of text, so make the windows as TALL as you can.
-
-#{colorize("## Getting started...", :green)}
-
-If you haven't done so already, open the Terminal app so you can begin entering commands.
-
-You can open Terminal by:
-
-- Typing "Terminal" into Spotlight (ensure you select the Terminal app). Open spotlight by clicking the little magnifying glass in the top-right corner of your screen, or hitting Command + Space. Or...
-
-- In the Finder, going to the "Applications" folder, then "Utilities", then double-clicking "Terminal".
-
-It doesn't matter what directory you're in when entering commands.
+Please ignore any light-grey text like this: #{colorize("It just displays additional info about what's going on under-the-hood. If you have recurring problems the instructors may look at it.", :grey)}
 )
   end
 
