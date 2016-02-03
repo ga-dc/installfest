@@ -37,6 +37,7 @@ $ echo "My name is MY_NAME!"
 
 - You **should not** include the `$` when copying and pasting. Instead, copy and paste everything AFTER it. The dollar sign is an industry convention that signals "This is an individual command to be copied and pasted."
 
+<<<<<<< HEAD
 - If you see words in all-capitals (like "MY_NAME"), replace them with whatever's appropriate.
 
 - It doesn't matter what directory you're in when entering commands.
@@ -52,11 +53,13 @@ $ echo "My name is MY_NAME!"
 ## Downloading the Script
 
 1. Make your working directory for WDI.  You will use this directory *throughout the course* for storing exercises, homework, projects, and so on:
+
   ```
   mkdir ~/wdi
   ```
 
 2. Change to that directory:
+
   ```
   cd ~/wdi
   ```
@@ -64,7 +67,7 @@ $ echo "My name is MY_NAME!"
 3. Download the latest Installfest Rakefile to this directory (via `curl` command). This will actually download *two* files: `Rakefile` and `installfest.yml`.
 
   ```
-  curl --location http://git.io/vLxbY | sh
+  curl --location https://git.io/vLxbY | sh
   ```
 
 4. Run the Rake command:
