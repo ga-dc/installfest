@@ -1,9 +1,9 @@
 ---
 
-- :atom
 - :xcode_cli_tools
 - :uninstall_non_brew_node
 - :homebrew
+- :atom # place below homebrew, to ensure /usr/local permissions are configured
 - :postgres
 - :rvm
 - :ruby
