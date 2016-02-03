@@ -1,4 +1,4 @@
-# require 'pry-byebug'
+ # require 'pry-byebug'
 
 # Architecture:
 # All required functionality is in this single Rakefile;
@@ -159,7 +159,7 @@ class Installfest
         header: %q(Authorize WDI to use your github info),
         installation_steps: [
           %q(
-1. Go to http://garnet.wdidc.org/github/authorize/
+1. Go to http://garnet.wdidc.org/github/authorize?invite_code=14b71bca6df0c463f47f6e03742141e2
 2. Click "Authorize Application" to allow GA to access to your public information.
         )],
         verify: -> { assert_match(/true/, check_gh_username) }
@@ -222,15 +222,7 @@ class Installfest
         header: "El Capitan ONLY!!  Disable SIP (System Integrity Protection)",
         installation_steps: [
           %q(
-1. Reboot into Recovery mode (Hold Cmd+R on boot) & access the Terminal.
-2. Disable SIP:
-
-    $ csrutil disable
-
-3. Reboot back into OS X
-4. Now that SIP is disabled, ensure Homebrew can write to the "/usr/local" directory:
-
-    $ sudo mkdir /usr/local && sudo chflags norestricted /usr/local && sudo chown -R $(whoami):admin /usr/local
+1. Follow [these instructions to disable SIP](https://github.com/ga-dc/installfest/blob/master/disable_sip_for_homebrew.md).
           )
         ],
         verify: -> {  case compare_versions(`sw_vers -productVersion`, '10.11.0')
@@ -352,11 +344,11 @@ We use information from your github account throughout the class.
         header: "Homebrew (OSX's Package Manager)",
         installation_steps: [
           %q(
-1. Download and install Homebrew:
+1. Download and install Homebrew.  You may be notified that we need to install Xcode Command Line Tools.  If so, just follow the presented instructions:
 
     $ ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
-2. Ensure you have the latest version of everything
+2. Once that command has completed, ensure you have the latest version of everything:
 
     $ brew update && brew upgrade
 
@@ -382,7 +374,7 @@ We use information from your github account throughout the class.
   -  Look for the elephant in the the menu bar.
 4. Configure bash to enable opening Postgres from the command line (via psql):
 
-    $ echo 'export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/9.4/bin' >> ~/.bash_profile
+    $ echo 'export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/latest/bin' >> ~/.bash_profile
           )
         ],
         verify: -> { assert_version_is_sufficient('9.5.0', 'psql --version | cut -f3 -d " "')}
