@@ -86,7 +86,7 @@ class Installfest
     if github_username.to_s.empty?
       persist_github_username(request_github_username)
     end
-    cmd = "curl http://garnet.wdidc.org/users/#{github_username}/is_registered.json --silent"
+    cmd = "curl https://garnet.wdidc.org/users/#{github_username}/is_registered.json --silent"
     return cmd
   end
 
@@ -159,7 +159,7 @@ class Installfest
         header: %q(Authorize WDI to use your github info),
         installation_steps: [
           %q(
-1. Go to http://garnet.wdidc.org/github/authorize?invite_code=14b71bca6df0c463f47f6e03742141e2
+1. Go to https://garnet.wdidc.org/github/authorize?invite_code=14b71bca6df0c463f47f6e03742141e2
 2. Click "Authorize Application" to allow GA to access to your public information.
         )],
         verify: -> { assert_match(/true/, check_gh_username) }
