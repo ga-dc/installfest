@@ -8,6 +8,8 @@ Students should be able to download (or `curl`) and run this independently.  We 
 
 [![Dependency Status](https://gemnasium.com/ga-dc/installfest.svg)](https://gemnasium.com/ga-dc/installfest)
 
+Travis CI ![Travis CI](https://travis-ci.org/ga-dc/installfest.svg?branch=master)
+
 
 ## Managing Student Instructions
 
