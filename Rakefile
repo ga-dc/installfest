@@ -364,6 +364,22 @@ We use information from your github account throughout the class.
         )
       },
 
+      node:{
+        header: "Node",
+        installation_steps: [
+          %q(
+1. brew install node
+          ),
+        ],
+        verify: lambda do
+          assert_version_is_sufficient(
+            '5.7.0',
+            'node --version | sed "s/^v//"' # e.g. v5.7.1
+          )
+        end,
+      },
+
+
       postgres: {
         header: 'PostgreSQL (A Database)',
         installation_steps: [
