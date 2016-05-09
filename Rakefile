@@ -407,16 +407,16 @@ We use information from your github account throughout the class.
 
 2. Install ruby
 
-    $ rvm install 2.2.3
+    $ rvm install 2.3.1
 
 3. Configure your default version of ruby
 
-    $ rvm use 2.2.3 --default
+    $ rvm use 2.3.1 --default
           )
         ],
-        verify: -> { assert_match(/^ruby 2.2.3p173/, 'ruby --version') },
+        verify: -> { assert_match(/^ruby 2.3.1p112/, 'ruby --version') },
         ykiwi: %q(
-* The output of `$ ruby --version` **starts** with `ruby 2.2.3p173`.
+* The output of `$ ruby --version` **starts** with `ruby 2.3.1p112`.
         )
       },
 
