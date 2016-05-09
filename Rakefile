@@ -178,7 +178,7 @@ class Installfest
     $ echo "EDITOR=atom" >> ~/.bash_profile
           )
         ],
-        verify: -> { assert_version_is_sufficient('1.4.0', 'atom --version') }
+        verify: -> { assert_version_is_sufficient('1.4.0', "atom -v | head -n 1 | grep -o '[0-9\\.]\\+'") }
       },
 
       bash_prompt: {
