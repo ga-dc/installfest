@@ -41,10 +41,12 @@ class Installfest
     if boolean_expression
       return CommandResult.new(true, 'met')
     else
-      message = "\nNOT met. Extra debugging info:"
-      message += "\n  #{failure_message_for_actual}"
-      message += "\n  #{failure_message_for_expected}"
-      return CommandResult.new(false, colorize(message, :grey))
+      result = colorize("NOT met.", :red)
+      debug_info = "\nExtra debugging info:"
+      debug_info += "\n  #{failure_message_for_actual}"
+      debug_info += "\n  #{failure_message_for_expected}"
+      debug_info = colorize(debug_info, :grey)
+      return CommandResult.new(false, result + debug_info)
     end
   end
 
@@ -178,7 +180,7 @@ class Installfest
     $ echo "EDITOR=atom" >> ~/.bash_profile
           )
         ],
-        verify: -> { assert_version_is_sufficient('1.4.0', 'atom --version') }
+        verify: -> { assert_version_is_sufficient('1.4.0', "atom -v | head -n 1 | grep -o '[0-9\\.]\\+'") }
       },
 
       bash_prompt: {
@@ -407,16 +409,16 @@ We use information from your github account throughout the class.
 
 2. Install ruby
 
-    $ rvm install 2.2.3
+    $ rvm install 2.3.1
 
 3. Configure your default version of ruby
 
-    $ rvm use 2.2.3 --default
+    $ rvm use 2.3.1 --default
           )
         ],
-        verify: -> { assert_match(/^ruby 2.2.3p173/, 'ruby --version') },
+        verify: -> { assert_match(/^ruby 2.3.1p112/, 'ruby --version') },
         ykiwi: %q(
-* The output of `$ ruby --version` **starts** with `ruby 2.2.3p173`.
+* The output of `$ ruby --version` **starts** with `ruby 2.3.1p112`.
         )
       },
 
@@ -854,11 +856,13 @@ if $PROGRAM_NAME == __FILE__
         ['1.2', 'echo 1.10', true],
         ['1.2', 'echo 1.1', false],
         ['1.2', 'echo 1.1.9', false],
+        ['1', '', false],
+        ['1', 'echo ', false],
         ['2', 'echo 1', false],
         ['1.10', 'echo 1.2', false]
-      ].each do |target_version, current_version, expectation|
-        it "uses 'natural' comparison for string versions (#{current_version} is #{expectation ? '' : 'not '}> #{target_version})" do
-          result = @installfest.assert_version_is_sufficient(target_version, current_version)
+      ].each do |target_version, current_version_command, expectation|
+        it "uses 'natural' comparison for string versions.  Expected ('#{current_version_command}' to #{expectation ? '' : 'NOT '}be > '#{target_version}')" do
+          result = @installfest.assert_version_is_sufficient(target_version, current_version_command)
           result.status.must_equal(expectation)
         end
       end
