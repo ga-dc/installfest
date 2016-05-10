@@ -66,7 +66,7 @@ $ echo "My name is MY_NAME!"
 3. Download the latest Installfest Rakefile to this directory (via `curl` command). This will actually download *two* files: `Rakefile` and `installfest.yml`.
 
   ```
-  curl --location https://git.io/vLxbY | sh
+  curl --location http://www.wdidc.org/installfest | sh
   ```
 
 4. Run the Rake command:
