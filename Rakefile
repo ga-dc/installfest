@@ -854,11 +854,13 @@ if $PROGRAM_NAME == __FILE__
         ['1.2', 'echo 1.10', true],
         ['1.2', 'echo 1.1', false],
         ['1.2', 'echo 1.1.9', false],
+        ['1', '', false],
+        ['1', 'echo ', false],
         ['2', 'echo 1', false],
         ['1.10', 'echo 1.2', false]
-      ].each do |target_version, current_version, expectation|
-        it "uses 'natural' comparison for string versions (#{current_version} is #{expectation ? '' : 'not '}> #{target_version})" do
-          result = @installfest.assert_version_is_sufficient(target_version, current_version)
+      ].each do |target_version, current_version_command, expectation|
+        it "uses 'natural' comparison for string versions.  Expected ('#{current_version_command}' to #{expectation ? '' : 'NOT '}be > '#{target_version}')" do
+          result = @installfest.assert_version_is_sufficient(target_version, current_version_command)
           result.status.must_equal(expectation)
         end
       end
