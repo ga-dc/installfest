@@ -284,14 +284,7 @@ class Installfest
 
 3. Tell git what editor to use for commits
 
-  3a. If you chose to use sublime:
-
-    $ git config --global core.editor "subl --wait --new-window"
-
-
-  3b. OR, if you are using atom (the default):
-
-    $ git config --global core.editor "atom --wait"
+  $ git config --global core.editor "atom --wait"
           ),
         ],
         verify: -> { assert_match(/core.editor=#{editor} --wait/, 'git config --list | grep core.editor')}
@@ -479,13 +472,6 @@ We use information from your github account throughout the class.
           )
         ],
         verify: -> { assert_match(/Contents/, 'ls /Applications/slack.app') }
-      },
-
-      sublime: {
-        installation_steps: [
-          'FIX ME'
-        ],
-        verify: -> { assert_match(/Sublime Text 2 Build/, 'subl --version') }
       },
 
       uninstall_non_brew_node: {
@@ -869,14 +855,9 @@ if $PROGRAM_NAME == __FILE__
     end
 
     describe '.packages' do
-      it "includes 'atom', when EDITOR is NOT 'subl'" do
+      it "includes 'atom'" do
         ENV['EDITOR'] = 'vim'
         @installfest.packages.keys.must_include :atom
-      end
-
-      it "includes 'sublime', when EDITOR is 'subl'" do
-        ENV['EDITOR'] = 'subl'
-        @installfest.packages.keys.must_include :sublime
       end
     end
   end
