@@ -404,6 +404,11 @@ We use information from your github account throughout the class.
 
     $ rvm install 2.3.1
 
+NOTE: If you get the warning below, you can safely ignore it and move on to step 3.
+
+* WARNING: You have '~/.profile' file, you might want to load it,
+  to do that add the following line to '/Users/adamzerner/.bash_profile':
+
 3. Configure your default version of ruby
 
     $ rvm use 2.3.1 --default
