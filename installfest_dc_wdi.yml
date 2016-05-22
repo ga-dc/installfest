@@ -15,5 +15,5 @@
 - :git_configuration
 - :global_gitignore
 - :github
-- :bash_prompt
+#- :bash_prompt
 - :authorize_wdi
