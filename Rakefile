@@ -198,24 +198,25 @@ class Installfest
     $ atom ~/.bash_profile
 
 
-  - Copy and paste these lines to your ~/.bash_profile, prior to `[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*`:
+  - Prior to the line that says...:
+  
+    `[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*`
+    
+    ...copy and paste these lines:
 
-
-    if  [ -f $(brew --prefix)/etc/bash_completion ]; then
+    if [ -f $(brew --prefix)/etc/bash_completion ]; then
       source $(brew --prefix)/etc/bash_completion
+      GIT_PS1_SHOWDIRTYSTATE=1
+      git_prompt='$(__git_ps1)'
     fi
-
-    if  [ -f $(brew --prefix)/etc/bash_completion.d/git-prompt.sh ]; then
-      source $(brew --prefix)/etc/bash_completion.d/git-prompt.sh
-      GIT_PS1_SHOWDIRTYSTATE=1 # display the unstaged (*) and staged (+) indicators
-      # set your prompt. path: \w, git branch & status: $(__git_ps1), newline: \n, dollar sign delimiter: \$
-      PS1='\w$(__git_ps1) \n\$ '
-    fi
+    PS1="\[\e[33m\]  \d \t \w$git_prompt\n\[\e[m\]\\$ "
 
     This will change your bash prompt to something like this sample prompt (context: in "installfest" dir, branch is "master" with unstaged changes):
-
-  ~/dev/ga/apps/installfest (master *)
-  $
+    
+    ===== Mon May 23 16:06:51 ~/wdi/myhomework (master *)
+    $
+    
+    (P.S. That last PS1 line can be customized however you want! It just has to include '$(__git_ps1)' to show the Git information. If you're interesting, take a look at http://ezprompt.net when you're done with Installfest.)
           ),
         ],
         verify: -> { assert_match(/git_ps1/, 'source ~/.bash_profile > /dev/null && echo $PS1') },
