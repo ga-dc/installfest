@@ -180,9 +180,6 @@ class Installfest
           %q(
 1. Download atom [from their website](https://atom.io) and install.
 2. Run "atom".  From the "Atom" menu, select "Install Shell Commands".
-3. Then configure your terminal to use 'atom'.  This command appends the text "EDITOR=atom" to a config file.
-
-    $ echo "EDITOR=atom" >> ~/.bash_profile
           )
         ],
         verify: -> { assert_version_is_sufficient('1.4.0', "atom -v | head -n 1 | grep -o '[0-9\\.]\\+'") }
@@ -290,10 +287,10 @@ class Installfest
 
 3. Tell git what editor to use for commits
 
-  $ git config --global core.editor "atom --wait"
+  $ git config --global core.editor "open -W -n"
           ),
         ],
-        verify: -> { assert_match(/core.editor=#{editor} --wait/, 'git config --list | grep core.editor')}
+        verify: -> { assert_match(/core.editor=open -W -n/, 'git config --list | grep core.editor')}
       },
 
       github: {
