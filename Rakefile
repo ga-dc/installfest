@@ -42,9 +42,14 @@ class Installfest
       return CommandResult.new(true, 'met')
     else
       result = colorize("NOT met.", :red)
-      debug_info = "\nExtra debugging info:"
-      debug_info += "\n  #{failure_message_for_actual}"
-      debug_info += "\n  #{failure_message_for_expected}"
+      debug_info = %Q(
+****** YOU CAN IGNORE THIS!
+(It's extra info to tell instructors if there's a problem.)
+(Just skip this part and go to the instructions below.)
+#{failure_message_for_actual}"
+#{failure_message_for_expected}"
+******
+)
       debug_info = colorize(debug_info, :grey)
       return CommandResult.new(false, result + debug_info)
     end
@@ -608,7 +613,7 @@ If issues persist, raise your hand and an instructor will assist you.), :green)
 
         # We need to reload the bash config and restart installfest.
         # `exec` (ruby) and `exec` (bash) did the trick
-        notify "One package, of many, is installed. \nReloading bash (for latest config) and restarting installfest to continue..."
+        notify "Reloading bash and restarting installfest..."
         exec "exec bash -l -c 'rake installfest:start SKIP_HEADER=true'"
       end
     end
