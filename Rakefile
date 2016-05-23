@@ -221,7 +221,7 @@ class Installfest
     (P.S. That last PS1 line can be customized however you want! It just has to include '$(__git_ps1)' to show the Git information. If you're interesting, take a look at http://ezprompt.net when you're done with Installfest.)
           ),
         ],
-        verify: -> { assert_match(/git_ps1/, 'source ~/.bash_profile > /dev/null && echo $PS1') },
+        verify: -> {assert /git_ps1/.match(ENV['PS1']), "Failure: Got '#{ENV['PS1']}' for $PS1", "Expected 'git_ps1'"},
         ykiwi: "You see the current git branch in your prompt, when you navigate to a directory within a git repository."
       },
 
