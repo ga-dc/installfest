@@ -276,21 +276,24 @@ class Installfest
 
 3. Configure git's colors (you can copy & paste all of these commands at once):
 
-    git config --global color.ui always
-    git config --global color.branch.current   "green reverse"
-    git config --global color.branch.local     green
-    git config --global color.branch.remote    yellow
-    git config --global color.status.added     green
-    git config --global color.status.changed   yellow
-    git config --global color.status.untracked red
+    $ git config --global color.ui always
+    $ git config --global color.branch.current   "green reverse"
+    $ git config --global color.branch.local     green
+    $ git config --global color.branch.remote    yellow
+    $ git config --global color.status.added     green
+    $ git config --global color.status.changed   yellow
+    $ git config --global color.status.untracked red
 
+4. Make git pay attention if you change a filename to uppercase or lowercase
 
-3. Tell git what editor to use for commits
+    $ git config --global core.ignorecase false
 
-  $ git config --global core.editor "open -W -n"
+5. Tell git what editor to use for commits
+
+    $ git config --global core.editor atom
           ),
         ],
-        verify: -> { assert_match(/core.editor=open -W -n/, 'git config --list | grep core.editor')}
+        verify: -> { assert_match(/core.editor=atom/, 'git config --list | grep core.editor')}
       },
 
       github: {
