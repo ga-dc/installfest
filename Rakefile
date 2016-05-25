@@ -42,9 +42,14 @@ class Installfest
       return CommandResult.new(true, 'met')
     else
       result = colorize("NOT met.", :red)
-      debug_info = "\nExtra debugging info:"
-      debug_info += "\n  #{failure_message_for_actual}"
-      debug_info += "\n  #{failure_message_for_expected}"
+      debug_info = %Q(
+****** YOU CAN IGNORE THIS!
+(It's extra info to tell instructors if there's a problem.)
+(Just skip this part and go to the instructions below.)
+#{failure_message_for_actual}"
+#{failure_message_for_expected}"
+******
+)
       debug_info = colorize(debug_info, :grey)
       return CommandResult.new(false, result + debug_info)
     end
@@ -175,9 +180,6 @@ class Installfest
           %q(
 1. Download atom [from their website](https://atom.io) and install.
 2. Run "atom".  From the "Atom" menu, select "Install Shell Commands".
-3. Then configure your terminal to use 'atom'.  This command appends the text "EDITOR=atom" to a config file.
-
-    $ echo "EDITOR=atom" >> ~/.bash_profile
           )
         ],
         verify: -> { assert_version_is_sufficient('1.4.0', "atom -v | head -n 1 | grep -o '[0-9\\.]\\+'") }
@@ -198,27 +200,28 @@ class Installfest
     $ atom ~/.bash_profile
 
 
-  - Copy and paste these lines to your ~/.bash_profile, prior to `[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*`:
+  - Prior to the line that says...:
+  
+    `[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*`
+    
+    ...copy and paste these lines:
 
-
-    if  [ -f $(brew --prefix)/etc/bash_completion ]; then
+    if [ -f $(brew --prefix)/etc/bash_completion ]; then
       source $(brew --prefix)/etc/bash_completion
+      GIT_PS1_SHOWDIRTYSTATE=1
+      git_prompt='$(__git_ps1)'
     fi
-
-    if  [ -f $(brew --prefix)/etc/bash_completion.d/git-prompt.sh ]; then
-      source $(brew --prefix)/etc/bash_completion.d/git-prompt.sh
-      GIT_PS1_SHOWDIRTYSTATE=1 # display the unstaged (*) and staged (+) indicators
-      # set your prompt. path: \w, git branch & status: $(__git_ps1), newline: \n, dollar sign delimiter: \$
-      PS1='\w$(__git_ps1) \n\$ '
-    fi
+    PS1="\[\e[33m\]  \d \t \w$git_prompt\n\[\e[m\]\\$ "
 
     This will change your bash prompt to something like this sample prompt (context: in "installfest" dir, branch is "master" with unstaged changes):
-
-  ~/dev/ga/apps/installfest (master *)
-  $
+    
+    ===== Mon May 23 16:06:51 ~/wdi/myhomework (master *)
+    $
+    
+    (P.S. That last PS1 line can be customized however you want! It just has to include '$(__git_ps1)' to show the Git information. If you're interesting, take a look at http://ezprompt.net when you're done with Installfest.)
           ),
         ],
-        verify: -> { assert_match(/git_ps1/, 'source ~/.bash_profile > /dev/null && echo $PS1') },
+        verify: -> {assert /git_ps1/.match(ENV['PS1']), "Failure: Got '#{ENV['PS1']}' for $PS1", "Expected 'git_ps1'"},
         ykiwi: "You see the current git branch in your prompt, when you navigate to a directory within a git repository."
       },
 
@@ -273,21 +276,24 @@ class Installfest
 
 3. Configure git's colors (you can copy & paste all of these commands at once):
 
-    git config --global color.ui always
-    git config --global color.branch.current   "green reverse"
-    git config --global color.branch.local     green
-    git config --global color.branch.remote    yellow
-    git config --global color.status.added     green
-    git config --global color.status.changed   yellow
-    git config --global color.status.untracked red
+    $ git config --global color.ui always
+    $ git config --global color.branch.current   "green reverse"
+    $ git config --global color.branch.local     green
+    $ git config --global color.branch.remote    yellow
+    $ git config --global color.status.added     green
+    $ git config --global color.status.changed   yellow
+    $ git config --global color.status.untracked red
 
+4. Make git pay attention if you change a filename to uppercase or lowercase
 
-3. Tell git what editor to use for commits
+    $ git config --global core.ignorecase false
 
-  $ git config --global core.editor "atom --wait"
+5. Tell git what editor to use for commits
+
+    $ git config --global core.editor atom
           ),
         ],
-        verify: -> { assert_match(/core.editor=#{editor} --wait/, 'git config --list | grep core.editor')}
+        verify: -> { assert_match(/core.editor=atom/, 'git config --list | grep core.editor')}
       },
 
       github: {
@@ -607,7 +613,7 @@ If issues persist, raise your hand and an instructor will assist you.), :green)
 
         # We need to reload the bash config and restart installfest.
         # `exec` (ruby) and `exec` (bash) did the trick
-        notify "One package, of many, is installed. \nReloading bash (for latest config) and restarting installfest to continue..."
+        notify "Reloading bash and restarting installfest..."
         exec "exec bash -l -c 'rake installfest:start SKIP_HEADER=true'"
       end
     end
