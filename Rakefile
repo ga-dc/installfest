@@ -167,7 +167,7 @@ class Installfest
         installation_steps: [
           %q(
 
-1. Go to https://garnet.wdidc.org/github/authorize?invite_code=7871bdcb1f4aa8dc4602313b38d47c71
+1. Go to https://garnet.wdidc.org/github/authorize?invite_code=a5d4bd0222d19c66a146d4b225f8e3ea
 
 2. Click "Authorize Application" to allow GA to access to your public information.
         )],
@@ -182,7 +182,7 @@ class Installfest
 2. Run "atom".  From the "Atom" menu, select "Install Shell Commands".
           )
         ],
-        verify: -> { assert_version_is_sufficient('1.4.0', "atom -v | head -n 1 | grep -o '[0-9\\.]\\+'") }
+        verify: -> { assert_version_is_sufficient('1.9.9', "atom -v | head -n 1 | grep -o '[0-9\\.]\\+'") }
       },
 
       bash_prompt: {
@@ -201,9 +201,9 @@ class Installfest
 
 
   - Prior to the line that says...:
-  
+
     `[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*`
-    
+
     ...copy and paste these lines:
 
     if [ -f $(brew --prefix)/etc/bash_completion ]; then
@@ -214,10 +214,10 @@ class Installfest
     PS1="\[\e[33m\]  \d \t \w$git_prompt\n\[\e[m\]\\$ "
 
     This will change your bash prompt to something like this sample prompt (context: in "installfest" dir, branch is "master" with unstaged changes):
-    
+
     ===== Mon May 23 16:06:51 ~/wdi/myhomework (master *)
     $
-    
+
     (P.S. That last PS1 line can be customized however you want! It just has to include '$(__git_ps1)' to show the Git information. If you're interesting, take a look at http://ezprompt.net when you're done with Installfest.)
           ),
         ],
@@ -250,7 +250,7 @@ class Installfest
         ],
         verify: lambda do
           assert_version_is_sufficient(
-            '2.7.0',
+            '2.9.3',
             'git --version | head -n1 | cut -f3 -d " "'
           ) # non-abbreviated flag names are not available in BSD
         end,
@@ -376,7 +376,7 @@ We use information from your github account throughout the class.
         ],
         verify: lambda do
           assert_version_is_sufficient(
-            '5.7.0',
+            '6.4.0',
             'node --version | sed "s/^v//"' # e.g. v5.7.1
           )
         end,
@@ -396,7 +396,7 @@ We use information from your github account throughout the class.
     $ echo 'export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/latest/bin' >> ~/.bash_profile
           )
         ],
-        verify: -> { assert_version_is_sufficient('9.5.0', 'psql --version | cut -f3 -d " "')}
+        verify: -> { assert_version_is_sufficient('9.5.4', 'psql --version | cut -f3 -d " "')}
       },
 
       ruby: {
@@ -432,10 +432,10 @@ NOTE: If you get the warning below, you can safely ignore it and move on to step
           %q(
 1. Update to the latest version of Bundler, a Ruby Gem
 
-    $ gem install bundler -v 1.11.2 && gem cleanup bundler
+    $ gem install bundler -v 1.12 && gem cleanup bundler
           )
         ],
-        verify: -> { assert_version_is_sufficient('1.11.0', 'gem list bundler | head -n1  | cut -f2 -d " " | sed "s/[()]//g"') }
+        verify: -> { assert_version_is_sufficient('1.12.0', 'gem list bundler | head -n1  | cut -f2 -d " " | sed "s/[()]//g"') }
       },
 
       ruby_gems: {
@@ -447,7 +447,7 @@ NOTE: If you get the warning below, you can safely ignore it and move on to step
     $ gem update --system
           )
         ],
-        verify: -> { assert_version_is_sufficient('2.5.2', 'gem -v') }
+        verify: -> { assert_version_is_sufficient('2.6.6', 'gem -v') }
       },
 
       rvm: {
