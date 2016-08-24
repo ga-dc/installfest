@@ -276,13 +276,13 @@ class Installfest
 
 3. Configure git's colors (you can copy & paste all of these commands at once):
 
-    $ git config --global color.ui always
-    $ git config --global color.branch.current   "green reverse"
-    $ git config --global color.branch.local     green
-    $ git config --global color.branch.remote    yellow
-    $ git config --global color.status.added     green
-    $ git config --global color.status.changed   yellow
-    $ git config --global color.status.untracked red
+    git config --global color.ui always
+    git config --global color.branch.current   "green reverse"
+    git config --global color.branch.local     green
+    git config --global color.branch.remote    yellow
+    git config --global color.status.added     green
+    git config --global color.status.changed   yellow
+    git config --global color.status.untracked red
 
 4. Make git pay attention if you change a filename to uppercase or lowercase
 
@@ -371,7 +371,7 @@ We use information from your github account throughout the class.
         header: "Node",
         installation_steps: [
           %q(
-1. brew install node
+1. $ brew install node
           ),
         ],
         verify: lambda do
