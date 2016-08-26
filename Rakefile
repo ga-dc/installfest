@@ -206,11 +206,11 @@ class Installfest
 
     ...copy and paste these lines:
 
-    
+
     source $(brew --prefix)/etc/bash_completion
     GIT_PS1_SHOWDIRTYSTATE=1
     git_prompt='$(__git_ps1)'
-    
+
     PS1="\[\e[33m\]  \d \t \w$git_prompt\n\[\e[m\]\\$ "
 
     This will change your bash prompt to something like this sample prompt (context: in "installfest" dir, branch is "master" with unstaged changes):
@@ -437,7 +437,7 @@ NOTE: If you get the warning below, you can safely ignore it and move on to step
     $ gem install bundler -v 1.12 && gem cleanup bundler
           )
         ],
-        verify: -> { assert_version_is_sufficient('1.12.0', 'gem list bundler | head -n1  | cut -f2 -d " " | sed "s/[()]//g"') }
+        verify: -> { assert_version_is_sufficient('1.12', 'gem list bundler | head -n1  | cut -f2 -d " " | sed "s/[()]//g" | sed "s/,//g"') }
       },
 
       ruby_gems: {
@@ -612,6 +612,7 @@ If issues persist, raise your hand and an instructor will assist you.), :green)
         show_instructions_for(package)
         notify "\nPress <enter> when you have completed the above steps."
         response = $stdin.gets.strip
+        break if response == "skip"
 
         # We need to reload the bash config and restart installfest.
         # `exec` (ruby) and `exec` (bash) did the trick
