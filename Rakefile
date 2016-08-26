@@ -206,14 +206,16 @@ class Installfest
 
     ...copy and paste these lines:
 
-    if [ -f $(brew --prefix)/etc/bash_completion ]; then
-      source $(brew --prefix)/etc/bash_completion
-      GIT_PS1_SHOWDIRTYSTATE=1
-      git_prompt='$(__git_ps1)'
-    fi
+    
+    source $(brew --prefix)/etc/bash_completion
+    GIT_PS1_SHOWDIRTYSTATE=1
+    git_prompt='$(__git_ps1)'
+    
     PS1="\[\e[33m\]  \d \t \w$git_prompt\n\[\e[m\]\\$ "
 
     This will change your bash prompt to something like this sample prompt (context: in "installfest" dir, branch is "master" with unstaged changes):
+
+    Test it with $ git init myhomework && cd myhomework. Your Terminal prompt should look something like this...
 
     ===== Mon May 23 16:06:51 ~/wdi/myhomework (master *)
     $
