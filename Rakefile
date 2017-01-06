@@ -182,7 +182,7 @@ class Installfest
 2. Run "atom".  From the "Atom" menu, select "Install Shell Commands".
           )
         ],
-        verify: -> { assert_version_is_sufficient('1.9.9', "atom -v | head -n 1 | grep -o '[0-9\\.]\\+'") }
+        verify: -> { assert_version_is_sufficient('1.12.9', "atom -v | head -n 1 | grep -o '[0-9\\.]\\+'") }
       },
 
       bash_prompt: {
@@ -252,7 +252,7 @@ class Installfest
         ],
         verify: lambda do
           assert_version_is_sufficient(
-            '2.9.3',
+            '2.11.0.',
             'git --version | head -n1 | cut -f3 -d " "'
           ) # non-abbreviated flag names are not available in BSD
         end,
@@ -378,7 +378,7 @@ We use information from your github account throughout the class.
         ],
         verify: lambda do
           assert_version_is_sufficient(
-            '6.4.0',
+            '7.4.0',
             'node --version | sed "s/^v//"' # e.g. v5.7.1
           )
         end,
@@ -398,7 +398,7 @@ We use information from your github account throughout the class.
     $ echo 'export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/latest/bin' >> ~/.bash_profile
           )
         ],
-        verify: -> { assert_version_is_sufficient('9.5.4', 'psql --version | cut -f3 -d " "')}
+        verify: -> { assert_version_is_sufficient('9.5.5', 'psql --version | cut -f3 -d " "')}
       },
 
       ruby: {
@@ -410,7 +410,7 @@ We use information from your github account throughout the class.
 
 2. Install ruby
 
-    $ rvm install 2.3.1
+    $ rvm install 2.4.0
 
 NOTE: If you get the warning below, you can safely ignore it and move on to step 3.
 
@@ -419,12 +419,12 @@ NOTE: If you get the warning below, you can safely ignore it and move on to step
 
 3. Configure your default version of ruby
 
-    $ rvm use 2.3.1 --default
+    $ rvm use 2.4.0 --default
           )
         ],
-        verify: -> { assert_match(/^ruby 2.3.1p112/, 'ruby --version') },
+        verify: -> { assert_match(/^ruby 2.4.0p0/, 'ruby --version') },
         ykiwi: %q(
-* The output of `$ ruby --version` **starts** with `ruby 2.3.1p112`.
+* The output of `$ ruby --version` **starts** with `ruby 2.4.0p0`.
         )
       },
 
@@ -434,10 +434,10 @@ NOTE: If you get the warning below, you can safely ignore it and move on to step
           %q(
 1. Update to the latest version of Bundler, a Ruby Gem
 
-    $ gem install bundler -v 1.12 && gem cleanup bundler
+    $ gem install bundler -v 1.13.7 && gem cleanup bundler
           )
         ],
-        verify: -> { assert_version_is_sufficient('1.12', 'gem list bundler | head -n1  | cut -f2 -d " " | sed "s/[()]//g" | sed "s/,//g"') }
+        verify: -> { assert_version_is_sufficient('1.13', 'gem list bundler | head -n1  | cut -f2 -d " " | sed "s/[()]//g" | sed "s/,//g"') }
       },
 
       ruby_gems: {
@@ -449,7 +449,7 @@ NOTE: If you get the warning below, you can safely ignore it and move on to step
     $ gem update --system
           )
         ],
-        verify: -> { assert_version_is_sufficient('2.6.6', 'gem -v') }
+        verify: -> { assert_version_is_sufficient('2.6.8', 'gem -v') }
       },
 
       rvm: {
