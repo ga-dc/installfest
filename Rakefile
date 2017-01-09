@@ -167,7 +167,7 @@ class Installfest
         installation_steps: [
           %q(
 
-1. Go to https://garnet.wdidc.org/github/authorize?invite_code=25ed436bcfc8346b0e559ebfbc22c815
+1. Go to https://garnet.wdidc.org/github/authorize?invite_code=74cf1bf5af493e65e85408899ca397cf
 
 2. Click "Authorize Application" to allow GA to access to your public information.
         )],
@@ -179,7 +179,8 @@ class Installfest
         installation_steps: [
           %q(
 1. Download atom [from their website](https://atom.io) and install.
-2. Run "atom".  From the "Atom" menu, select "Install Shell Commands".
+2. Drag Atom into Applications directory"
+3. Run "atom".  From the "Atom" menu, select "Install Shell Commands".
           )
         ],
         verify: -> { assert_version_is_sufficient('1.12.9', "atom -v | head -n 1 | grep -o '[0-9\\.]\\+'") }
@@ -252,7 +253,7 @@ class Installfest
         ],
         verify: lambda do
           assert_version_is_sufficient(
-            '2.11.0.',
+            '2.11.0',
             'git --version | head -n1 | cut -f3 -d " "'
           ) # non-abbreviated flag names are not available in BSD
         end,
@@ -484,7 +485,7 @@ NOTE: If you get the warning below, you can safely ignore it and move on to step
 1. Install the free "Slack" app from the App Store
           )
         ],
-        verify: -> { assert_match(/Contents/, 'ls /Applications/slack.app') }
+        verify: -> { assert_match(/Contents/, 'ls /Applications/"Slack 2".app') }
       },
 
       uninstall_non_brew_node: {
@@ -561,7 +562,7 @@ If you installed node without using 'brew install node', follow these instructio
   end
 
   def instruction_file_url
-    'https://github.com/ga-students/wdi_dc5/blob/master/installfest.md'
+    'https://github.com/ga-dc/installfest/blob/master/installfest.md'
   end
 
   def known_packages
