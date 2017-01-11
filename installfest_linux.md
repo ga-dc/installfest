@@ -30,9 +30,9 @@ Our scripts are designed for OSX.  Until they have been updated to work with Lin
 $ echo "EDITOR=atom" >> ~/.bash_profile
 ```
 
-## Github (The Social Network of Code)
+## Github
 
-Update your Github profile with your full name and profile picture. This is so we know who you are!
+Update your [Github](https://github.com/) profile with your full name and profile picture. This is so we know who you are!
 
 ## Authorize WDI to use your github info
 
