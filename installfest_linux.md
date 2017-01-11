@@ -24,9 +24,11 @@ Our scripts are designed for OSX.  Until they have been updated to work with Lin
 
 1. Download atom [from their website](https://atom.io) and install.
 2. Run "atom".  From the "Atom" menu,  select "Install Shell Commands".
-3. Then configure your terminal to use 'atom'.
+3. Then configure your terminal to use 'atom'...
 
-    $ echo "EDITOR=atom" >> ~/.bash_profile
+```bash
+$ echo "EDITOR=atom" >> ~/.bash_profile
+```
 
 ## Github (The Social Network of Code)
 
