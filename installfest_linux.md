@@ -28,10 +28,10 @@ Our scripts are designed for OSX.  Until they have been updated to work with Lin
 
     $ echo "EDITOR=atom" >> ~/.bash_profile
 
-
-
-## Slack: scud cloud
-
 ## Github (The Social Network of Code)
 
+Update your Github profile with your full name and profile picture. This is so we know who you are!
+
 ## Authorize WDI to use your github info
+
+[Click this link.](https://garnet.wdidc.org/github/authorize?invite_code=74cf1bf5af493e65e85408899ca397cf) This will register you as a WDI14 student in Garnet, our classroom management system.
