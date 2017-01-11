@@ -216,7 +216,11 @@ class Installfest
 
     This will change your bash prompt to something like this sample prompt (context: in "installfest" dir, branch is "master" with unstaged changes):
 
-    Test it with $ git init myhomework && cd myhomework. Your Terminal prompt should look something like this...
+    Test it with:
+     $ source ~/.bash_profile
+     $ git init myhomework && cd myhomework.
+
+     Your Terminal prompt should look something like this...
 
     ===== Mon May 23 16:06:51 ~/wdi/myhomework (master *)
     $
@@ -485,7 +489,7 @@ NOTE: If you get the warning below, you can safely ignore it and move on to step
 1. Install the free "Slack" app from the App Store
           )
         ],
-        verify: -> { assert_match(/Contents/, 'ls /Applications/"Slack 2".app') }
+        verify: -> { assert_match(/Contents/, 'ls /Applications/slack.app') }
       },
 
       uninstall_non_brew_node: {
