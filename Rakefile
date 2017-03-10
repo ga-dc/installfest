@@ -84,13 +84,15 @@ class Installfest
   def assert_no_errors(shell_command)
     begin
       value = `#{shell_command} 2>&1`.chomp
+      ready = /ready to brew\.$/ =~ value
       error = /^Error:/ =~ value
-      if /^Warning:/ =~ value
+      warning = /^Warning:/ =~ value
+      if warning
         print_warning value
       end
-      assert !error,
+      assert ready || warning && !error,
              "Actual result: '#{value}' (via `#{shell_command}`)",
-             "Should have no errors"
+             "Should be ready to brew or have no errors"
     end
   end
 
