@@ -55,6 +55,10 @@ class Installfest
     end
   end
 
+  def print_warning(warning)
+    notify("\n Completed with warning(s):\n" + warning, :warning)
+  end
+
   def assert_equals(expected, shell_command)
     begin
       actual = `#{shell_command}`.chomp
@@ -74,6 +78,19 @@ class Installfest
              "Should match : #{match_pattern.inspect}"
     rescue Errno::ENOENT => err # command not found, no such file/dir
       assert false, err, ''
+    end
+  end
+
+  def assert_no_errors(shell_command)
+    begin
+      value = `#{shell_command} 2>&1`.chomp
+      error = /^Error:/ =~ value
+      if /^Warning:/ =~ value
+        print_warning value
+      end
+      assert !error,
+             "Actual result: '#{value}' (via `#{shell_command}`)",
+             "Should have no errors"
     end
   end
 
@@ -367,7 +384,7 @@ We use information from your github account throughout the class.
     $ echo 'export PATH="/usr/local/bin:$PATH"' >> ~/.bash_profile
           ),
         ],
-        verify: -> { assert_match(/is ready to brew/, 'brew doctor') },
+        verify: -> { assert_no_errors('brew doctor') },
         ykiwi: %q(
 - The output of `$ which brew` is `/usr/local/bin/brew`.
 - The output of `$ brew doctor` is `ready to brew`
@@ -706,6 +723,8 @@ You can open Terminal by:
       print message
     when :success
       puts colorize(message, :green)
+    when :warning
+      puts colorize(message, :grey)
     when :failure, :error
       $stderr.puts message
     else
