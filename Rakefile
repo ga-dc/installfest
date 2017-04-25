@@ -186,7 +186,7 @@ class Installfest
         installation_steps: [
           %q(
 
-1. Go to https://garnet.wdidc.org/github/authorize?invite_code=cbfe54d86f611769046d1ef17afc011a
+1. Go to https://garnet.wdidc.org/github/authorize?invite_code=15636c85caab5a55954ccc2eaff1cb74
 
 2. Click "Authorize Application" to allow GA to access to your public information.
         )],
