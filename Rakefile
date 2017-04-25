@@ -420,6 +420,17 @@ We use information from your github account throughout the class.
 4. Configure bash to enable opening Postgres from the command line (via psql):
 
     $ echo 'export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/latest/bin' >> ~/.bash_profile
+
+5. Enter the following into the command line:
+
+    $ psql
+
+   If the output is `psql: Fatal: role <user> does not exist`, run the following commands in the command line:
+
+    $ createuser -U postgres -s $USER
+    $ createdb $USER
+  
+   If you do not get that error, you do not need run the two aforementioned commands.
           )
         ],
         verify: -> { assert_version_is_sufficient('9.5.5', 'psql --version | cut -f3 -d " "')}

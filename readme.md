@@ -41,7 +41,7 @@ $ echo "My name is MY_NAME!"
 
 - It doesn't matter what directory you're in when entering commands.
 
-- Generally-speaking, if you get a **WARNING** you can ignore it, unless it prevents the Installfest script from continuing. An **ERROR**, however, will need to be fixed.
+- Generally speaking, if you get a **WARNING** you can ignore it, unless it prevents the Installfest script from continuing. An **ERROR**, however, will need to be fixed.
 
 - Terminal is not big on **visual feedback**:
 
