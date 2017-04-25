@@ -237,7 +237,7 @@ class Installfest
 
     Test it with:
      $ source ~/.bash_profile
-     $ git init myhomework && cd myhomework.
+     $ git init myhomework && cd myhomework
 
      Your Terminal prompt should look something like this...
 
