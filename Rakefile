@@ -425,7 +425,7 @@ We use information from your github account throughout the class.
 
     $ psql
 
-   If the output of that command is `psql: Fatal: role <user> does not exist`, run the following commands in the command line:
+   If the output is `psql: Fatal: role <user> does not exist`, run the following commands in the command line:
 
     $ createuser -U postgres -s $USER
     $ createdb $USER
