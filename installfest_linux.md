@@ -36,4 +36,4 @@ Update your [Github](https://github.com/) profile with your full name and profil
 
 ## Authorize WDI to use your github info
 
-[Click this link.](https://garnet.wdidc.org/github/authorize?invite_code=74cf1bf5af493e65e85408899ca397cf) This will register you as a WDI16 student in Garnet, our classroom management system.
+[Click this link.](https://garnet.wdidc.org/github/authorize?invite_code=15636c85caab5a55954ccc2eaff1cb74) This will register you as a WDI16 student in Garnet, our classroom management system.
