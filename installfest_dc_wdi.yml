@@ -6,6 +6,7 @@
 - :node
 - :atom # place below homebrew, to ensure /usr/local permissions are configured
 - :postgres
+- :mongodb
 - :rvm
 - :ruby
 - :ruby_gems

@@ -408,6 +408,41 @@ We use information from your github account throughout the class.
         end,
       },
 
+      mongodb:{
+        header: "MongoDB",
+        installation_steps: [
+          %q(
+1. Install mongodb with brew
+
+    $ brew install mongodb
+
+2. Create the folder mongo will be using to store your databases
+
+    $ sudo mkdir -p /data/db
+
+3. Change permission so your user account owns this folder you just created
+
+    $ sudo chown -R $(whoami) /data/db
+
+Type these commands exactly as displayed, you don't need to substitute anything.
+          ),
+        ],
+        verify: lambda do
+          versionResult = assert_version_is_sufficient(
+            '3.4.4',
+            'mongo --version | grep "shell version" | sed "s/^.*v//"' # e.g. 5.7.1
+          )
+
+          `stat /data/db` # using this shell call to test exitstatus on next line
+          existsResult = assert($?.exitstatus == 0, "Folder /data/db is missing", "")
+
+          current_user = `whoami`.chomp
+          ownerResult = assert(current_user == `stat -f "%Su" /data/db`.chomp,
+            "Folder /data/db is not owned by #{current_user}", "")
+
+          versionResult.merge(ownerResult).merge(existsResult)
+        end,
+      },
 
       postgres: {
         header: 'PostgreSQL (A Database)',
