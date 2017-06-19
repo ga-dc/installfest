@@ -418,6 +418,10 @@ We use information from your github account throughout the class.
 
 2. Create the folder mongo will be using to store your databases
 
+( Note: Running any command beginning with 'sudo' will prompt you
+to type in for your laptop's password. The password characters WILL NOT display
+as you type. This is normal. )
+
     $ sudo mkdir -p /data/db
 
 3. Change permission so your user account owns this folder you just created
@@ -565,6 +569,10 @@ NOTE: If you get the warning below, you can safely ignore it and move on to step
 If you installed node without using 'brew install node', follow these instructions to uninstall that version.
 
 1. First, uninstall the files listed in nodejs' Bill of Materials (bom):
+
+( Note: Running any command beginning with 'sudo' will prompt you
+to type in for your laptop's password. The password characters WILL NOT display
+as you type. This is normal. )
 
     $ lsbom -f -l -s -pf /var/db/receipts/org.nodejs.node.pkg.bom | while read f; do  sudo rm /usr/local/${f}; done
     $ sudo rm -rf /usr/local/lib/node /usr/local/lib/node_modules /var/db/receipts/org.nodejs.*
