@@ -408,6 +408,45 @@ We use information from your github account throughout the class.
         end,
       },
 
+      mongodb:{
+        header: "MongoDB",
+        installation_steps: [
+          %q(
+1. Install mongodb with brew
+
+    $ brew install mongodb
+
+2. Create the folder mongo will be using to store your databases
+
+( Note: Running any command beginning with 'sudo' will prompt you
+to type in for your laptop's password. The password characters WILL NOT display
+as you type. This is normal. )
+
+    $ sudo mkdir -p /data/db
+
+3. Change permission so your user account owns this folder you just created
+
+    $ sudo chown -R $(whoami) /data/db
+
+Type these commands exactly as displayed, you don't need to substitute anything.
+          ),
+        ],
+        verify: lambda do
+          versionResult = assert_version_is_sufficient(
+            '3.4.4',
+            'mongo --version | grep "shell version" | sed "s/^.*v//"' # e.g. 5.7.1
+          )
+
+          `stat /data/db` # using this shell call to test exitstatus on next line
+          existsResult = assert($?.exitstatus == 0, "Folder /data/db is missing", "")
+
+          current_user = `whoami`.chomp
+          ownerResult = assert(current_user == `stat -f "%Su" /data/db`.chomp,
+            "Folder /data/db is not owned by #{current_user}", "")
+
+          versionResult.merge(ownerResult).merge(existsResult)
+        end,
+      },
 
       postgres: {
         header: 'PostgreSQL (A Database)',
@@ -530,6 +569,10 @@ NOTE: If you get the warning below, you can safely ignore it and move on to step
 If you installed node without using 'brew install node', follow these instructions to uninstall that version.
 
 1. First, uninstall the files listed in nodejs' Bill of Materials (bom):
+
+( Note: Running any command beginning with 'sudo' will prompt you
+to type in for your laptop's password. The password characters WILL NOT display
+as you type. This is normal. )
 
     $ lsbom -f -l -s -pf /var/db/receipts/org.nodejs.node.pkg.bom | while read f; do  sudo rm /usr/local/${f}; done
     $ sudo rm -rf /usr/local/lib/node /usr/local/lib/node_modules /var/db/receipts/org.nodejs.*
