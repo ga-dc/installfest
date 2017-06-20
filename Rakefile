@@ -245,6 +245,8 @@ class Installfest
     $
 
     (P.S. That last PS1 line can be customized however you want! It just has to include '$(__git_ps1)' to show the Git information. If you're interesting, take a look at http://ezprompt.net when you're done with Installfest.)
+
+  - If you get 'bash: __git_ps1 command not found' run 'brew link --overwrite git' and then open a new terminal window to see the changes and continue.
           ),
         ],
         verify: -> {assert /git_ps1/.match(`source ~/.bash_profile && echo $PS1`), "Failure: Got '#{`source ~/.bash_profile && echo $PS1`}' for $PS1", "Expected 'git_ps1'"},
@@ -428,7 +430,7 @@ as you type. This is normal. )
 
     $ sudo chown -R $(whoami) /data/db
 
-Type these commands exactly as displayed, you don't need to substitute anything.
+Copy-Paste these commands exactly as displayed, you don't need to substitute anything.
           ),
         ],
         verify: lambda do
@@ -456,11 +458,12 @@ Type these commands exactly as displayed, you don't need to substitute anything.
 2. Move the Postgres.app to your 'Applications' folder.
 3. Open the Postgres.app (using "right-click + open" for this non-Mac App store app)
   -  Look for the elephant in the the menu bar.
-4. Configure bash to enable opening Postgres from the command line (via psql):
+4. Click the 'Initialize' button under the Elephant
+5. Configure bash to enable opening Postgres from the command line (via psql):
 
     $ echo 'export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/latest/bin' >> ~/.bash_profile
 
-5. Enter the following into the command line:
+6. Enter the following into the command line:
 
     $ psql
 
@@ -470,6 +473,12 @@ Type these commands exactly as displayed, you don't need to substitute anything.
     $ createdb $USER
 
    If you do not get that error, you do not need run the two aforementioned commands.
+
+7. If you see your username followed by '=#' the prior step worked properly. Ex:
+
+    myusername=#
+
+    Now type '\q' and hit enter to quit the 'psql' program get back to the command line
           )
         ],
         verify: -> { assert_version_is_sufficient('9.5.5', 'psql --version | cut -f3 -d " "')}
@@ -484,7 +493,7 @@ Type these commands exactly as displayed, you don't need to substitute anything.
 
 2. Install ruby
 
-    $ rvm install 2.4.0
+    $ rvm install 2.4.1
 
 NOTE: If you get the warning below, you can safely ignore it and move on to step 3.
 
@@ -493,12 +502,12 @@ NOTE: If you get the warning below, you can safely ignore it and move on to step
 
 3. Configure your default version of ruby
 
-    $ rvm use 2.4.0 --default
+    $ rvm use 2.4.1 --default
           )
         ],
-        verify: -> { assert_match(/^ruby 2.4.0p0/, 'ruby --version') },
+        verify: -> { assert_match(/^ruby 2.4.1p/, 'ruby --version') },
         ykiwi: %q(
-* The output of `$ ruby --version` **starts** with `ruby 2.4.0p0`.
+* The output of `$ ruby --version` **starts** with `ruby 2.4.1p`.
         )
       },
 
@@ -508,10 +517,10 @@ NOTE: If you get the warning below, you can safely ignore it and move on to step
           %q(
 1. Update to the latest version of Bundler, a Ruby Gem
 
-    $ gem install bundler -v 1.13.7 && gem cleanup bundler
+    $ gem install bundler && gem cleanup bundler
           )
         ],
-        verify: -> { assert_version_is_sufficient('1.13', 'gem list bundler | head -n1  | cut -f2 -d " " | sed "s/[()]//g" | sed "s/,//g"') }
+        verify: -> { assert_version_is_sufficient('1.15', 'gem list bundler | head -n1  | cut -f2 -d " " | sed "s/[()]//g" | sed "s/,//g"') }
       },
 
       ruby_gems: {
