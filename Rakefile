@@ -186,7 +186,7 @@ class Installfest
         installation_steps: [
           %q(
 
-1. Go to https://garnet.wdidc.org/github/authorize?invite_code=15636c85caab5a55954ccc2eaff1cb74
+1. Go to https://garnet.wdidc.org/github/authorize?invite_code=1caa5c63604f69d53a5ded8e1c29b1c0
 
 2. Click "Authorize Application" to allow GA to access to your public information.
         )],
@@ -468,7 +468,7 @@ Type these commands exactly as displayed, you don't need to substitute anything.
 
     $ createuser -U postgres -s $USER
     $ createdb $USER
-  
+
    If you do not get that error, you do not need run the two aforementioned commands.
           )
         ],
