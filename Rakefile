@@ -487,13 +487,13 @@ Copy-Paste these commands exactly as displayed, you don't need to substitute any
       ruby: {
         installation_steps: [
           %q(
-1. Update rvm
+1. Installing rbenv (Ruby environment)
 
-    $ rvm get master
+    $ brew install rbenv
 
 2. Install ruby
 
-    $ rvm install 2.4.1
+    $ rbenv install 2.4.1
 
 NOTE: If you get the warning below, you can safely ignore it and move on to step 3.
 
@@ -502,12 +502,12 @@ NOTE: If you get the warning below, you can safely ignore it and move on to step
 
 3. Configure your default version of ruby
 
-    $ rvm use 2.4.1 --default
+    $ rbenv global 2.4.1
           )
         ],
-        verify: -> { assert_match(/^ruby 2.4.1p/, 'ruby --version') },
+        verify: -> { assert_match(/^2.4.1/, 'rbenv version') },
         ykiwi: %q(
-* The output of `$ ruby --version` **starts** with `ruby 2.4.1p`.
+* The output of `$ rbenv version` **starts** with `2.4.1`.
         )
       },
 
@@ -535,30 +535,18 @@ NOTE: If you get the warning below, you can safely ignore it and move on to step
         verify: -> { assert_version_is_sufficient('2.6.8', 'gem -v') }
       },
 
-      rvm: {
-        header: 'RVM (Ruby Version Manager)',
+      rbenv: {
+        header: 'rbenv',
         installation_steps: [
           %q(
-1. First, check to see if you have `rbenv` installed already, since this conflicts with `rvm`.  If the output of the following command is anything *other than* blank, get an instructor to help you uninstall.
+1. Do an install w/ rbenv
 
     $ which rbenv
 
-
-2. Otherwise, go ahead and install RVM (yes, there is a leading slash):
-
-    $ \curl -sSL https://get.rvm.io | bash
-
-
-3. Reload this shell, to initialize rvm.
-
-    $ exec bash -l
 )
         ],
-        # TODO: https://rvm.io/rvm/install suggests using
-        #   the output of `$ type rvm | head 1` is `rvm is a function`.
-        # However, this command didn't get this result within this script.
         verify: -> { assert_match(%r{/bin/rbenv}, 'which rbenv') },
-        ykiwi: %q[The output of `$ type rvm | head -n 1` is "rvm is a function" (as recommended in https://rvm.io/rvm/install)]
+        ykiwi: %q[The command `which rbenv` outputs a path that contains '/bin/rbenv', such as '/usr/local/bin/rbenv' for instance. ]
       },
 
       slack: {
@@ -768,7 +756,7 @@ Many instructions start with dollar a sign (`$`).  The dollar sign is a conventi
 
 We recommend that you configure your system so that you can see both the instructions and Terminal at the same time.
 
-## Open Terminal "app"
+## Open Terminal
 
 If you haven't done so already, open Terminal so you can begin entering commands.
 
