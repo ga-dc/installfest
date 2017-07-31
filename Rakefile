@@ -539,9 +539,12 @@ NOTE: If you get the warning below, you can safely ignore it and move on to step
         header: 'rbenv',
         installation_steps: [
           %q(
-1. Do an install w/ rbenv
+1. Install rbenv, a Ruby environment manager, with homebrew
 
-    $ which rbenv
+    $ brew install rbenv
+
+2. Then...
+    $ echo 'eval "$(rbenv init -)"' >> ~/.bash_profile
 
 )
         ],
