@@ -131,7 +131,7 @@ class Installfest
   end
 
   def default_packages
-    [editor, :homebrew, :rvm, :ruby, :git, :git_configuration]
+    [editor, :homebrew, :rbenv, :ruby, :git, :git_configuration]
   end
 
   def display_instructions
@@ -215,23 +215,23 @@ class Installfest
     $ brew install bash-completion
 
 2. Configure your prompt to show you working dir and git branch.
-  - Open your `~/.bash_profile` file in atom.
+
+  - Run the curl command below.
+
+    $ curl -o ~/.git-prompt.sh \ https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh
+
+  - Open your `~/.bash_profile` file in atom
 
     $ atom ~/.bash_profile
 
+  - Then add the lines below.
 
-  - Prior to the line that says...:
+      source ~/.git-prompt.sh
+      source $(brew --prefix)/etc/bash_completion
+      GIT_PS1_SHOWDIRTYSTATE=1
+      git_prompt='$(__git_ps1)'
 
-    `[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm" # Load RVM into a shell session *as a function*`
-
-    ...copy and paste these lines:
-
-
-    source $(brew --prefix)/etc/bash_completion
-    GIT_PS1_SHOWDIRTYSTATE=1
-    git_prompt='$(__git_ps1)'
-
-    PS1="\[\e[33m\]  \d \t \w$git_prompt\n\[\e[m\]\\$ "
+      PS1="\[\e[33m\]  \d \t \w$git_prompt\n\[\e[m\]\\$ "
 
     This will change your bash prompt to something like this sample prompt (context: in "installfest" dir, branch is "master" with unstaged changes):
 
@@ -557,7 +557,7 @@ NOTE: If you get the warning below, you can safely ignore it and move on to step
         # TODO: https://rvm.io/rvm/install suggests using
         #   the output of `$ type rvm | head 1` is `rvm is a function`.
         # However, this command didn't get this result within this script.
-        verify: -> { assert_match(%r{.rvm/bin/rvm$}, 'which rvm') },
+        verify: -> { assert_match(%r{/bin/rbenv}, 'which rbenv') },
         ykiwi: %q[The output of `$ type rvm | head -n 1` is "rvm is a function" (as recommended in https://rvm.io/rvm/install)]
       },
 
