@@ -463,8 +463,9 @@ Copy-Paste these commands exactly as displayed, you don't need to substitute any
 
     $ echo 'export PATH=$PATH:/Applications/Postgres.app/Contents/Versions/latest/bin' >> ~/.bash_profile
 
-6. Enter the following into the command line:
+6. Enter the following into the command line...
 
+    $ source ~/.bash_profile
     $ psql
 
    If the output is `psql: Fatal: role <user> does not exist`, run the following commands in the command line:
@@ -503,7 +504,7 @@ NOTE: If you get the warning below, you can safely ignore it and move on to step
         ],
         verify: -> { assert_match(/^2.4.1/, 'rbenv global') },
         ykiwi: %q(
-* The output of `$ rbenv version` **starts** with `2.4.1`.
+* The output of `$ rbenv global` **starts** with `2.4.1`.
         )
       },
 
@@ -544,8 +545,8 @@ NOTE: If you get the warning below, you can safely ignore it and move on to step
 
 )
         ],
-        verify: -> { assert_match(%r{/bin/rbenv}, 'source ~/.bash_profile && which rbenv') },
-        ykiwi: %q[The command `which rbenv` outputs a path that contains '/bin/rbenv', such as '/usr/local/bin/rbenv' for instance. ]
+        verify: -> { assert_match(%r{/rbenv}, 'source ~/.bash_profile && which rbenv') },
+        ykiwi: %q[The command `which rbenv` outputs a path that contains '/rbenv', such as '/usr/local/bin/rbenv' for instance. ]
       },
 
       slack: {
