@@ -331,6 +331,9 @@ class Installfest
 If you don't have a github account:
   - Go to https://github.com and create an account.
 
+Next, head over to https://git.generalassemb.ly/ and click the green "Sign Up" button in the header.
+  - When you create an account here, ***make sure your username matches your GitHub username.***
+
 We use information from your github account throughout the class.
 
 1. Make sure you update your Profile with:
