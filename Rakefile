@@ -497,9 +497,9 @@ NOTE: If you get the warning below, you can safely ignore it and move on to step
 * WARNING: You have '~/.profile' file, you might want to load it,
   to do that add the following line to '/Users/adamzerner/.bash_profile':
 
-2. Configure your default version of ruby
+2. Configure your default version of ruby.
 
-  $ rbenv local system && rbenv global 2.4.1 && cd ~/wdi
+  $ rbenv global 2.4.1 && gem install rake
           )
         ],
         verify: -> { assert_match(/^2.4.1/, 'rbenv global') },
