@@ -7,7 +7,7 @@
 - :atom # place below homebrew, to ensure /usr/local permissions are configured
 - :postgres
 - :mongodb
-- :rvm
+- :rbenv
 - :ruby
 - :ruby_gems
 - :ruby_bundler

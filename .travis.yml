@@ -1,4 +1,5 @@
 language: ruby
+# below k/v-pair (or whatever) kept here just in case stuff breaks if take out
 rvm:
   - 2.2.2
 script: ruby Rakefile
