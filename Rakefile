@@ -218,7 +218,7 @@ class Installfest
 
   - Run the curl command below.
 
-    $ curl -o ~/.git-prompt.sh \ https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh
+    $ curl -o ~/.git-prompt.sh https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh
 
   - Open your `~/.bash_profile` file in atom
 
